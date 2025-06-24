@@ -2,6 +2,8 @@
 #include <cmath>
 #include <random>
 #include <omp.h>
+#include <chrono>
+
 
 //stock option parameters
 // S = stock price
@@ -17,6 +19,10 @@ double sigma;
 double d1, d2;
 double CDF_d1, CDF_d2;
 double option_price;
+
+#define THREADS 4
+//10 million simulations
+#define NUM_SIMULATIONS 100000000
 
 //helper function to calculate CDF
 double phi(double x) {
@@ -45,10 +51,11 @@ double calc_option_price(double S, double X, double T, double r, double sigma) {
 
 double monte_carlo_simulation(double S, double X, double T, double r, double sigma, int num_simulations) {
 
-    std::mt19937_64 rng(42);
+    std::mt19937_64 rng(42 + omp_get_thread_num());
     std::normal_distribution<double> distribution(0.0, 1.0);
     double sum_payoffs = 0.0;
-
+ 
+    #pragma omp parallel for num_threads(THREADS) reduction(+:sum_payoffs)
     for (int i = 0; i < num_simulations; ++i) {
         double Z = distribution(rng);
         //stock price at expiration 
@@ -62,6 +69,7 @@ double monte_carlo_simulation(double S, double X, double T, double r, double sig
     // average of payoffs over number of simulations , then discounting back to present value
     return std::exp(-r * T) * (sum_payoffs / num_simulations);
 }
+
 int main() {
 
     // Initialize stock option parameters
@@ -78,9 +86,15 @@ int main() {
     std::cout << "Time to Expiration (T): " << T << " years" << std::endl;
     std::cout << "Risk-Free Interest Rate (r): " << r * 100 << "%" << std::endl;
     std::cout << "Volatility (sigma): " << sigma * 100 << "%"  << std::endl;
-    std::cout << "The Black schole option price is: " << calc_option_price(S, X, T, r, sigma) << std::endl;
+    std::cout << "The Black schole option price is: " << calc_option_price(S, X, T, r, sigma) << "\n\n";
 
-    std::cout << "Monte Carlo Simulation Price: " << monte_carlo_simulation(S, X, T, r, sigma, 1000000) << std::endl;
+    auto start = std::chrono::high_resolution_clock::now();
+    std::cout << "Monte Carlo Simulation Price: " << monte_carlo_simulation(S, X, T, r, sigma, NUM_SIMULATIONS) << std::endl;
+    auto end = std::chrono::high_resolution_clock::now();
+
+    double secs = std::chrono::duration<double>(end - start).count();
+    std::cout << "Time taken for Monte Carlo Simulation: " << secs << " seconds with " << THREADS << " threads and "
+              << NUM_SIMULATIONS << " simulations" << std::endl;
 
 
     return 0;
