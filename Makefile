@@ -4,4 +4,4 @@ CXXFLAGS = -fopenmp -std=c++17 -isysroot /Library/Developer/CommandLineTools/SDK
 all: monte_carlo
 
 monte_carlo: monte_carlo.cpp
-	$(CXX) $(CXXFLAGS) -o black-schole monte_carlo.cpp
+	$(CXX) $(CXXFLAGS) -o pricer monte_carlo.cpp
