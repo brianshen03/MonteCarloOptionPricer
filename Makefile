@@ -1,7 +1,24 @@
-CXX = /opt/homebrew/bin/g++-15
-CXXFLAGS = -fopenmp -std=c++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+CXX      := /opt/homebrew/bin/g++-15
+CXXFLAGS := -std=c++17 -fopenmp \
+             -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk \
+			            -I/opt/homebrew/include
+LDFLAGS  := -lcurl
 
-all: monte_carlo
+SRC      := monte_carlo.cpp live_data.cpp
+OBJ      := $(SRC:.cpp=.o)
+TARGET   := pricer
 
-monte_carlo: monte_carlo.cpp
-	$(CXX) $(CXXFLAGS) -o pricer monte_carlo.cpp
+.PHONY: all clean
+
+all: $(TARGET)
+
+# Link step
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+
+# Compile step
+%.o: %.cpp live_data.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ) $(TARGET)

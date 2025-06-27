@@ -4,9 +4,10 @@
 #include <string>
 #include <cmath>
 #include <random>
-#include <omp.h>
 #include <chrono>
 
+#include <omp.h>
+#include "live_data.hpp"
 
 //stock option parameters
 // S = stock price
@@ -24,8 +25,6 @@ struct config {
 };
 
 std::vector<optionParams> trades;
-
-#define THREADS 2
 
 //helper function to calculate CDF
 double phi(double x) {
@@ -95,8 +94,8 @@ std::vector<optionParams> load_csv(const std::string& filename) {
 
 int main(int argc, char *argv[]) {
 
-    if (argc != 4) {
-        std::cerr << "Usage: " << argv[0] << " file_name thread_count num_simulations" << std::endl;
+    if (argc != 5) {
+        std::cerr << "Usage: " << argv[0] << " file_name thread_count num_simulations TICKER" << std::endl;
         return 1;
     }
 
@@ -104,7 +103,22 @@ int main(int argc, char *argv[]) {
     config options;
     options.thread_count = std::stoi(argv[2]);
     options.num_simulations = std::stoi(argv[3]);
+    const std::string ticker = argv[4];
+    double live_price;
+
+    try {
+        live_price = liveSpot(ticker);
+        std::cout << "live price for " << ticker << ": " << live_price << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Error fetching live price: " << e.what() << std::endl;
+        return 1;
+    }
+
     trades = load_csv(filename);
+
+    for (auto& opt : trades) {
+    opt.S = live_price;                          // ← inject live spot
+}
 
     for (int i = 0; i < trades.size(); i++) {
         std::cout << "Trade " << i + 1 << ": "
