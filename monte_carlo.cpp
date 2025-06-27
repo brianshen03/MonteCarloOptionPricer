@@ -15,11 +15,12 @@
 // T = time to expiration in years
 // r = risk-free interest rate
 // sigma = volatility of the stock price
-struct optionParams {
-    double S, X, T, r, sigma;
-};
+// struct optionParams {
+//     double S, X, T, r, sigma;
+// };
 
 struct config {
+    std::string ticker;
     int thread_count;
     int num_simulations;
 };
@@ -71,7 +72,7 @@ double monte_carlo_simulation(const optionParams& params, const config& config) 
     return std::exp(-params.r * params.T) * (sum_payoffs / config.num_simulations);
 }
 
-//helper function to load trades from a CSV file
+//optional function to load trades from a CSV file
 std::vector<optionParams> load_csv(const std::string& filename) {
     std::vector<optionParams> trades;
     std::ifstream in(filename);
@@ -93,46 +94,41 @@ std::vector<optionParams> load_csv(const std::string& filename) {
 }
 
 int main(int argc, char *argv[]) {
-
-    if (argc != 5) {
-        std::cerr << "Usage: " << argv[0] << " file_name thread_count num_simulations TICKER" << std::endl;
+    if (argc != 4) {
+        std::cerr << "Usage: " << argv[0] << " TICKER THREADS NUM_SIMULATIONS\n";
         return 1;
     }
 
-    const char *filename = argv[1];
+    std::string ticker = argv[1];
     config options;
     options.thread_count = std::stoi(argv[2]);
     options.num_simulations = std::stoi(argv[3]);
-    const std::string ticker = argv[4];
-    double live_price;
 
-    try {
-        live_price = liveSpot(ticker);
-        std::cout << "live price for " << ticker << ": " << live_price << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Error fetching live price: " << e.what() << std::endl;
+    const char* api_key = std::getenv("TRADIER_API_KEY");
+    if (!api_key) {
+        std::cerr << "Missing TRADIER_API_KEY environment variable\n";
         return 1;
     }
 
-    trades = load_csv(filename);
+    double r = 0.05;    // risk-free rate — could fetch later
 
-    for (auto& opt : trades) {
-    opt.S = live_price;                          // ← inject live spot
-}
+    std::vector<optionParams> trades;
+    try {
+        trades = fetch_chain(ticker, api_key, r);
+    } catch (const std::exception& e) {
+        std::cerr << "Error fetching options: " << e.what() << '\n';
+        return 1;
+    }
 
-    for (int i = 0; i < trades.size(); i++) {
-        std::cout << "Trade " << i + 1 << ": "
-                  << "S: " << trades[i].S << ", "
-                  << "X: " << trades[i].X << ", "
-                  << "T: " << trades[i].T << ", "
-                  << "r: " << trades[i].r << ", "
-                  << "sigma: " << trades[i].sigma << std::endl;
+    for (size_t i = 0; i < trades.size(); ++i) {
+        const auto& opt = trades[i];
+        std::cout << "Option " << i+1 << ": "
+                  << "S: " << opt.S << ", X: " << opt.X << ", Expiration date: " << opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n";
 
-        double analytical_price = calc_option_price(trades[i]);
-        std::cout << "Analytical Price: " << analytical_price;
+        double analytical = calc_option_price(opt);
+        double mc = monte_carlo_simulation(opt, options);
 
-        double price = monte_carlo_simulation(trades[i], options);
-        std::cout << " MC Price: " << price << "\n\n";
+        std::cout << "  Analytical: " << analytical << " | Monte Carlo: " << mc << "\n\n";
     }
 
     return 0;
