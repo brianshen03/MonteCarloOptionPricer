@@ -7,6 +7,7 @@
 #include <vector>
 #include <stdexcept>
 #include <string>
+#include <cstdlib>               
 
 struct optionParams {
     double S, X, T, r, sigma;
@@ -26,7 +27,8 @@ static std::string http_get(const std::string& url, const std::string& bearer_to
 
     std::string buffer;
     struct curl_slist* headers = nullptr;
-    headers = curl_slist_append(headers, ("Authorization: Bearer " + bearer_token).c_str());
+    if (!bearer_token.empty())
+        headers = curl_slist_append(headers, ("Authorization: Bearer " + bearer_token).c_str());
     headers = curl_slist_append(headers, "Accept: application/json");
 
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
@@ -166,4 +168,22 @@ std::vector<optionParams> fetch_chain(const std::string& ticker, const std::stri
     }
 
     return result;
+}
+
+/* ───────── LIVE risk-free rate from FRED (DGS3MO) ───────── */
+double fetch_risk_free_rate()
+{
+    const char* key = std::getenv("FRED_KEY");
+    if (!key)
+        throw std::runtime_error("FRED_KEY not set");
+
+    std::string url =
+        "https://api.stlouisfed.org/fred/series/observations?"
+        "series_id=DGS3MO&file_type=json&sort_order=desc&limit=1&api_key=" +
+        std::string(key);
+
+    auto j = nlohmann::json::parse(http_get(url, ""));            
+
+    double pct = std::stod(j["observations"][0]["value"].get<std::string>());
+    return pct / 100.0;   // 5.19 → 0.0519
 }

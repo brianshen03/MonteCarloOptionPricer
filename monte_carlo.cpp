@@ -110,7 +110,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    double r = 0.05;    // risk-free rate — could fetch later
+    double r = fetch_risk_free_rate();          // live daily rate
+    std::cout << "Risk-free rate (DGS3MO): " << r << '\n';
+
 
     std::vector<optionParams> trades;
     try {
