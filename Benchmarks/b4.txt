@@ -1,0 +1,168 @@
+Risk-free rate (DGS3MO): 0.0439
+Option 1: S: 201.08, X: 110, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0260846
+  Analytical: 91.1151 | Monte Carlo: 91.0847
+
+Option 2: S: 201.08, X: 120, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0226796
+  Analytical: 81.1183 | Monte Carlo: 81.0919
+
+Option 3: S: 201.08, X: 125, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0210855
+  Analytical: 76.1199 | Monte Carlo: 76.0953
+
+Option 4: S: 201.08, X: 130, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0195563
+  Analytical: 71.1215 | Monte Carlo: 71.0987
+
+Option 5: S: 201.08, X: 135, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0180868
+  Analytical: 66.1231 | Monte Carlo: 66.102
+
+Option 6: S: 201.08, X: 140, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0164004
+  Analytical: 61.1247 | Monte Carlo: 61.1056
+
+Option 7: S: 201.08, X: 145, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0152678
+  Analytical: 56.1263 | Monte Carlo: 56.1085
+
+Option 8: S: 201.08, X: 150, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0139139
+  Analytical: 51.1278 | Monte Carlo: 51.1117
+
+Option 9: S: 201.08, X: 155, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0127987
+  Analytical: 46.1294 | Monte Carlo: 46.1146
+
+Option 10: S: 201.08, X: 160, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0114894
+  Analytical: 41.131 | Monte Carlo: 41.1177
+
+Option 11: S: 201.08, X: 165, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0100416
+  Analytical: 36.1326 | Monte Carlo: 36.121
+
+Option 12: S: 201.08, X: 170, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.895798
+  Analytical: 31.2026 | Monte Carlo: 29.8015
+
+Option 13: S: 201.08, X: 172.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.914836
+  Analytical: 28.7686 | Monte Carlo: 27.2675
+
+Option 14: S: 201.08, X: 175, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.771949
+  Analytical: 26.2122 | Monte Carlo: 25.0228
+
+Option 15: S: 201.08, X: 177.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.782436
+  Analytical: 23.7852 | Monte Carlo: 22.5055
+
+Option 16: S: 201.08, X: 180, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.524114
+  Analytical: 21.1552 | Monte Carlo: 20.4298
+
+Option 17: S: 201.08, X: 182.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.519632
+  Analytical: 18.6802 | Monte Carlo: 17.9376
+
+Option 18: S: 201.08, X: 185, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.487852
+  Analytical: 16.205 | Monte Carlo: 15.4869
+
+Option 19: S: 201.08, X: 187.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.438793
+  Analytical: 13.7248 | Monte Carlo: 13.0613
+
+Option 20: S: 201.08, X: 190, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.33275
+  Analytical: 11.1865 | Monte Carlo: 10.7149
+
+Option 21: S: 201.08, X: 192.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.283003
+  Analytical: 8.70569 | Monte Carlo: 8.28453
+
+Option 22: S: 201.08, X: 195, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.260051
+  Analytical: 6.30335 | Monte Carlo: 5.81647
+
+Option 23: S: 201.08, X: 197.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.244884
+  Analytical: 4.07957 | Monte Carlo: 3.66563
+
+Option 24: S: 201.08, X: 200, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.234119
+  Analytical: 2.23311 | Monte Carlo: 1.75132
+
+Option 25: S: 201.08, X: 202.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.224548
+  Analytical: 0.956937 | Monte Carlo: 0.334805
+
+Option 26: S: 201.08, X: 205, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.219403
+  Analytical: 0.307263 | Monte Carlo: 0
+
+Option 27: S: 201.08, X: 207.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.2187
+  Analytical: 0.0751313 | Monte Carlo: 0
+
+Option 28: S: 201.08, X: 210, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.225211
+  Analytical: 0.0169845 | Monte Carlo: 0
+
+Option 29: S: 201.08, X: 212.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.243456
+  Analytical: 0.00541421 | Monte Carlo: 0
+
+Option 30: S: 201.08, X: 215, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.262696
+  Analytical: 0.00194472 | Monte Carlo: 0
+
+Option 31: S: 201.08, X: 217.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.284673
+  Analytical: 0.000867864 | Monte Carlo: 0
+
+Option 32: S: 201.08, X: 220, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.30936
+  Analytical: 0.000484809 | Monte Carlo: 0
+
+Option 33: S: 201.08, X: 222.5, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.329649
+  Analytical: 0.00024136 | Monte Carlo: 0
+
+Option 34: S: 201.08, X: 225, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.34032
+  Analytical: 8.0124e-05 | Monte Carlo: 0
+
+Option 35: S: 201.08, X: 230, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.398422
+  Analytical: 6.59089e-05 | Monte Carlo: 0
+
+Option 36: S: 201.08, X: 235, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.439052
+  Analytical: 2.87388e-05 | Monte Carlo: 0
+
+Option 37: S: 201.08, X: 240, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.492302
+  Analytical: 2.56256e-05 | Monte Carlo: 0
+
+Option 38: S: 201.08, X: 245, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.543403
+  Analytical: 2.27201e-05 | Monte Carlo: 0
+
+Option 39: S: 201.08, X: 250, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.593432
+  Analytical: 2.07376e-05 | Monte Carlo: 0
+
+Option 40: S: 201.08, X: 255, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.642004
+  Analytical: 1.90558e-05 | Monte Carlo: 0
+
+Option 41: S: 201.08, X: 260, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.688479
+  Analytical: 1.7201e-05 | Monte Carlo: 0
+
+Option 42: S: 201.08, X: 265, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.734049
+  Analytical: 1.58122e-05 | Monte Carlo: 0
+
+Option 43: S: 201.08, X: 270, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.778753
+  Analytical: 1.47484e-05 | Monte Carlo: 0
+
+Option 44: S: 201.08, X: 275, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.822627
+  Analytical: 1.39189e-05 | Monte Carlo: 0
+
+Option 45: S: 201.08, X: 280, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.865702
+  Analytical: 1.32624e-05 | Monte Carlo: 0
+
+Option 46: S: 201.08, X: 285, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.908009
+  Analytical: 1.27373e-05 | Monte Carlo: 0
+
+Option 47: S: 201.08, X: 290, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.948223
+  Analytical: 1.19125e-05 | Monte Carlo: 0
+
+Option 48: S: 201.08, X: 295, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.987825
+  Analytical: 1.12547e-05 | Monte Carlo: 0
+
+Option 49: S: 201.08, X: 300, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0102676
+  Analytical: 0 | Monte Carlo: 0
+
+Option 50: S: 201.08, X: 305, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0106505
+  Analytical: 0 | Monte Carlo: 0
+
+Option 51: S: 201.08, X: 310, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0110271
+  Analytical: 0 | Monte Carlo: 0
+
+Option 52: S: 201.08, X: 315, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0113978
+  Analytical: 0 | Monte Carlo: 0
+
+Option 53: S: 201.08, X: 320, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0117626
+  Analytical: 0 | Monte Carlo: 0
+
+Option 54: S: 201.08, X: 325, Expiration date: 2025-07-03, T: 0.00726712, r: 0.0439, sigma: 0.0121095
+  Analytical: 0 | Monte Carlo: 0
+
+Simulation Summary
+------------------
+Contracts processed: 54 options in 70.741 seconds 
+Paths per contract: 1000000
+Threads used: 4

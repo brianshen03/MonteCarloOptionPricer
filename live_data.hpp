@@ -7,6 +7,6 @@ struct optionParams {
     std::string expiration_date;
 };
 
-double fetch_risk_free_rate();          // FRED 
+double fetch_risk_free_rate();          // FRED
 double fetch_spot_tradier(const std::string& ticker, const std::string& bearer_token);
 std::vector<optionParams> fetch_chain(const std::string& ticker, const std::string& bearer_token, double r);
