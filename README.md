@@ -24,8 +24,8 @@ Right now, this is based on a European call option pricer, but I plan on expandi
 
 
 Links for the API I am using.
-https://documentation.tradier.com/brokerage-api/reference/response/quotes
-https://documentation.tradier.com/brokerage-api/markets/post-quotes
+https://documentation.tradier.com/brokerage-api/markets/get-options-chains
+https://documentation.tradier.com/brokerage-api/markets/get-quotes
 https://fred.stlouisfed.org/docs/api/fred/
 
 

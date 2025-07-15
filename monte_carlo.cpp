@@ -135,28 +135,18 @@ int main(int argc, char *argv[]) {
 
     config options = parse_cmd_args(argc, argv);
 
-    const char* api_key = std::getenv("TRADIER_API_KEY");
-    if (!api_key) {
-        std::cerr << "Missing TRADIER_API_KEY environment variable\n";
-        return 1;
-    }
-
     double r = fetch_risk_free_rate();          // live daily rate
     std::cout << "Risk-free rate used (DGS3MO): " << r << "\n\n";
 
-
     std::vector<optionParams> trades;
-    try {
-        trades = fetch_chain(options.ticker, api_key, r);
-    } catch (const std::exception& e) {
-        std::cerr << "Error fetching options: " << e.what() << '\n';
-        return 1;
-    }
+    trades = fetch_chain(options.ticker, r); 
 
     auto start = std::chrono::steady_clock::now();
     run_pricer(trades, options);
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed = stop - start;   
+
+
     double seconds = elapsed.count();          
     double throughput = options.num_simulations / seconds;          
 
@@ -168,7 +158,6 @@ int main(int argc, char *argv[]) {
      << "Contracts processed: " << trades.size() << " options in " << seconds << " seconds \n"
     << "Paths per contract: " << options.num_simulations << "\n"
     << "Threads used: " << options.thread_count << "\n"
-
     << "Throughput: " << throughput << " paths/second\n";
 
     
