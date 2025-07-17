@@ -6,6 +6,8 @@
 #include <random>
 #include <chrono>
 #include <omp.h>
+#include <cstdio>
+
 #include "live_data.hpp"
 
 //stock option parameters
@@ -135,11 +137,23 @@ int main(int argc, char *argv[]) {
 
     config options = parse_cmd_args(argc, argv);
 
-    double r = fetch_risk_free_rate();          // live daily rate
-    std::cout << "Risk-free rate used (DGS3MO): " << r << "\n\n";
+    double r = 0.0;
+    try {
+        r = fetch_risk_free_rate();
+        std::cout << "Risk-free rate used (DGS3MO): " << r << "\n\n";
+    } catch (const std::exception& e) {
+        std::cerr << "[EXCEPTION] " << e.what() << std::endl;  // ✅ USE endl!
+    }
 
     std::vector<optionParams> trades;
-    trades = fetch_chain(options.ticker, r); 
+    try {
+        trades = fetch_chain(options.ticker, r); 
+    } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << '\n';  
+    }
+
+    std::cout << "[DEBUG] Trades fetched: " << trades.size() << '\n';
+
 
     auto start = std::chrono::steady_clock::now();
     run_pricer(trades, options);
@@ -164,3 +178,4 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+

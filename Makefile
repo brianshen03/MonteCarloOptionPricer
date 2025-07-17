@@ -1,28 +1,26 @@
-CXX      := /opt/homebrew/bin/g++-15
-OPENSSL  := $(shell brew --prefix openssl@3)
+OPENSSL_INC=C:\Users\Suraj\vcpkg\installed\x64-windows\include
+OPENSSL_LIB=C:\Users\Suraj\vcpkg\installed\x64-windows\lib
 
-CXXFLAGS := -std=c++20 -fopenmp \
-            -DCPPHTTPLIB_OPENSSL_SUPPORT \
-            -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk \
-            -I/opt/homebrew/include \
-            -I$(OPENSSL)/include \
-            -Iinclude
+NVCC=nvcc
+NVCCFLAGS=-std=c++20 -O2 -Iinclude -I"$(OPENSSL_INC)" -DCPPHTTPLIB_OPENSSL_SUPPORT -Xcompiler "/EHsc"
 
-LDFLAGS  := -L$(OPENSSL)/lib -lssl -lcrypto
+LDFLAGS="C:\Users\Suraj\vcpkg\installed\x64-windows\lib\libssl.lib" \
+        "C:\Users\Suraj\vcpkg\installed\x64-windows\lib\libcrypto.lib"
 
-SRC      := monte_carlo.cpp live_data.cpp
-OBJ      := $(SRC:.cpp=.o)
-TARGET   := pricer
-
-.PHONY: all clean
+SRC=monte_carlo.cu live_data.cpp
+OBJ=monte_carlo.obj live_data.obj
+TARGET=pricer.exe
 
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+	$(NVCC) -o $(TARGET) $(OBJ) $(LDFLAGS)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+monte_carlo.obj: monte_carlo.cu live_data.hpp
+	$(NVCC) $(NVCCFLAGS) -c monte_carlo.cu -o monte_carlo.obj
+
+live_data.obj: live_data.cpp live_data.hpp
+	$(NVCC) $(NVCCFLAGS) -c live_data.cpp -o live_data.obj
 
 clean:
-	rm -f $(OBJ) $(TARGET)
+	del /Q *.obj *.exe 

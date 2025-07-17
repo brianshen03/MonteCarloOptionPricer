@@ -85,7 +85,6 @@ std::vector<optionParams> fetch_chain(const std::string& ticker, double r) {
             for (const char* field : {"mid_iv", "smv_vol", "bid_iv", "ask_iv"}) {
                 if (g.contains(field) && !g[field].is_null()) { 
                     sigma = g[field].get<double>(); 
-                    std::cout << "[DEBUG] Using " << field << " = " << sigma << " for " << o["symbol"] << '\n';
                     break; 
                 }
             }
@@ -101,17 +100,24 @@ std::vector<optionParams> fetch_chain(const std::string& ticker, double r) {
 }
 
 /*───────────────────────────── FRED helpers ───────────────────────────*/
-
  double fetch_risk_free_rate() {
-    const char* key = std::getenv("FRED_KEY");
-    if (!key) throw std::runtime_error("FRED_KEY not set");
 
-    httplib::Client cli("https://api.stlouisfed.org");
+    const char* key = std::getenv("FRED_KEY");
+    if (!key) {
+        throw std::runtime_error("FRED_KEY not set");
+    }
+
+    httplib::SSLClient cli("api.stlouisfed.org", 443);
+    cli.enable_server_certificate_verification(false);  // optional during dev
+
     std::string url = "/fred/series/observations?series_id=DGS3MO&file_type=json&sort_order=desc&limit=1&api_key=" + std::string(key);
     auto res = cli.Get(url.c_str());
+
     if (!res || res->status != 200)
         throw std::runtime_error("HTTP error: FRED " + (res ? std::to_string(res->status) : "no response"));
 
     auto j = json::parse(res->body);
     return std::stod(j["observations"][0]["value"].get<std::string>()) / 100.0;
 }
+
+
