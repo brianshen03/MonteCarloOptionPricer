@@ -51,21 +51,27 @@ double calc_option_price(const optionParams& params) {
 double monte_carlo_simulation(const optionParams& params, const config& config) {
 
     double sum_payoffs = 0.0;
- 
-    #pragma omp parallel for num_threads(config.thread_count) reduction(+:sum_payoffs)
-    for (int i = 0; i < config.num_simulations; ++i) {
+    #pragma omp parallel num_threads(config.thread_count)
+    {
+        // each thread gets its own RNG & distribution
         std::mt19937_64 rng(42 + omp_get_thread_num());
-        std::normal_distribution<double> distribution(0.0, 1.0);
-        double Z = distribution(rng);
-        //stock price at expiration 
-        double ST = params.S * std::exp((params.r - 0.5 * params.sigma * params.sigma) * params.T + params.sigma * std::sqrt(params.T) * Z);
-        //if strike price is greater than stock price at expiration, then payoff is zero
-        //otherwise, payoff is stock price at expiration minus strike price
-        double payoff = std::max(ST - params.X, 0.0); 
-        sum_payoffs += payoff;
+        std::normal_distribution<double> dist(0.0, 1.0);
+
+        double local_sum = 0.0;
+
+        #pragma omp for
+        for (int i = 0; i < config.num_simulations; ++i) {
+            double Z  = dist(rng);
+            double ST = params.S * std::exp((params.r - 0.5 * params.sigma*params.sigma)*params.T + params.sigma*std::sqrt(params.T)*Z);
+            local_sum += std::max(ST - params.X, 0.0);
+        }
+        // reduction by hand (atomic or critical) or use OpenMP reduction on local_sum
+        #pragma omp atomic
+        sum_payoffs += local_sum;
     }
-    // average of payoffs over number of simulations , then discounting back to present value
-    return std::exp(-params.r * params.T) * (sum_payoffs / config.num_simulations);
+
+    double price = std::exp(-params.r * params.T) * (sum_payoffs / config.num_simulations);
+    return price;
 }
 
 //optional function to load trades from a CSV file
@@ -139,7 +145,12 @@ int main(int argc, char *argv[]) {
     std::cout << "Risk-free rate used (DGS3MO): " << r << "\n\n";
 
     std::vector<optionParams> trades;
-    trades = fetch_chain(options.ticker, r); 
+    try {
+        trades = fetch_chain(options.ticker, r); 
+    } catch (const std::exception& e) {
+        std::cerr << "Error fetching chain data: " << e.what() << "\n";
+        return 1;
+    }
 
     auto start = std::chrono::steady_clock::now();
     run_pricer(trades, options);
