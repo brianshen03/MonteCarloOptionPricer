@@ -5,7 +5,10 @@
 #include <cmath>
 #include <random>
 #include <chrono>
+#include <algorithm>
 #include "live_data.hpp"
+#include <curand_kernel.h>
+
 
 //stock option parameters
 // S = stock price
@@ -46,23 +49,37 @@ double calc_option_price(const optionParams& params) {
 }
 
 // Monte Carlo simulation to estimate the option price
-double monte_carlo_simulation(const optionParams& params, const config& config) {
+//each cuda thread does a simulation of the option price
+__global__ void monte_carlo_simulation(optionParams* trades_pointer, double* trades_results, int num_simulations, unsigned long long seed) {
 
-    double sum_payoffs = 0.0;
+
+    //initialize thread index & stride for each thread 
+    // int i = blockDim.x * blockId.x + threadId.x;
+    int stride = blockDim.x * gridDim.x;
+    int optId = blockIdx.x;          // one block → one option
+
  
-    for (int i = 0; i < config.num_simulations; ++i) {
-        std::mt19937_64 rng(42);
-        std::normal_distribution<double> distribution(0.0, 1.0);
-        double Z = distribution(rng);
+    double sum_payoffs = 0.0;
+    curandStatePhilox4_32_10_t state;
+    curand_init(seed + optId, /*threadId=*/0, 0, &state);
+
+    const auto&p = trades_pointer[optId];
+
+
+    for (int i = 0; i < num_simulations; ++i) {
+
+        double Z = curand_normal_double(&state);  // one N(0,1) sample
+
         //stock price at expiration 
-        double ST = params.S * std::exp((params.r - 0.5 * params.sigma * params.sigma) * params.T + params.sigma * std::sqrt(params.T) * Z);
+        double ST = p.S * std::exp((p.r - 0.5 * p.sigma * p.sigma) * p.T + p.sigma * std::sqrt(p.T) * Z);
         //if strike price is greater than stock price at expiration, then payoff is zero
         //otherwise, payoff is stock price at expiration minus strike price
-        double payoff = std::max(ST - params.X, 0.0); 
+        double payoff = fmax(ST - p.X, 0.0); 
         sum_payoffs += payoff;
     }
     // average of payoffs over number of simulations , then discounting back to present value
-    return std::exp(-params.r * params.T) * (sum_payoffs / config.num_simulations);
+    double average = std::exp(-p.r * p.T) * (sum_payoffs / num_simulations);
+    trades_results[optId] = average;
 }
 
 //optional function to load trades from a CSV file
@@ -88,16 +105,40 @@ std::vector<optionParams> load_csv(const std::string& filename) {
 
 static void run_pricer(const std::vector<optionParams>&trades, const config& options) {
 
+
+    //num threads
+    int blockSize = 256;
+    //number of blocks (in a grid)
+    int numBlocks = (options.num_simulations + blockSize - 1) / blockSize;
+
+        //allocate memory on GPU and copy data from CPU to GPU
+        optionParams* trades_pointer;
+        cudaMallocManaged(&trades_pointer, trades.size() * sizeof(optionParams));
+        std::memcpy(trades_pointer, trades.data(), sizeof(optionParams) * trades.size());
+
+        //allocate memory on GPU for results of each simulation 
+        double *trades_results;
+        cudaMallocManaged(&trades_results, trades.size() * sizeof(double));
+
+        monte_carlo_simulation <<<1, 1>>> (trades_pointer, trades_results, options.num_simulations,  /*seed=*/1234ULL);
+        cudaDeviceSynchronize(); 
+
+
         for (size_t i = 0; i < trades.size(); ++i) {
             const auto& opt = trades[i];
             std::cout << "Option " << i+1 << ": " << "S: " << opt.S << ", X: " << opt.X << ", Expiration date: " << 
             opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n";
 
             double analytical = calc_option_price(opt);
-            double mc = monte_carlo_simulation(opt, options);
+            // double mc = monte_carlo_simulation(opt, options);
 
-            std::cout << "  Analytical: " << analytical << " | Monte Carlo: " << mc << "\n\n";
-    }
+            std::cout << "  Analytical: " << analytical << " | Monte Carlo: " << trades_results[i] << "\n\n";
+        }
+
+        cudaFree(trades_pointer);
+        cudaFree(trades_results);
+
+
 }
 
 config parse_cmd_args(int argc, char *argv[]) {
@@ -146,7 +187,6 @@ int main(int argc, char *argv[]) {
         std::cerr << "Error in fetch risk free rate " << e.what() << std::endl;  
     }
     
-
     std::vector<optionParams> trades;
     try {
         trades = fetch_chain(options.ticker, r); 
@@ -155,7 +195,6 @@ int main(int argc, char *argv[]) {
     }
 
     std::cout << "[DEBUG] Trades fetched: " << trades.size() << '\n';
-
 
     auto start = std::chrono::steady_clock::now();
     run_pricer(trades, options);
@@ -172,6 +211,7 @@ int main(int argc, char *argv[]) {
      << "Contracts processed: " << trades.size() << " options in " << seconds << " seconds \n"
     << "Paths per contract: " << options.num_simulations << "\n"
     << "Throughput: " << throughput << " paths/second\n";
+
 
     
 
