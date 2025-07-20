@@ -54,32 +54,42 @@ __global__ void monte_carlo_simulation(optionParams* trades_pointer, double* tra
 
 
     //initialize thread index & stride for each thread 
-    // int i = blockDim.x * blockId.x + threadId.x;
-    int stride = blockDim.x * gridDim.x;
-    int optId = blockIdx.x;          // one block → one option
+    int tid = threadIdx.x;
+    int stride = blockDim.x;
+    int optId = blockIdx.x;         
 
  
-    double sum_payoffs = 0.0;
+    double local_sum = 0.0;
     curandStatePhilox4_32_10_t state;
     curand_init(seed + optId, /*threadId=*/0, 0, &state);
 
-    const auto&p = trades_pointer[optId];
+    const optionParams p = trades_pointer[optId];
 
 
-    for (int i = 0; i < num_simulations; ++i) {
+    for (int i = tid; i < num_simulations; i+=stride) {
 
         double Z = curand_normal_double(&state);  // one N(0,1) sample
-
         //stock price at expiration 
         double ST = p.S * std::exp((p.r - 0.5 * p.sigma * p.sigma) * p.T + p.sigma * std::sqrt(p.T) * Z);
         //if strike price is greater than stock price at expiration, then payoff is zero
         //otherwise, payoff is stock price at expiration minus strike price
-        double payoff = fmax(ST - p.X, 0.0); 
-        sum_payoffs += payoff;
+        local_sum = fmax(ST - p.X, 0.0); 
     }
-    // average of payoffs over number of simulations , then discounting back to present value
-    double average = std::exp(-p.r * p.T) * (sum_payoffs / num_simulations);
-    trades_results[optId] = average;
+
+    __shared__ double buf[256];    
+    buf[tid] = local_sum;              
+    __syncthreads(); 
+
+    for (int offset = stride >> 1; offset; offset >>= 1) {
+    if (tid < offset)                
+        buf[tid] += buf[tid + offset];
+    __syncthreads();   
+
+    }
+    if (tid == 0) {                    
+        // average of payoffs over number of simulations , then discounting back to present value
+        trades_results[optId] = exp(-p.r * p.T) * buf[0] / static_cast<double>(num_simulations);
+    }
 }
 
 //optional function to load trades from a CSV file
@@ -108,8 +118,8 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
 
     //num threads
     int blockSize = 256;
-    //number of blocks (in a grid)
-    int numBlocks = (options.num_simulations + blockSize - 1) / blockSize;
+    //number of blocks (in a grid) (one per option)
+    int numBlocks = trades.size(); 
 
         //allocate memory on GPU and copy data from CPU to GPU
         optionParams* trades_pointer;
@@ -120,7 +130,7 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
         double *trades_results;
         cudaMallocManaged(&trades_results, trades.size() * sizeof(double));
 
-        monte_carlo_simulation <<<1, 1>>> (trades_pointer, trades_results, options.num_simulations,  /*seed=*/1234ULL);
+        monte_carlo_simulation <<<numBlocks, blockSize>>> (trades_pointer, trades_results, options.num_simulations,  /*seed=*/1234ULL);
         cudaDeviceSynchronize(); 
 
 
