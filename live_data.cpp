@@ -57,7 +57,7 @@ double fetch_spot_tradier(const std::string& ticker, const std::string& bearer) 
 std::vector<optionParams> fetch_chain(const std::string& ticker, double r) {
 
     std::cout << "Fetching option chain for " << ticker << "...\n";
-    
+
     const char* token_env = std::getenv("TRADIER_API_KEY");
     if (!token_env || std::string(token_env).empty())
         throw std::runtime_error("TRADIER_API_KEY is not set");
@@ -88,7 +88,7 @@ std::vector<optionParams> fetch_chain(const std::string& ticker, double r) {
             for (const char* field : {"mid_iv", "smv_vol", "bid_iv", "ask_iv"}) {
                 if (g.contains(field) && !g[field].is_null()) { 
                     sigma = g[field].get<double>(); 
-                    std::cout << "[DEBUG] Using " << field << " = " << sigma << " for " << o["symbol"] << '\n';
+                    // std::cout << "[DEBUG] Using " << field << " = " << sigma << " for " << o["symbol"] << '\n';
                     break; 
                 }
             }
