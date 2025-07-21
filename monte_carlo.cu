@@ -16,6 +16,9 @@
 // T = time to expiration in years
 // r = risk-free interest rate
 // sigma = volatility of the stock price
+struct OptionGPU {
+    double S, X, T, r, sigma;
+};
 
 struct config {
     std::string ticker;
@@ -50,8 +53,7 @@ double calc_option_price(const optionParams& params) {
 
 // Monte Carlo simulation to estimate the option price
 //each cuda thread does a simulation of the option price
-__global__ void monte_carlo_simulation(optionParams* trades_pointer, double* trades_results, int num_simulations, unsigned long long seed) {
-
+__global__ void monte_carlo_simulation(const OptionGPU* trades_pointer, double* trades_results, int num_simulations, unsigned long long seed) {
 
     //initialize thread index & stride for each thread 
     int tid = threadIdx.x;
@@ -61,19 +63,18 @@ __global__ void monte_carlo_simulation(optionParams* trades_pointer, double* tra
  
     double local_sum = 0.0;
     curandStatePhilox4_32_10_t state;
-    curand_init(seed + optId, /*threadId=*/0, 0, &state);
+    curand_init(seed + optId, tid, 0, &state);
 
-    const optionParams p = trades_pointer[optId];
-
+    const OptionGPU p = trades_pointer[optId];
 
     for (int i = tid; i < num_simulations; i+=stride) {
 
-        double Z = curand_normal_double(&state);  // one N(0,1) sample
+        double Z = curand_normal_double(&state); 
         //stock price at expiration 
         double ST = p.S * std::exp((p.r - 0.5 * p.sigma * p.sigma) * p.T + p.sigma * std::sqrt(p.T) * Z);
         //if strike price is greater than stock price at expiration, then payoff is zero
         //otherwise, payoff is stock price at expiration minus strike price
-        local_sum = fmax(ST - p.X, 0.0); 
+        local_sum += fmax(ST - p.X, 0.0); 
     }
 
     __shared__ double buf[256];    
@@ -115,38 +116,43 @@ std::vector<optionParams> load_csv(const std::string& filename) {
 
 static void run_pricer(const std::vector<optionParams>&trades, const config& options) {
 
-
     //num threads
     int blockSize = 256;
     //number of blocks (in a grid) (one per option)
     int numBlocks = trades.size(); 
 
-        //allocate memory on GPU and copy data from CPU to GPU
-        optionParams* trades_pointer;
-        cudaMallocManaged(&trades_pointer, trades.size() * sizeof(optionParams));
-        std::memcpy(trades_pointer, trades.data(), sizeof(optionParams) * trades.size());
+    std::vector<OptionGPU> gpuTrades(trades.size());
+    for (size_t i=0; i<trades.size(); ++i) {
+        gpuTrades[i] = { trades[i].S, trades[i].X, trades[i].T, trades[i].r, trades[i].sigma };
+    }
 
-        //allocate memory on GPU for results of each simulation 
-        double *trades_results;
-        cudaMallocManaged(&trades_results, trades.size() * sizeof(double));
+    //allocate memory on GPU and copy data from CPU to GPU
+    OptionGPU* d_trades;
+    cudaMallocManaged(&d_trades, gpuTrades.size()*sizeof(OptionGPU));
+    cudaMemcpy(d_trades, gpuTrades.data(),gpuTrades.size()*sizeof(OptionGPU),cudaMemcpyHostToDevice);
 
-        monte_carlo_simulation <<<numBlocks, blockSize>>> (trades_pointer, trades_results, options.num_simulations,  /*seed=*/1234ULL);
-        cudaDeviceSynchronize(); 
+    //allocate memory on GPU for results of each simulation 
+    double *trades_results;
+    cudaMallocManaged(&trades_results, trades.size() * sizeof(double));
+    
+    monte_carlo_simulation <<<numBlocks, blockSize>>> (d_trades, trades_results, options.num_simulations,  /*seed=*/1234ULL);
 
 
-        for (size_t i = 0; i < trades.size(); ++i) {
-            const auto& opt = trades[i];
-            std::cout << "Option " << i+1 << ": " << "S: " << opt.S << ", X: " << opt.X << ", Expiration date: " << 
-            opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n";
+    cudaDeviceSynchronize(); 
 
-            double analytical = calc_option_price(opt);
-            // double mc = monte_carlo_simulation(opt, options);
 
-            std::cout << "  Analytical: " << analytical << " | Monte Carlo: " << trades_results[i] << "\n\n";
-        }
+    for (size_t i = 0; i < trades.size(); ++i) {
+        const auto& opt = trades[i];
+        std::cout << "Option " << i+1 << ": " << "S: " << opt.S << ", X: " << opt.X << ", Expiration date: " << 
+        opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n";
 
-        cudaFree(trades_pointer);
-        cudaFree(trades_results);
+        double analytical = calc_option_price(opt);
+
+        std::cout << "  Analytical: " << analytical << " | Monte Carlo: " << trades_results[i] << "\n\n";
+    }
+
+    cudaFree(d_trades);
+    cudaFree(trades_results);
 
 
 }
@@ -161,7 +167,7 @@ config parse_cmd_args(int argc, char *argv[]) {
     };
 
     for (int i = 1; i < argc; ++i) {
-        std::string_view a = argv[i];
+        std::string a = argv[i];
 
         if      (a == "--symbol")  c.ticker  = need(i);
         else if (a == "--paths")   c.num_simulations   = std::stol(need(i));
@@ -203,8 +209,6 @@ int main(int argc, char *argv[]) {
     } catch (const std::exception& e) {
     std::cerr << "Error in fetch chain: " << e.what() << std::endl; 
     }
-
-    std::cout << "[DEBUG] Trades fetched: " << trades.size() << '\n';
 
     auto start = std::chrono::steady_clock::now();
     run_pricer(trades, options);
