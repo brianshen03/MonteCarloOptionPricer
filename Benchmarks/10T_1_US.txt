@@ -1,0 +1,177 @@
+Risk-free rate used (DGS3MO): 0.0442
+
+Fetching option chain for AAPL...
+Option 1: S: 213.545, X: 110, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 3.73964
+ Analytical price: 104.387
+ American Monte Carlo price: 104.401
+Option 2: S: 213.545, X: 120, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 3.33389
+ Analytical price: 94.4281
+ American Monte Carlo price: 94.4548
+Option 3: S: 213.545, X: 125, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 3.18475
+ Analytical price: 89.5117
+ American Monte Carlo price: 89.4964
+Option 4: S: 213.545, X: 130, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 2.93409
+ Analytical price: 84.4385
+ American Monte Carlo price: 84.3102
+Option 5: S: 213.545, X: 135, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 2.78862
+ Analytical price: 79.5149
+ American Monte Carlo price: 79.5106
+Option 6: S: 213.545, X: 140, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 2.00736
+ Analytical price: 73.8047
+ American Monte Carlo price: 73.6197
+Option 7: S: 213.545, X: 145, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 2.42196
+ Analytical price: 69.5264
+ American Monte Carlo price: 69.4213
+Option 8: S: 213.545, X: 150, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.79464
+ Analytical price: 63.8781
+ American Monte Carlo price: 63.7995
+Option 9: S: 213.545, X: 155, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 2.0747
+ Analytical price: 59.5382
+ American Monte Carlo price: 59.3747
+Option 10: S: 213.545, X: 160, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.88872
+ Analytical price: 54.504
+ American Monte Carlo price: 54.2062
+Option 11: S: 213.545, X: 165, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.74493
+ Analytical price: 49.5554
+ American Monte Carlo price: 49.2743
+Option 12: S: 213.545, X: 170, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.55158
+ Analytical price: 44.4822
+ American Monte Carlo price: 44.2402
+Option 13: S: 213.545, X: 175, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.43992
+ Analytical price: 39.6124
+ American Monte Carlo price: 39.3484
+Option 14: S: 213.545, X: 180, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.881026
+ Analytical price: 33.7777
+ American Monte Carlo price: 33.5132
+Option 15: S: 213.545, X: 182.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.17825
+ Analytical price: 32.0472
+ American Monte Carlo price: 31.7806
+Option 16: S: 213.545, X: 185, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.788624
+ Analytical price: 28.8179
+ American Monte Carlo price: 28.6967
+Option 17: S: 213.545, X: 187.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.815355
+ Analytical price: 26.4787
+ American Monte Carlo price: 26.3471
+Option 18: S: 213.545, X: 190, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.545626
+ Analytical price: 23.6826
+ American Monte Carlo price: 23.5526
+Option 19: S: 213.545, X: 192.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.693341
+ Analytical price: 21.5116
+ American Monte Carlo price: 21.356
+Option 20: S: 213.545, X: 195, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.530141
+ Analytical price: 18.8026
+ American Monte Carlo price: 18.7331
+Option 21: S: 213.545, X: 197.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.513215
+ Analytical price: 16.3996
+ American Monte Carlo price: 16.2924
+Option 22: S: 213.545, X: 200, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.500724
+ Analytical price: 14.0604
+ American Monte Carlo price: 13.9351
+Option 23: S: 213.545, X: 202.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.491022
+ Analytical price: 11.8141
+ American Monte Carlo price: 11.71
+Option 24: S: 213.545, X: 205, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.491046
+ Analytical price: 9.74134
+ American Monte Carlo price: 9.67263
+Option 25: S: 213.545, X: 207.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.484988
+ Analytical price: 7.80454
+ American Monte Carlo price: 7.7323
+Option 26: S: 213.545, X: 210, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.480469
+ Analytical price: 6.07779
+ American Monte Carlo price: 6.0538
+Option 27: S: 213.545, X: 212.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.480696
+ Analytical price: 4.61938
+ American Monte Carlo price: 4.59247
+Option 28: S: 213.545, X: 215, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.475149
+ Analytical price: 3.35818
+ American Monte Carlo price: 3.32865
+Option 29: S: 213.545, X: 217.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.466757
+ Analytical price: 2.32033
+ American Monte Carlo price: 2.24255
+Option 30: S: 213.545, X: 220, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.457645
+ Analytical price: 1.51724
+ American Monte Carlo price: 1.45353
+Option 31: S: 213.545, X: 222.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.448086
+ Analytical price: 0.93121
+ American Monte Carlo price: 0.878157
+Option 32: S: 213.545, X: 225, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.442235
+ Analytical price: 0.54837
+ American Monte Carlo price: 0.519534
+Option 33: S: 213.545, X: 227.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.437587
+ Analytical price: 0.306619
+ American Monte Carlo price: 0.286943
+Option 34: S: 213.545, X: 230, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.439962
+ Analytical price: 0.17499
+ American Monte Carlo price: 0.164126
+Option 35: S: 213.545, X: 232.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.445414
+ Analytical price: 0.100736
+ American Monte Carlo price: 0.0908059
+Option 36: S: 213.545, X: 235, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.454842
+ Analytical price: 0.0604822
+ American Monte Carlo price: 0.057234
+Option 37: S: 213.545, X: 237.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.462663
+ Analytical price: 0.0352652
+ American Monte Carlo price: 0.0337853
+Option 38: S: 213.545, X: 240, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.477781
+ Analytical price: 0.0233868
+ American Monte Carlo price: 0.025093
+Option 39: S: 213.545, X: 242.5, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.487383
+ Analytical price: 0.0141824
+ American Monte Carlo price: 0.0159069
+Option 40: S: 213.545, X: 245, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.495872
+ Analytical price: 0.00844014
+ American Monte Carlo price: 0.00792559
+Option 41: S: 213.545, X: 250, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.548511
+ Analytical price: 0.00660228
+ American Monte Carlo price: 0.00677009
+Option 42: S: 213.545, X: 255, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.589324
+ Analytical price: 0.00438828
+ American Monte Carlo price: 0.00417625
+Option 43: S: 213.545, X: 260, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.647619
+ Analytical price: 0.00437341
+ American Monte Carlo price: 0.00341822
+Option 44: S: 213.545, X: 265, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.704772
+ Analytical price: 0.00439474
+ American Monte Carlo price: 0.00367018
+Option 45: S: 213.545, X: 270, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.759716
+ Analytical price: 0.0043614
+ American Monte Carlo price: 0.00344571
+Option 46: S: 213.545, X: 275, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.812938
+ Analytical price: 0.00430954
+ American Monte Carlo price: 0.00218198
+Option 47: S: 213.545, X: 280, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.865186
+ Analytical price: 0.00428399
+ American Monte Carlo price: 0.0017173
+Option 48: S: 213.545, X: 285, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.916498
+ Analytical price: 0.00427834
+ American Monte Carlo price: 0.00163886
+Option 49: S: 213.545, X: 290, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 0.966909
+ Analytical price: 0.00428808
+ American Monte Carlo price: 0.00170784
+Option 50: S: 213.545, X: 295, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.01645
+ Analytical price: 0.00431002
+ American Monte Carlo price: 0.00177677
+Option 51: S: 213.545, X: 300, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.06458
+ Analytical price: 0.00431061
+ American Monte Carlo price: 0.00250575
+Option 52: S: 213.545, X: 305, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.11101
+ Analytical price: 0.0042762
+ American Monte Carlo price: 0.00253727
+Option 53: S: 213.545, X: 310, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.15669
+ Analytical price: 0.00425403
+ American Monte Carlo price: 0.00256661
+Option 54: S: 213.545, X: 315, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.20164
+ Analytical price: 0.00424197
+ American Monte Carlo price: 0.00259448
+Option 55: S: 213.545, X: 320, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.24588
+ Analytical price: 0.00423828
+ American Monte Carlo price: 0.00233397
+Option 56: S: 213.545, X: 325, Expiration date: 2025-08-01, T: 0.00971747, r: 0.0442, sigma: 1.28943
+ Analytical price: 0.00424171
+ American Monte Carlo price: 0.00234437
+Simulation Summary
+------------------
+Contracts processed: 56 options in 102.315 seconds 
+Paths per contract: 10000
+Threads used: 1
+Throughput: 97.7374 paths/second

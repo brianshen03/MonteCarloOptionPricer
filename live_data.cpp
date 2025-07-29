@@ -35,7 +35,7 @@ json http_get_json(const std::string& path, const std::string& bearer) {
     return json::parse(res->body);
 }
 
-//convert a date string in YYYY-MM-DD format to seconds until expiration
+//convert a date string in YYYY-MM-DD format to years until expiration
  double time_to_expiration(const std::string& ymd) {
     std::tm tm{};
     std::istringstream(ymd) >> std::get_time(&tm, "%Y-%m-%d");

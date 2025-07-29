@@ -6,7 +6,8 @@ CXXFLAGS := -std=c++20 -fopenmp \
             -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk \
             -I/opt/homebrew/include \
             -I$(OPENSSL)/include \
-            -Iinclude
+            -Iinclude \
+            -Iinclude/eigen-3.4.0
 
 LDFLAGS  := -L$(OPENSSL)/lib -lssl -lcrypto
 

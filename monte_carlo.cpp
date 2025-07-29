@@ -5,6 +5,7 @@
 #include <cmath>
 #include <random>
 #include <chrono>
+#include <Eigen/Dense>
 #include <omp.h>
 #include "live_data.hpp"
 
@@ -47,8 +48,8 @@ double calc_option_price(const optionParams& params) {
 
 }
 
-// Monte Carlo simulation to estimate the option price
-double monte_carlo_simulation(const optionParams& params, const config& config) {
+// Monte Carlo simulation to estimate the european option price
+double eu_monte_carlo_simulation(const optionParams& params, const config& config) {
 
     double sum_payoffs = 0.0;
     #pragma omp parallel num_threads(config.thread_count)
@@ -62,7 +63,11 @@ double monte_carlo_simulation(const optionParams& params, const config& config) 
         #pragma omp for
         for (int i = 0; i < config.num_simulations; ++i) {
             double Z  = dist(rng);
-            double ST = params.S * std::exp((params.r - 0.5 * params.sigma*params.sigma)*params.T + params.sigma*std::sqrt(params.T)*Z);
+            double drift = (params.r - 0.5 * params.sigma * params.sigma) * params.T;
+            double diffusion = params.sigma * std::sqrt(params.T);
+            double ST = params.S * std::exp(drift + diffusion * Z);
+
+            // double ST = params.S * std::exp((params.r - 0.5 * params.sigma*params.sigma)*params.T + params.sigma*std::sqrt(params.T)*Z);
             local_sum += std::max(ST - params.X, 0.0);
         }
         // reduction by hand (atomic or critical) or use OpenMP reduction on local_sum
@@ -71,6 +76,105 @@ double monte_carlo_simulation(const optionParams& params, const config& config) 
     }
 
     double price = std::exp(-params.r * params.T) * (sum_payoffs / config.num_simulations);
+    return price;
+}
+
+//helper func to perform polynomial regression
+Eigen::VectorXd perform_regression(const std::vector<double>& X, const std::vector<double>& Y) {
+    int N = X.size();
+    Eigen::MatrixXd A(N, 3);
+    Eigen::VectorXd b(N);
+
+    for (int i = 0; i < N; ++i) {
+        A(i, 0) = 1.0;
+        A(i, 1) = X[i];
+        A(i, 2) = X[i] * X[i];
+        b(i) = Y[i];
+    }
+
+    // Solve for beta using least squares
+    Eigen::VectorXd beta = (A.transpose() * A).ldlt().solve(A.transpose() * b);
+    return beta; // beta[0] = b0, beta[1] = b1, beta[2] = b2
+}
+
+// monte carlo simulation to estimate the american option price (M is time steps)
+double us_monte_carlo_simulation(const optionParams& params, const config& config, int M) {
+
+    //2d array to store stock prices at each time step
+    std::vector<std::vector<double>> all_paths(config.num_simulations, std::vector<double>(M+1));
+
+    std::mt19937_64 rng(42);
+    std::normal_distribution<double> dist(0.0, 1.0);
+
+    double dt = params.T / M; // time step size
+    double drift = (params.r - 0.5 * params.sigma * params.sigma) * dt;
+
+    // step 1: generate all paths
+    for (int i = 0; i < config.num_simulations; ++i) {
+        all_paths[i][0] = params.S;
+        //saving each stock price from 1 to M time paths 
+        for (int t = 1; t <= M; ++t) {
+            double Z = dist(rng);
+            double diffusion = params.sigma * std::sqrt(dt) * Z;
+            all_paths[i][t] = all_paths[i][t-1] * std::exp(drift + diffusion);
+        }
+
+    }
+
+    // step 2: calculate cash_flow (payoff) at maturity
+    std::vector<double> cash_flow(config.num_simulations);
+    for (int i = 0; i < config.num_simulations; ++i) {
+        double ST = all_paths[i][M];
+        cash_flow[i] = std::max(ST - params.X, 0.0); // final payoff
+    }
+
+    // step 3: backward induction to calculate option price
+    std::vector<int> itm_indices;
+    for (int t = M - 1; t >= 1; --t) {
+        // find in-the-money paths at time t
+        for (int i = 0; i < config.num_simulations; ++i) {
+            double ST = all_paths[i][t];
+            if (ST > params.X) { 
+                itm_indices.push_back(i); // in-the-money paths
+            }
+        }
+
+        // build regression input 
+        std::vector<double> X, Y;
+        for (int i : itm_indices) {
+            double ST = all_paths[i][t];
+            double discounted_cash_flow = cash_flow[i] * std::exp(-params.r * dt);
+            X.push_back(ST);
+            Y.push_back(discounted_cash_flow);
+        }
+
+        // need at least 3 points for regression
+        if (X.size() < 3) continue;
+
+        // perform regression to estimate continuation value
+        Eigen::VectorXd beta = perform_regression(X, Y);
+
+        //compare continuation value with immediate payoff
+        for (int i : itm_indices) {
+            double ST = all_paths[i][t];
+            double continuation_value = beta[0] + beta[1] * ST + beta[2] * ST * ST;
+            double immediate_payoff = std::max(ST - params.X, 0.0);
+
+            if (immediate_payoff > continuation_value) {
+                cash_flow[i] = immediate_payoff; // exercise option
+            } else {
+                cash_flow[i] = std::exp(-params.r * dt) * cash_flow[i];
+            }
+        }
+    }
+
+    // step 4: average discounted cash flows
+    double sum_payoffs = 0.0;
+    for (int i = 0; i < config.num_simulations; ++i) {
+        sum_payoffs += cash_flow[i];
+    }
+    double price = sum_payoffs / config.num_simulations;
+
     return price;
 }
 
@@ -103,9 +207,13 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
             opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n";
 
             double analytical = calc_option_price(opt);
-            double mc = monte_carlo_simulation(opt, options);
+            // double eu_mc = eu_monte_carlo_simulation(opt, options);
+            double us_mc = us_monte_carlo_simulation(opt, options, 50);
 
-            std::cout << "  Analytical: " << analytical << " | Monte Carlo: " << mc << "\n\n";
+            // std::cout << "  Analytical: " << analytical << " | European Monte Carlo: " << eu_mc << " | American Monte Carlo: " << us_mc << "\n\n";
+            std::cout << " Analytical price: " << analytical << "\n";
+            std::cout << " American Monte Carlo price: " << us_mc << "\n";
+            // std::cout << " European Monte Carlo price: " << eu_mc << "\n\n";
     }
 }
 
