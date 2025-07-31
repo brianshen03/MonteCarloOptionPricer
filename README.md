@@ -55,7 +55,6 @@ Each branch contains the same interface and functionality, but leverages differe
 
 - Expand GPU acceleration (CUDA) to support pricing thousands of options efficiently
 - Implement American option pricing using Least-Squares Monte Carlo (LSMC)
-- Add support for path-dependent options like Asian and Lookback
 - Integrate variance reduction techniques (e.g., antithetic variates, control variates)
 - Add visualization and performance benchmarks comparing OpenMP and CUDA performance
 
