@@ -58,7 +58,7 @@ optionPrices calc_call(const optionParams& params) {
 }
 
 // Monte Carlo simulation to estimate the european option price
-optionPrices eu_mc_call(const optionParams& params, const config& config) {
+optionPrices eu_mc_sim(const optionParams& params, const config& config) {
 
     double call_sum = 0.0;
     double put_sum = 0.0;
@@ -112,7 +112,7 @@ Eigen::VectorXd perform_regression(const std::vector<double>& X, const std::vect
 }
 
 // monte carlo simulation to estimate the american option price (M is time steps)
-double us_monte_carlo_simulation(const optionParams& params, const config& config, int M) {
+optionPrices us_mc_sim(const optionParams& params, const config& config, int M) {
 
     //2d array to store stock prices at each time step
     std::vector<std::vector<double>> all_paths(config.num_simulations, std::vector<double>(M+1));
@@ -137,88 +137,96 @@ double us_monte_carlo_simulation(const optionParams& params, const config& confi
         }
     }
 
-    // step 2: calculate cash_flow (payoff) at maturity
-    std::vector<double> cash_flow(config.num_simulations);
     auto t1 = std::chrono::steady_clock::now();
+
+
+    // step 2: calculate cash_flow (payoff) at maturity
+    std::vector<double> cash_flow_call(config.num_simulations);
+    std::vector<double> cash_flow_put(config.num_simulations);
     for (int i = 0; i < config.num_simulations; ++i) {
         double ST = all_paths[i][M];
-        cash_flow[i] = std::max(ST - params.X, 0.0); // final payoff
+        cash_flow_call[i] = std::max(ST - params.X, 0.0); // final call payoff
+        cash_flow_put[i] = std::max(params.X - ST, 0.0); // put option payoff
     }
 
     auto t2 = std::chrono::steady_clock::now();
 
     // step 3: backward induction to calculate option price
-    std::vector<int> itm_indices;
+    std::vector<int> itm_call;
+    std::vector<int> itm_put;
+    std::vector<double> X_call, Y_call, X_put, Y_put;
 
     for (int t = M - 1; t >= 1; --t) {
 
-        #pragma omp parallel
-        {
-            // find in-the-money paths at time t
-            std::vector<int> local_itm_indices;
-            #pragma omp for nowait 
+            // find in-the-money paths at time t & build regression input
             for (int i = 0; i < config.num_simulations; ++i) {
+
                 double ST = all_paths[i][t];
                 if (ST > params.X) { 
-                    local_itm_indices.push_back(i); // in-the-money paths
+                    itm_call.push_back(i); //in the money paths for call 
+                    X_call.push_back(ST);
+                    Y_call.push_back(cash_flow_call[i] * std::exp(-params.r * dt)); // discounted cash flow
+                }
+
+                if (params.X > ST) {
+                    itm_put.push_back(i); // in the money paths for put
+                    X_put.push_back(ST);
+                    Y_put.push_back(cash_flow_put[i] * std::exp(-params.r * dt)); // discounted cash flow
                 }
             }
-            #pragma omp critical 
-            itm_indices.insert(itm_indices.end(), local_itm_indices.begin(), local_itm_indices.end());
-            
-        }
-
-
-        // build regression input 
-        std::vector<double> X(itm_indices.size());
-        std::vector<double> Y(itm_indices.size());
-        #pragma omp parallel for
-        for (int j = 0; j < itm_indices.size(); ++j) {
-            int i = itm_indices[j];
-            double ST = all_paths[i][t];
-            double discounted_cash_flow = cash_flow[i] * std::exp(-params.r * dt);
-            X[j] = ST;
-            Y[j] = discounted_cash_flow;
-        }
 
         // need at least 3 points for regression
-        if (X.size() < 3) continue;
+        if (X_call.size() < 3) continue;
 
         // perform regression to estimate continuation value
         auto r1 = std::chrono::high_resolution_clock::now();
-
-        Eigen::VectorXd beta = perform_regression(X, Y);
-
+        Eigen::VectorXd beta_call = perform_regression(X_call, Y_call);
         auto r2 = std::chrono::high_resolution_clock::now();
 
-        std::cout << "Regression at t=" << t << ": "
-          << std::chrono::duration_cast<std::chrono::milliseconds>(r2 - r1).count()
-          << " ms\n";
-
+        std::cout << "Regression at t=" << t << ": " << std::chrono::duration_cast<std::chrono::milliseconds>(r2 - r1).count() << " ms\n";
 
         //compare continuation value with immediate payoff
-        #pragma omp parallel for
-        for (int j = 0; j < itm_indices.size(); ++j) {
-            int i = itm_indices[j];
+        for (int j = 0; j < itm_call.size(); ++j) {
+            int i = itm_call[j];
             double ST = all_paths[i][t];
-            double continuation_value = beta[0] + beta[1] * ST + beta[2] * ST * ST;
+            double continuation_value = beta_call[0] + beta_call[1] * ST + beta_call[2] * ST * ST;
             double immediate_payoff = std::max(ST - params.X, 0.0);
-
             if (immediate_payoff > continuation_value)
-                cash_flow[i] = immediate_payoff;
+                cash_flow_call[i] = immediate_payoff; // exercise
             else
-                cash_flow[i] = std::exp(-params.r * dt) * cash_flow[i];
+                cash_flow_call[i] = std::exp(-params.r * dt) * cash_flow_call[i]; // continue holding
+        }
+
+        if (X_put.size() < 3) continue;
+        // perform regression for put option
+        auto r3 = std::chrono::high_resolution_clock::now();
+        Eigen::VectorXd beta_put = perform_regression(X_put, Y_put);
+        auto r4 = std::chrono::high_resolution_clock::now();
+
+        // std::cout << "Regression at t=" << t << ": " << std::chrono::duration_cast<std::chrono::milliseconds>(r4 - r3).count() << " ms\n";
+
+        for (int j = 0; j < itm_put.size(); ++j) {
+            int i = itm_put[j];
+            double ST = all_paths[i][t];
+            double continuation_value = beta_put[0] + beta_put[1] * ST + beta_put[2] * ST * ST;
+            double immediate_payoff = std::max(params.X - ST, 0.0);
+            if (immediate_payoff > continuation_value)
+                cash_flow_put[i] = immediate_payoff; // exercise
+            else
+                cash_flow_put[i] = std::exp(-params.r * dt) * cash_flow_put[i]; // continue holding
         }
     }
 
     auto t3 = std::chrono::steady_clock::now();
 
     // step 4: average discounted cash flows
-    double sum_payoffs = 0.0;
+    double call_sum = 0.0, put_sum = 0.0;
     for (int i = 0; i < config.num_simulations; ++i) {
-        sum_payoffs += cash_flow[i];
+        call_sum += cash_flow_call[i];
+        put_sum += cash_flow_put[i];
     }
-    double price = sum_payoffs / config.num_simulations;
+    double call_price = call_sum / config.num_simulations;
+    double put_price = put_sum / config.num_simulations;
 
     auto t4 = std::chrono::steady_clock::now();
 
@@ -228,6 +236,7 @@ double us_monte_carlo_simulation(const optionParams& params, const config& confi
               << "Backward induction: " << std::chrono::duration_cast<std::chrono::milliseconds>(t3 - t2).count() << " ms\n"
               << "Final averaging: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4 - t3).count() << " ms\n";
 
+    optionPrices price = {call_price, put_price};
     return price;
 }
 
@@ -260,16 +269,19 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
             opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n\n";
 
             optionPrices eu_bs = calc_call(opt);
-            optionPrices eu_mc = eu_mc_call(opt, options);
+            // optionPrices eu_mc = eu_mc_sim(opt, options);
 
-            // double us_mc = us_monte_carlo_simulation(opt, options, TIME_STEPS);
+            optionPrices us_mc = us_mc_sim(opt, options, TIME_STEPS);
 
             std::cout << " Analytical call price: " << eu_bs.call_price << "\n";
             std::cout << " Analytical put price: " << eu_bs.put_price << "\n";
-            std::cout << " European Monte Carlo call price: " << eu_mc.call_price << "\n";
-            std::cout << "European Monte Carlo put price: " << eu_mc.put_price << "\n";
+            // std::cout << " European Monte Carlo call price: " << eu_mc.call_price << "\n";
+            // std::cout << "European Monte Carlo put price: " << eu_mc.put_price << "\n";
+
+            std::cout << " American Monte Carlo call price: " << us_mc.call_price << "\n";
+            std::cout << "American Monte Carlo put price: " << us_mc.put_price << "\n";
+
             std::cout << "----------------------------------------\n";
-            // std::cout << " American Monte Carlo price: " << us_mc << "\n";
     }
 }
 

@@ -65,6 +65,14 @@
         "unordered_set": "cpp",
         "filesystem": "cpp",
         "random": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "__tree": "cpp",
+        "queue": "cpp",
+        "regex": "cpp",
+        "hash_map": "cpp",
+        "stack": "cpp",
+        "valarray": "cpp"
     }
 }
