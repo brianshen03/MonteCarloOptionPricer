@@ -73,6 +73,9 @@
         "regex": "cpp",
         "hash_map": "cpp",
         "stack": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "*.expression": "cpp",
+        "alignedvector3": "cpp",
+        "fft": "cpp"
     }
 }

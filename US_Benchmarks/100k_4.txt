@@ -1,0 +1,1233 @@
+Risk-free rate used (DGS3MO): 0.0432
+
+Fetching option chain for AAPL...
+Option 1: S: 229.35, X: 90, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 3.6418
+
+Eigen threads: 8
+Total regression time for call: 155 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 210 ms
+Cash flow calculation: 2 ms
+Backward induction: 279 ms
+Final averaging: 0 ms
+
+ Analytical call price: 139.837
+ Analytical put price: 0.427708
+ American Monte Carlo call price: 139.797
+American Monte Carlo put price: 0.42134
+----------------------------------------
+Option 2: S: 229.35, X: 95, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 3.48335
+
+Eigen threads: 8
+Total regression time for call: 154 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 278 ms
+Final averaging: 0 ms
+
+ Analytical call price: 134.871
+ Analytical put price: 0.458377
+ American Monte Carlo call price: 134.857
+American Monte Carlo put price: 0.45123
+----------------------------------------
+Option 3: S: 229.35, X: 100, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 3.26448
+
+Eigen threads: 8
+Total regression time for call: 152 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 277 ms
+Final averaging: 0 ms
+
+ Analytical call price: 129.845
+ Analytical put price: 0.42953
+ American Monte Carlo call price: 129.797
+American Monte Carlo put price: 0.423422
+----------------------------------------
+Option 4: S: 229.35, X: 105, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 3.12394
+
+Eigen threads: 8
+Total regression time for call: 153 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 278 ms
+Final averaging: 0 ms
+
+ Analytical call price: 124.881
+ Analytical put price: 0.462366
+ American Monte Carlo call price: 124.779
+American Monte Carlo put price: 0.455394
+----------------------------------------
+Option 5: S: 229.35, X: 110, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 2.92499
+
+Eigen threads: 8
+Total regression time for call: 153 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 217 ms
+Cash flow calculation: 2 ms
+Backward induction: 278 ms
+Final averaging: 0 ms
+
+ Analytical call price: 119.855
+ Analytical put price: 0.433114
+ American Monte Carlo call price: 119.808
+American Monte Carlo put price: 0.426739
+----------------------------------------
+Option 6: S: 229.35, X: 115, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 2.79433
+
+Eigen threads: 8
+Total regression time for call: 154 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 278 ms
+Final averaging: 0 ms
+
+ Analytical call price: 114.889
+ Analytical put price: 0.463813
+ American Monte Carlo call price: 114.824
+American Monte Carlo put price: 0.456464
+----------------------------------------
+Option 7: S: 229.35, X: 120, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 2.6137
+
+Eigen threads: 8
+Total regression time for call: 152 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 278 ms
+Final averaging: 0 ms
+
+ Analytical call price: 109.865
+ Analytical put price: 0.436084
+ American Monte Carlo call price: 109.8
+American Monte Carlo put price: 0.430646
+----------------------------------------
+Option 8: S: 229.35, X: 125, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 2.4114
+
+Eigen threads: 8
+Total regression time for call: 152 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 277 ms
+Final averaging: 0 ms
+
+ Analytical call price: 104.81
+ Analytical put price: 0.37771
+ American Monte Carlo call price: 104.764
+American Monte Carlo put price: 0.371983
+----------------------------------------
+Option 9: S: 229.35, X: 130, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 2.29993
+
+Eigen threads: 8
+Total regression time for call: 153 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 278 ms
+Final averaging: 0 ms
+
+ Analytical call price: 99.8442
+ Analytical put price: 0.408763
+ American Monte Carlo call price: 99.7849
+American Monte Carlo put price: 0.401951
+----------------------------------------
+Option 10: S: 229.35, X: 135, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 2.18895
+
+Eigen threads: 8
+Total regression time for call: 152 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 279 ms
+Final averaging: 0 ms
+
+ Analytical call price: 94.878
+ Analytical put price: 0.4393
+ American Monte Carlo call price: 94.8833
+American Monte Carlo put price: 0.434243
+----------------------------------------
+Option 11: S: 229.35, X: 140, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.98628
+
+Eigen threads: 8
+Total regression time for call: 154 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 200 ms
+Cash flow calculation: 2 ms
+Backward induction: 277 ms
+Final averaging: 0 ms
+
+ Analytical call price: 89.7956
+ Analytical put price: 0.353625
+ American Monte Carlo call price: 89.7661
+American Monte Carlo put price: 0.347094
+----------------------------------------
+Option 12: S: 229.35, X: 145, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.95544
+
+Eigen threads: 8
+Total regression time for call: 155 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 280 ms
+Final averaging: 0 ms
+
+ Analytical call price: 84.9241
+ Analytical put price: 0.478799
+ American Monte Carlo call price: 84.8798
+American Monte Carlo put price: 0.475076
+----------------------------------------
+Option 13: S: 229.35, X: 150, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.53879
+
+Eigen threads: 8
+Total regression time for call: 153 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 276 ms
+Final averaging: 0 ms
+
+ Analytical call price: 79.6012
+ Analytical put price: 0.152627
+ American Monte Carlo call price: 79.5394
+American Monte Carlo put price: 0.1493
+----------------------------------------
+Option 14: S: 229.35, X: 155, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.70882
+
+Eigen threads: 8
+Total regression time for call: 152 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 279 ms
+Final averaging: 0 ms
+
+ Analytical call price: 74.9343
+ Analytical put price: 0.482418
+ American Monte Carlo call price: 74.9008
+American Monte Carlo put price: 0.478632
+----------------------------------------
+Option 15: S: 229.35, X: 160, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.57269
+
+Eigen threads: 8
+Total regression time for call: 153 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 282 ms
+Final averaging: 0 ms
+
+ Analytical call price: 69.9094
+ Analytical put price: 0.454277
+ American Monte Carlo call price: 69.8755
+American Monte Carlo put price: 0.450449
+----------------------------------------
+Option 16: S: 229.35, X: 165, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.33771
+
+Eigen threads: 8
+Total regression time for call: 155 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 200 ms
+Cash flow calculation: 2 ms
+Backward induction: 278 ms
+Final averaging: 0 ms
+
+ Analytical call price: 64.7304
+ Analytical put price: 0.271981
+ American Monte Carlo call price: 64.7299
+American Monte Carlo put price: 0.265092
+----------------------------------------
+Option 17: S: 229.35, X: 170, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.27633
+
+Eigen threads: 8
+Total regression time for call: 156 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 279 ms
+Final averaging: 0 ms
+
+ Analytical call price: 59.7989
+ Analytical put price: 0.337241
+ American Monte Carlo call price: 59.7716
+American Monte Carlo put price: 0.3343
+----------------------------------------
+Option 18: S: 229.35, X: 175, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.15293
+
+Eigen threads: 8
+Total regression time for call: 158 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 280 ms
+Final averaging: 0 ms
+
+ Analytical call price: 54.7741
+ Analytical put price: 0.309059
+ American Monte Carlo call price: 54.7424
+American Monte Carlo put price: 0.305155
+----------------------------------------
+Option 19: S: 229.35, X: 177.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.34488
+
+Eigen threads: 8
+Total regression time for call: 155 ms
+Total regression time for put: 5 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 285 ms
+Final averaging: 0 ms
+
+ Analytical call price: 52.841
+ Analytical put price: 0.874385
+ American Monte Carlo call price: 52.7534
+American Monte Carlo put price: 0.877183
+----------------------------------------
+Option 20: S: 229.35, X: 180, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.943791
+
+Eigen threads: 8
+Total regression time for call: 160 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 284 ms
+Final averaging: 0 ms
+
+ Analytical call price: 49.6267
+ Analytical put price: 0.158379
+ American Monte Carlo call price: 49.5883
+American Monte Carlo put price: 0.15564
+----------------------------------------
+Option 21: S: 229.35, X: 182.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.21784
+
+Eigen threads: 8
+Total regression time for call: 158 ms
+Total regression time for put: 4 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 287 ms
+Final averaging: 0 ms
+
+ Analytical call price: 47.8177
+ Analytical put price: 0.847744
+ American Monte Carlo call price: 47.7463
+American Monte Carlo put price: 0.850361
+----------------------------------------
+Option 22: S: 229.35, X: 185, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.934293
+
+Eigen threads: 8
+Total regression time for call: 165 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 288 ms
+Final averaging: 0 ms
+
+ Analytical call price: 44.7544
+ Analytical put price: 0.282885
+ American Monte Carlo call price: 44.7174
+American Monte Carlo put price: 0.280799
+----------------------------------------
+Option 23: S: 229.35, X: 187.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.07254
+
+Eigen threads: 8
+Total regression time for call: 158 ms
+Total regression time for put: 5 ms
+
+Time taken for each step:
+
+Path generation: 212 ms
+Cash flow calculation: 2 ms
+Backward induction: 288 ms
+Final averaging: 0 ms
+
+ Analytical call price: 42.7262
+ Analytical put price: 0.752994
+ American Monte Carlo call price: 42.6501
+American Monte Carlo put price: 0.755186
+----------------------------------------
+Option 24: S: 229.35, X: 190, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.803303
+
+Eigen threads: 8
+Total regression time for call: 159 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 280 ms
+Final averaging: 0 ms
+
+ Analytical call price: 39.6996
+ Analytical put price: 0.22472
+ American Monte Carlo call price: 39.6593
+American Monte Carlo put price: 0.222276
+----------------------------------------
+Option 25: S: 229.35, X: 192.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.984065
+
+Eigen threads: 8
+Total regression time for call: 156 ms
+Total regression time for put: 6 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 292 ms
+Final averaging: 0 ms
+
+ Analytical call price: 37.8151
+ Analytical put price: 0.838633
+ American Monte Carlo call price: 37.7169
+American Monte Carlo put price: 0.841577
+----------------------------------------
+Option 26: S: 229.35, X: 195, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.627275
+
+Eigen threads: 8
+Total regression time for call: 161 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 282 ms
+Final averaging: 0 ms
+
+ Analytical call price: 34.5823
+ Analytical put price: 0.104178
+ American Monte Carlo call price: 34.5457
+American Monte Carlo put price: 0.102357
+----------------------------------------
+Option 27: S: 229.35, X: 197.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.585166
+
+Eigen threads: 8
+Total regression time for call: 154 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 200 ms
+Cash flow calculation: 2 ms
+Backward induction: 279 ms
+Final averaging: 0 ms
+
+ Analytical call price: 32.0846
+ Analytical put price: 0.104784
+ American Monte Carlo call price: 32.0333
+American Monte Carlo put price: 0.102845
+----------------------------------------
+Option 28: S: 229.35, X: 200, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.543564
+
+Eigen threads: 8
+Total regression time for call: 158 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 279 ms
+Final averaging: 0 ms
+
+ Analytical call price: 29.5873
+ Analytical put price: 0.105858
+ American Monte Carlo call price: 29.5258
+American Monte Carlo put price: 0.104105
+----------------------------------------
+Option 29: S: 229.35, X: 202.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.502116
+
+Eigen threads: 8
+Total regression time for call: 157 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 278 ms
+Final averaging: 0 ms
+
+ Analytical call price: 27.0901
+ Analytical put price: 0.107075
+ American Monte Carlo call price: 27.033
+American Monte Carlo put price: 0.104478
+----------------------------------------
+Option 30: S: 229.35, X: 205, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.480169
+
+Eigen threads: 8
+Total regression time for call: 157 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 279 ms
+Final averaging: 0 ms
+
+ Analytical call price: 24.6244
+ Analytical put price: 0.139653
+ American Monte Carlo call price: 24.5819
+American Monte Carlo put price: 0.137351
+----------------------------------------
+Option 31: S: 229.35, X: 207.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.453464
+
+Eigen threads: 8
+Total regression time for call: 154 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 280 ms
+Final averaging: 0 ms
+
+ Analytical call price: 22.1597
+ Analytical put price: 0.173378
+ American Monte Carlo call price: 22.1161
+American Monte Carlo put price: 0.172118
+----------------------------------------
+Option 32: S: 229.35, X: 210, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.396072
+
+Eigen threads: 8
+Total regression time for call: 156 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 281 ms
+Final averaging: 0 ms
+
+ Analytical call price: 19.6343
+ Analytical put price: 0.146349
+ American Monte Carlo call price: 19.5719
+American Monte Carlo put price: 0.145174
+----------------------------------------
+Option 33: S: 229.35, X: 212.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.356971
+
+Eigen threads: 8
+Total regression time for call: 156 ms
+Total regression time for put: 0 ms
+
+Time taken for each step:
+
+Path generation: 204 ms
+Cash flow calculation: 2 ms
+Backward induction: 282 ms
+Final averaging: 0 ms
+
+ Analytical call price: 17.1476
+ Analytical put price: 0.157972
+ American Monte Carlo call price: 17.0846
+American Monte Carlo put price: 0.156613
+----------------------------------------
+Option 34: S: 229.35, X: 215, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.347865
+
+Eigen threads: 8
+Total regression time for call: 153 ms
+Total regression time for put: 5 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 285 ms
+Final averaging: 0 ms
+
+ Analytical call price: 14.7573
+ Analytical put price: 0.265984
+ American Monte Carlo call price: 14.6918
+American Monte Carlo put price: 0.266661
+----------------------------------------
+Option 35: S: 229.35, X: 217.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.329913
+
+Eigen threads: 8
+Total regression time for call: 156 ms
+Total regression time for put: 8 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 291 ms
+Final averaging: 0 ms
+
+ Analytical call price: 12.3895
+ Analytical put price: 0.396553
+ American Monte Carlo call price: 12.3074
+American Monte Carlo put price: 0.398312
+----------------------------------------
+Option 36: S: 229.35, X: 220, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.319016
+
+Eigen threads: 8
+Total regression time for call: 155 ms
+Total regression time for put: 17 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 301 ms
+Final averaging: 0 ms
+
+ Analytical call price: 10.1322
+ Analytical put price: 0.6376
+ American Monte Carlo call price: 10.0418
+American Monte Carlo put price: 0.635986
+----------------------------------------
+Option 37: S: 229.35, X: 222.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.304058
+
+Eigen threads: 8
+Total regression time for call: 153 ms
+Total regression time for put: 39 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 319 ms
+Final averaging: 0 ms
+
+ Analytical call price: 7.96844
+ Analytical put price: 0.972235
+ American Monte Carlo call price: 7.8966
+American Monte Carlo put price: 0.970314
+----------------------------------------
+Option 38: S: 229.35, X: 225, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.292559
+
+Eigen threads: 8
+Total regression time for call: 144 ms
+Total regression time for put: 72 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 349 ms
+Final averaging: 0 ms
+
+ Analytical call price: 5.99864
+ Analytical put price: 1.50079
+ American Monte Carlo call price: 5.93367
+American Monte Carlo put price: 1.49861
+----------------------------------------
+Option 39: S: 229.35, X: 227.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.287841
+
+Eigen threads: 8
+Total regression time for call: 135 ms
+Total regression time for put: 107 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 3 ms
+Backward induction: 379 ms
+Final averaging: 0 ms
+
+ Analytical call price: 4.33195
+ Analytical put price: 2.33246
+ American Monte Carlo call price: 4.28963
+American Monte Carlo put price: 2.33085
+----------------------------------------
+Option 40: S: 229.35, X: 230, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.285702
+
+Eigen threads: 8
+Total regression time for call: 114 ms
+Total regression time for put: 133 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 3 ms
+Backward induction: 387 ms
+Final averaging: 0 ms
+
+ Analytical call price: 2.98459
+ Analytical put price: 3.48345
+ American Monte Carlo call price: 2.95031
+American Monte Carlo put price: 3.49087
+----------------------------------------
+Option 41: S: 229.35, X: 232.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.2849
+
+Eigen threads: 8
+Total regression time for call: 86 ms
+Total regression time for put: 139 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 3 ms
+Backward induction: 364 ms
+Final averaging: 0 ms
+
+ Analytical call price: 1.9561
+ Analytical put price: 4.95332
+ American Monte Carlo call price: 1.93663
+American Monte Carlo put price: 4.95321
+----------------------------------------
+Option 42: S: 229.35, X: 235, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.285594
+
+Eigen threads: 8
+Total regression time for call: 54 ms
+Total regression time for put: 152 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 3 ms
+Backward induction: 333 ms
+Final averaging: 0 ms
+
+ Analytical call price: 1.22415
+ Analytical put price: 6.71973
+ American Monte Carlo call price: 1.2137
+American Monte Carlo put price: 6.7304
+----------------------------------------
+Option 43: S: 229.35, X: 237.5, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.290037
+
+Eigen threads: 8
+Total regression time for call: 25 ms
+Total regression time for put: 144 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 297 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.753312
+ Analytical put price: 8.74725
+ American Monte Carlo call price: 0.747444
+American Monte Carlo put price: 8.77873
+----------------------------------------
+Option 44: S: 229.35, X: 240, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.298465
+
+Eigen threads: 8
+Total regression time for call: 10 ms
+Total regression time for put: 146 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 281 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.469648
+ Analytical put price: 10.9619
+ American Monte Carlo call price: 0.467798
+American Monte Carlo put price: 11.0195
+----------------------------------------
+Option 45: S: 229.35, X: 245, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.323555
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 138 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 260 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.201108
+ Analytical put price: 15.6901
+ American Monte Carlo call price: 0.198905
+American Monte Carlo put price: 15.7714
+----------------------------------------
+Option 46: S: 229.35, X: 250, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.356642
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 124 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 233 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.103531
+ Analytical put price: 20.5893
+ American Monte Carlo call price: 0.102949
+American Monte Carlo put price: 20.6909
+----------------------------------------
+Option 47: S: 229.35, X: 255, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.389053
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 107 ms
+
+Time taken for each step:
+
+Path generation: 204 ms
+Cash flow calculation: 2 ms
+Backward induction: 209 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0574368
+ Analytical put price: 25.5399
+ American Monte Carlo call price: 0.0578681
+American Monte Carlo put price: 25.6526
+----------------------------------------
+Option 48: S: 229.35, X: 260, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.418807
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 99 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 197 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0327519
+ Analytical put price: 30.5119
+ American Monte Carlo call price: 0.0329107
+American Monte Carlo put price: 30.6197
+----------------------------------------
+Option 49: S: 229.35, X: 265, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.453671
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 93 ms
+
+Time taken for each step:
+
+Path generation: 202 ms
+Cash flow calculation: 2 ms
+Backward induction: 185 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0221937
+ Analytical put price: 35.4981
+ American Monte Carlo call price: 0.0223546
+American Monte Carlo put price: 35.5933
+----------------------------------------
+Option 50: S: 229.35, X: 270, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.47734
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 81 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 173 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0127337
+ Analytical put price: 40.4853
+ American Monte Carlo call price: 0.0129037
+American Monte Carlo put price: 40.5728
+----------------------------------------
+Option 51: S: 229.35, X: 275, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.50455
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 72 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 163 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0082857
+ Analytical put price: 45.4776
+ American Monte Carlo call price: 0.00865905
+American Monte Carlo put price: 45.569
+----------------------------------------
+Option 52: S: 229.35, X: 280, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.548824
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 76 ms
+
+Time taken for each step:
+
+Path generation: 203 ms
+Cash flow calculation: 2 ms
+Backward induction: 161 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0081473
+ Analytical put price: 50.4742
+ American Monte Carlo call price: 0.00866428
+American Monte Carlo put price: 50.5673
+----------------------------------------
+Option 53: S: 229.35, X: 285, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.561409
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 65 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 149 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00427814
+ Analytical put price: 55.467
+ American Monte Carlo call price: 0.00461571
+American Monte Carlo put price: 55.5706
+----------------------------------------
+Option 54: S: 229.35, X: 290, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.614207
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 66 ms
+
+Time taken for each step:
+
+Path generation: 200 ms
+Cash flow calculation: 2 ms
+Backward induction: 151 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00544408
+ Analytical put price: 60.4649
+ American Monte Carlo call price: 0.0058371
+American Monte Carlo put price: 60.5728
+----------------------------------------
+Option 55: S: 229.35, X: 295, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.619512
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 60 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 138 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00267055
+ Analytical put price: 65.4588
+ American Monte Carlo call price: 0.00281976
+American Monte Carlo put price: 65.5582
+----------------------------------------
+Option 56: S: 229.35, X: 300, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.656607
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 57 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 138 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0026265
+ Analytical put price: 70.4555
+ American Monte Carlo call price: 0.00277428
+American Monte Carlo put price: 70.5749
+----------------------------------------
+Option 57: S: 229.35, X: 305, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.693099
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 50 ms
+
+Time taken for each step:
+
+Path generation: 201 ms
+Cash flow calculation: 2 ms
+Backward induction: 127 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00259787
+ Analytical put price: 75.4522
+ American Monte Carlo call price: 0.00274199
+American Monte Carlo put price: 75.5674
+----------------------------------------
+Option 58: S: 229.35, X: 310, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.729005
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 49 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 126 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0025811
+ Analytical put price: 80.4489
+ American Monte Carlo call price: 0.00278592
+American Monte Carlo put price: 80.5621
+----------------------------------------
+Option 59: S: 229.35, X: 315, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.951486
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 98 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 186 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.033595
+ Analytical put price: 85.4766
+ American Monte Carlo call price: 0.0339666
+American Monte Carlo put price: 85.6354
+----------------------------------------
+Option 60: S: 229.35, X: 320, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.798442
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 45 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 116 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00254276
+ Analytical put price: 90.4423
+ American Monte Carlo call price: 0.00287727
+American Monte Carlo put price: 90.5659
+----------------------------------------
+Option 61: S: 229.35, X: 325, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.984523
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 76 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 162 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.0202203
+ Analytical put price: 95.4567
+ American Monte Carlo call price: 0.0208206
+American Monte Carlo put price: 95.5872
+----------------------------------------
+Option 62: S: 229.35, X: 330, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.864315
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 41 ms
+
+Time taken for each step:
+
+Path generation: 201 ms
+Cash flow calculation: 2 ms
+Backward induction: 115 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00247424
+ Analytical put price: 100.436
+ American Monte Carlo call price: 0.00282067
+American Monte Carlo put price: 100.553
+----------------------------------------
+Option 63: S: 229.35, X: 340, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.928247
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 35 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 104 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00243533
+ Analytical put price: 110.429
+ American Monte Carlo call price: 0.0026435
+American Monte Carlo put price: 110.553
+----------------------------------------
+Option 64: S: 229.35, X: 350, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 0.990349
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 35 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 104 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00241714
+ Analytical put price: 120.422
+ American Monte Carlo call price: 0.00260589
+American Monte Carlo put price: 120.55
+----------------------------------------
+Option 65: S: 229.35, X: 360, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.04915
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 34 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 104 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00236113
+ Analytical put price: 130.416
+ American Monte Carlo call price: 0.00251507
+American Monte Carlo put price: 130.552
+----------------------------------------
+Option 66: S: 229.35, X: 370, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.10581
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 35 ms
+
+Time taken for each step:
+
+Path generation: 198 ms
+Cash flow calculation: 2 ms
+Backward induction: 104 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00230583
+ Analytical put price: 140.409
+ American Monte Carlo call price: 0.00263792
+American Monte Carlo put price: 140.552
+----------------------------------------
+Option 67: S: 229.35, X: 380, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.16098
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 34 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 105 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00226636
+ Analytical put price: 150.403
+ American Monte Carlo call price: 0.00248184
+American Monte Carlo put price: 150.55
+----------------------------------------
+Option 68: S: 229.35, X: 390, Expiration date: 2025-08-15, T: 0.0152158, r: 0.0432, sigma: 1.21474
+
+Eigen threads: 8
+Total regression time for call: 0 ms
+Total regression time for put: 32 ms
+
+Time taken for each step:
+
+Path generation: 197 ms
+Cash flow calculation: 2 ms
+Backward induction: 103 ms
+Final averaging: 0 ms
+
+ Analytical call price: 0.00223896
+ Analytical put price: 160.396
+ American Monte Carlo call price: 0.0024158
+American Monte Carlo put price: 160.547
+----------------------------------------
+Simulation Summary
+------------------
+Contracts processed: 68 options in 31.0717 seconds 
+Paths per contract: 100000
+Threads used: 4
+Throughput: 3218.36 paths/second

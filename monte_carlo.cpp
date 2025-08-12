@@ -95,10 +95,21 @@ optionPrices eu_mc_sim(const optionParams& params, const config& config) {
        
 //helper func to perform polynomial regression
 Eigen::VectorXd perform_regression(const std::vector<double>& X, const std::vector<double>& Y) {
-    int N = X.size();
+    std::vector<double> X_sub = X, Y_sub = Y;
+    const int MAX_POINTS = 20000;
+
+    if (X.size() > MAX_POINTS) {
+        X_sub.clear();
+        Y_sub.clear();
+        std::sample(X.begin(), X.end(), std::back_inserter(X_sub), MAX_POINTS, std::mt19937{std::random_device{}()});
+        std::sample(Y.begin(), Y.end(), std::back_inserter(Y_sub), MAX_POINTS, std::mt19937{std::random_device{}()});
+    }
+
+    int N = X_sub.size();
     Eigen::MatrixXd A(N, 3);
     Eigen::VectorXd b(N);
 
+    // #pragma omp parallel for
     for (int i = 0; i < N; ++i) {
         A(i, 0) = 1.0;
         A(i, 1) = X[i];
@@ -122,7 +133,7 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
 
     auto t0 = std::chrono::steady_clock::now();
 
-    // step 1: generate all paths
+    // STEP 1: generate all paths
     #pragma omp parallel for num_threads(config.thread_count)
     for (int i = 0; i < config.num_simulations; ++i) {
         std::mt19937_64 rng(42+i);
@@ -139,8 +150,7 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
 
     auto t1 = std::chrono::steady_clock::now();
 
-
-    // step 2: calculate cash_flow (payoff) at maturity
+    // STEP 2: calculate cash_flow (payoff) at maturity
     std::vector<double> cash_flow_call(config.num_simulations);
     std::vector<double> cash_flow_put(config.num_simulations);
     for (int i = 0; i < config.num_simulations; ++i) {
@@ -151,12 +161,23 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
 
     auto t2 = std::chrono::steady_clock::now();
 
-    // step 3: backward induction to calculate option price
+    // STEP 3: backward induction to calculate option price
     std::vector<int> itm_call;
     std::vector<int> itm_put;
     std::vector<double> X_call, Y_call, X_put, Y_put;
 
+    long long total_regression_time_call_ms = 0;
+    long long total_regression_time_put_ms = 0;
+    const double disc = std::exp(-params.r * dt);
+
+    //  Eigen::setNbThreads(1); 
+    std::cout << "Eigen threads: " << Eigen::nbThreads() << "\n";
+
     for (int t = M - 1; t >= 1; --t) {
+
+        itm_call.clear(); itm_put.clear();
+        X_call.clear();   Y_call.clear();
+        X_put.clear();    Y_put.clear();
 
             // find in-the-money paths at time t & build regression input
             for (int i = 0; i < config.num_simulations; ++i) {
@@ -165,13 +186,13 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
                 if (ST > params.X) { 
                     itm_call.push_back(i); //in the money paths for call 
                     X_call.push_back(ST);
-                    Y_call.push_back(cash_flow_call[i] * std::exp(-params.r * dt)); // discounted cash flow
+                    Y_call.push_back(cash_flow_call[i] * disc); // discounted cash flow
                 }
 
                 if (params.X > ST) {
                     itm_put.push_back(i); // in the money paths for put
                     X_put.push_back(ST);
-                    Y_put.push_back(cash_flow_put[i] * std::exp(-params.r * dt)); // discounted cash flow
+                    Y_put.push_back(cash_flow_put[i] * disc); // discounted cash flow
                 }
             }
 
@@ -183,9 +204,11 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
         Eigen::VectorXd beta_call = perform_regression(X_call, Y_call);
         auto r2 = std::chrono::high_resolution_clock::now();
 
-        std::cout << "Regression at t=" << t << ": " << std::chrono::duration_cast<std::chrono::milliseconds>(r2 - r1).count() << " ms\n";
+        long long call_duration = std::chrono::duration_cast<std::chrono::milliseconds>(r2 - r1).count();
+        total_regression_time_call_ms += call_duration;
 
         //compare continuation value with immediate payoff
+        #pragma omp parallel for num_threads(config.thread_count)
         for (int j = 0; j < itm_call.size(); ++j) {
             int i = itm_call[j];
             double ST = all_paths[i][t];
@@ -194,7 +217,7 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
             if (immediate_payoff > continuation_value)
                 cash_flow_call[i] = immediate_payoff; // exercise
             else
-                cash_flow_call[i] = std::exp(-params.r * dt) * cash_flow_call[i]; // continue holding
+                cash_flow_call[i] = disc * cash_flow_call[i]; // continue holding
         }
 
         if (X_put.size() < 3) continue;
@@ -203,8 +226,10 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
         Eigen::VectorXd beta_put = perform_regression(X_put, Y_put);
         auto r4 = std::chrono::high_resolution_clock::now();
 
-        // std::cout << "Regression at t=" << t << ": " << std::chrono::duration_cast<std::chrono::milliseconds>(r4 - r3).count() << " ms\n";
+        long long put_duration = std::chrono::duration_cast<std::chrono::milliseconds>(r4 - r3).count();
+        total_regression_time_put_ms += put_duration;
 
+        #pragma omp parallel for num_threads(config.thread_count)
         for (int j = 0; j < itm_put.size(); ++j) {
             int i = itm_put[j];
             double ST = all_paths[i][t];
@@ -213,13 +238,13 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
             if (immediate_payoff > continuation_value)
                 cash_flow_put[i] = immediate_payoff; // exercise
             else
-                cash_flow_put[i] = std::exp(-params.r * dt) * cash_flow_put[i]; // continue holding
+                cash_flow_put[i] = disc * cash_flow_put[i]; // continue holding
         }
     }
 
     auto t3 = std::chrono::steady_clock::now();
 
-    // step 4: average discounted cash flows
+    // STEP 4: average discounted cash flows
     double call_sum = 0.0, put_sum = 0.0;
     for (int i = 0; i < config.num_simulations; ++i) {
         call_sum += cash_flow_call[i];
@@ -229,12 +254,14 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
     double put_price = put_sum / config.num_simulations;
 
     auto t4 = std::chrono::steady_clock::now();
+    std::cout << "Total regression time for call: " << total_regression_time_call_ms << " ms\n";
+    std::cout << "Total regression time for put: " << total_regression_time_put_ms << " ms\n\n";
 
-    std::cout << "Time taken for each step:\n"
+    std::cout << "Time taken for each step:\n\n"
               << "Path generation: " << std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count() << " ms\n"
               << "Cash flow calculation: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count() << " ms\n"
               << "Backward induction: " << std::chrono::duration_cast<std::chrono::milliseconds>(t3 - t2).count() << " ms\n"
-              << "Final averaging: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4 - t3).count() << " ms\n";
+              << "Final averaging: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4 - t3).count() << " ms\n\n";
 
     optionPrices price = {call_price, put_price};
     return price;
