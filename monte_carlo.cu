@@ -25,6 +25,11 @@ struct config {
     int num_simulations = 1000000; // default to 1 million simulations
 };
 
+struct optionPrices {
+    double call_price;
+    double put_price;
+};
+
 std::vector<optionParams> trades;
 
 //helper function to calculate CDF
@@ -33,7 +38,7 @@ double phi(double x) {
 }
 
 //calculate option price using Black-Scholes formula
-double calc_option_price(const optionParams& params) {
+optionPrices calc_call(const optionParams& params) {
 
     double d1 = (std::log(params.S/params.X) + (params.r + (params.sigma*params.sigma)/2) * params.T)/
                 (params.sigma*std::sqrt(params.T));
@@ -42,18 +47,21 @@ double calc_option_price(const optionParams& params) {
              (params.sigma*std::sqrt(params.T));
 
              
-    double CDF_d1 = phi(d1);
-    double CDF_d2 = phi(d2);
+    double CDF_d1_c = phi(d1);
+    double CDF_d2_c = phi(d2);
+    double CDF_d1_p = phi(-d1);
+    double CDF_d2_p = phi(-d2);
     
-    double option_price = params.S * CDF_d1 - params.X * std::exp(-params.r * params.T) * CDF_d2;
-
+    double call = params.S * CDF_d1_c - params.X * std::exp(-params.r * params.T) * CDF_d2_c;
+    double put = params.X * std::exp(-params.r * params.T) * CDF_d2_p - params.S * CDF_d1_p;
+    optionPrices option_price = {call, put};
     return option_price;
 
 }
 
 // Monte Carlo simulation to estimate the option price
 //each cuda thread does a simulation of the option price
-__global__ void monte_carlo_simulation(const OptionGPU* trades_pointer, double* trades_results, int num_simulations, unsigned long long seed) {
+__global__ void monte_carlo_simulation(const OptionGPU* trades_pointer, optionPrices* trades_results, int num_simulations, unsigned long long seed) {
 
     //initialize thread index & stride for each thread 
     int tid = threadIdx.x;
@@ -61,35 +69,48 @@ __global__ void monte_carlo_simulation(const OptionGPU* trades_pointer, double* 
     int optId = blockIdx.x;         
 
  
-    double local_sum = 0.0;
+    double call_sum = 0.0;
+    double put_sum = 0.0;
     curandStatePhilox4_32_10_t state;
     curand_init(seed + optId, tid, 0, &state);
 
     const OptionGPU p = trades_pointer[optId];
 
+
+    const double drift     = (p.r - 0.5 * p.sigma * p.sigma) * p.T;
+    const double diffusion = p.sigma * sqrt(p.T);
+
     for (int i = tid; i < num_simulations; i+=stride) {
 
         double Z = curand_normal_double(&state); 
         //stock price at expiration 
-        double ST = p.S * std::exp((p.r - 0.5 * p.sigma * p.sigma) * p.T + p.sigma * std::sqrt(p.T) * Z);
+        double ST = p.S * exp(drift + diffusion * Z);
         //if strike price is greater than stock price at expiration, then payoff is zero
-        //otherwise, payoff is stock price at expiration minus strike price
-        local_sum += fmax(ST - p.X, 0.0); 
+        //otherwise, payoff is stock price at expiration minus strike price (For call option)
+        call_sum += fmax(ST - p.X, 0.0); 
+        put_sum += fmax(p.X - ST, 0.0);
     }
 
-    __shared__ double buf[256];    
-    buf[tid] = local_sum;              
+    extern __shared__ double sdata[];  
+    double* call_buf = sdata;
+    double* put_buf  = sdata + blockDim.x;
+    call_buf[tid] = call_sum;
+    put_buf[tid]  = put_sum;
     __syncthreads(); 
 
-    for (int offset = stride >> 1; offset; offset >>= 1) {
-    if (tid < offset)                
-        buf[tid] += buf[tid + offset];
+    for (int offset = stride >> 1; offset > 0; offset >>= 1) {
+    if (tid < offset)       
+        {
+                call_buf[tid] += call_buf[tid + offset];
+                put_buf[tid]  += put_buf[tid + offset];
+        }         
     __syncthreads();   
 
     }
     if (tid == 0) {                    
         // average of payoffs over number of simulations , then discounting back to present value
-        trades_results[optId] = exp(-p.r * p.T) * buf[0] / static_cast<double>(num_simulations);
+        trades_results[optId].call_price = exp(-p.r * p.T) * call_buf[0] / static_cast<double>(num_simulations);
+        trades_results[optId].put_price = exp(-p.r * p.T) * put_buf[0] / static_cast<double>(num_simulations);
     }
 }
 
@@ -120,6 +141,7 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
     int blockSize = 256;
     //number of blocks (in a grid) (one per option)
     int numBlocks = trades.size(); 
+    size_t shmem    = 2 * blockSize * sizeof(double);
 
     std::vector<OptionGPU> gpuTrades(trades.size());
     for (size_t i=0; i<trades.size(); ++i) {
@@ -132,10 +154,10 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
     cudaMemcpy(d_trades, gpuTrades.data(),gpuTrades.size()*sizeof(OptionGPU),cudaMemcpyHostToDevice);
 
     //allocate memory on GPU for results of each simulation 
-    double *trades_results;
-    cudaMallocManaged(&trades_results, trades.size() * sizeof(double));
+    optionPrices *trades_results;
+    cudaMallocManaged(&trades_results, trades.size() * sizeof(optionPrices));
     
-    monte_carlo_simulation <<<numBlocks, blockSize>>> (d_trades, trades_results, options.num_simulations,  /*seed=*/1234ULL);
+    monte_carlo_simulation <<<numBlocks, blockSize, shmem>>> (d_trades, trades_results, options.num_simulations,  /*seed=*/1234ULL);
 
 
     cudaDeviceSynchronize(); 
@@ -146,9 +168,11 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
         std::cout << "Option " << i+1 << ": " << "S: " << opt.S << ", X: " << opt.X << ", Expiration date: " << 
         opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n";
 
-        double analytical = calc_option_price(opt);
+        optionPrices eu_bs = calc_call(opt);
 
-        std::cout << "  Analytical: " << analytical << " | Monte Carlo: " << trades_results[i] << "\n\n";
+        std::cout << " Analytical call price: " << eu_bs.call_price << " | Monte Carlo call price: " << trades_results[i].call_price << "\n";
+        std::cout << " Analytical put price: " << eu_bs.put_price << " | Monte Carlo put price: " << trades_results[i].put_price << "\n\n";
+
     }
 
     cudaFree(d_trades);

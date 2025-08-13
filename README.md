@@ -1,32 +1,41 @@
-High Performance Computing European option pricer 
+# High Performance Computing: European Option Pricer (CUDA branch)
 
-This program takes in real time data to calculate the option price of a stock. Paramters include S(stock price), X(strike price), T(time to expiration of the option), r(risk-free rate), and sigma (volatility of the stock) 
+## 🧪 Usage
 
-Data: 
-S, X, T and sigma are taken live as soon as you run from the program from Tradier API.
-r is pulled live from the current 3 month treasury bill rate from FRED API.
-The option price is only presumably accurate for a T that is less than 3 months since r is pulled from the 3 month treasurey bill.
-If t happened to be 6 months or 1 year, r would change as the best risk-free-rate would accordingly change depending on the amount of time you have.
+.pricer.exe TICKER NUM_SIMULATIONS
 
-Usage:
-./pricer TICKER THREADS NUM_SIMULATIONS
+- `TICKER`: Stock symbol (e.g., AAPL)
+- `NUM_SIMULATIONS`: Number of Monte Carlo paths to generate
 
-Ticker is the symbol for the stock. e.x. (AAPL)
+💡 Currently, the simulations are parallelized per option, not per stock. So the performance benefits scale better with fewer options and more simulations.  
+Example:  
+- ✅ 20 options × 10M simulations → Good parallelism  
+- ❌ 5000 options × 100 simulations → Poor GPU/CPU utilization
 
-THREADS is an integer representing how many threads you want to run the program. Currently, the threads are parallelizing the number of simulations, and not optimized for a large amount of options. For example, for a stock with 5000 options but only 100 simulations versus a stock with 20 options and 10M simulations, the latter would be more optimized. 
+---
 
-NUM_SIMULATIONS is an integer representing the amount of simulations/paths the stock can take. In my monte carlo simulation, I take the average of the payoffs over number of simulations. 
+## ⚙️ Project Structure
 
+There are two branches:
 
-Future Plans:
-I plan on coding the program with CUDA to use GPU acceleration and comparison with OpenMP (CPU acceleration)
-Right now, this is based on a European call option pricer, but I plan on expanding to different options such as American and Asian.
+- `main` — CPU version using OpenMP  
+- `cuda_port` — GPU version using CUDA  
 
+Each branch contains the same interface and functionality, but leverages different hardware acceleration models for comparison and performance benchmarking.
 
-Links for the API I am using.
-https://documentation.tradier.com/brokerage-api/markets/get-options-chains
-https://documentation.tradier.com/brokerage-api/markets/get-quotes
-https://fred.stlouisfed.org/docs/api/fred/
+---
 
+## 📦 APIs Used
 
+- Tradier API - Options Chain: https://documentation.tradier.com/brokerage-api/markets/get-options-chains  
+- Tradier API - Stock Quotes: https://documentation.tradier.com/brokerage-api/markets/get-quotes  
+- FRED API - 3-Month Treasury Bill Rate: https://fred.stlouisfed.org/docs/api/fred/
 
+---
+
+## 🚀 Future Plans
+
+- Expand GPU acceleration (CUDA) to support US Monte Carlo Sim
+- Add visualization and performance benchmarks comparing OpenMP and CUDA performance
+
+---
