@@ -1,0 +1,243 @@
+Risk-free rate used (DGS3MO): 0.043
+
+Option 1: S: 231.59, X: 110, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 2.80452
+ Analytical call price: 121.967 | Monte Carlo call price: 121.997
+ Analytical put price: 0.304616 | Monte Carlo put price: 0.31145
+
+Option 2: S: 231.59, X: 120, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 2.3546
+ Analytical call price: 111.863 | Monte Carlo call price: 111.881
+ Analytical put price: 0.194767 | Monte Carlo put price: 0.196246
+
+Option 3: S: 231.59, X: 125, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 2.39382
+ Analytical call price: 107.003 | Monte Carlo call price: 107.021
+ Analytical put price: 0.331627 | Monte Carlo put price: 0.336934
+
+Option 4: S: 231.59, X: 130, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 2.19657
+ Analytical call price: 101.951 | Monte Carlo call price: 101.938
+ Analytical put price: 0.27586 | Monte Carlo put price: 0.28078
+
+Option 5: S: 231.59, X: 135, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 2.12443
+ Analytical call price: 97.0098 | Monte Carlo call price: 97.0194
+ Analytical put price: 0.331393 | Monte Carlo put price: 0.33791
+
+Option 6: S: 231.59, X: 140, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.8772
+ Analytical call price: 91.899 | Monte Carlo call price: 91.8874
+ Analytical put price: 0.217311 | Monte Carlo put price: 0.220233
+
+Option 7: S: 231.59, X: 145, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.84742
+ Analytical call price: 86.9877 | Monte Carlo call price: 86.9946
+ Analytical put price: 0.302761 | Monte Carlo put price: 0.308426
+
+Option 8: S: 231.59, X: 150, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.75442
+ Analytical call price: 82.021 | Monte Carlo call price: 81.9766
+ Analytical put price: 0.332783 | Monte Carlo put price: 0.338565
+
+Option 9: S: 231.59, X: 155, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.63748
+ Analytical call price: 77.0237 | Monte Carlo call price: 76.9643
+ Analytical put price: 0.332235 | Monte Carlo put price: 0.338161
+
+Option 10: S: 231.59, X: 160, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.50244
+ Analytical call price: 71.9984 | Monte Carlo call price: 71.9354
+ Analytical put price: 0.303625 | Monte Carlo put price: 0.309619
+
+Option 11: S: 231.59, X: 165, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.41484
+ Analytical call price: 67.032 | Monte Carlo call price: 66.9407
+ Analytical put price: 0.333974 | Monte Carlo put price: 0.341522
+
+Option 12: S: 231.59, X: 170, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.30869
+ Analytical call price: 62.0381 | Monte Carlo call price: 61.9398
+ Analytical put price: 0.336766 | Monte Carlo put price: 0.344595
+
+Option 13: S: 231.59, X: 175, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.22174
+ Analytical call price: 57.0732 | Monte Carlo call price: 56.9552
+ Analytical put price: 0.368632 | Monte Carlo put price: 0.378314
+
+Option 14: S: 231.59, X: 180, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.12451
+ Analytical call price: 52.091 | Monte Carlo call price: 51.973
+ Analytical put price: 0.383107 | Monte Carlo put price: 0.392884
+
+Option 15: S: 231.59, X: 182.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.10322
+ Analytical call price: 49.6563 | Monte Carlo call price: 49.5178
+ Analytical put price: 0.446788 | Monte Carlo put price: 0.45828
+
+Option 16: S: 231.59, X: 185, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.892986
+ Analytical call price: 46.8828 | Monte Carlo call price: 46.8198
+ Analytical put price: 0.171707 | Monte Carlo put price: 0.174235
+
+Option 17: S: 231.59, X: 187.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 1.00025
+ Analytical call price: 44.6642 | Monte Carlo call price: 44.5127
+ Analytical put price: 0.451449 | Monte Carlo put price: 0.462619
+
+Option 18: S: 231.59, X: 190, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.949785
+ Analytical call price: 42.1696 | Monte Carlo call price: 42.0411
+ Analytical put price: 0.455178 | Monte Carlo put price: 0.466115
+
+Option 19: S: 231.59, X: 192.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.91143
+ Analytical call price: 39.7061 | Monte Carlo call price: 39.5721
+ Analytical put price: 0.490078 | Monte Carlo put price: 0.501257
+
+Option 20: S: 231.59, X: 195, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.860376
+ Analytical call price: 37.2104 | Monte Carlo call price: 37.0655
+ Analytical put price: 0.492731 | Monte Carlo put price: 0.503952
+
+Option 21: S: 231.59, X: 197.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.809963
+ Analytical call price: 34.7161 | Monte Carlo call price: 34.5766
+ Analytical put price: 0.496824 | Monte Carlo put price: 0.508094
+
+Option 22: S: 231.59, X: 200, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.58253
+ Analytical call price: 31.8359 | Monte Carlo call price: 31.7652
+ Analytical put price: 0.11499 | Monte Carlo put price: 0.117299
+
+Option 23: S: 231.59, X: 202.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.637607
+ Analytical call price: 29.5233 | Monte Carlo call price: 29.4025
+ Analytical put price: 0.300771 | Monte Carlo put price: 0.309087
+
+Option 24: S: 231.59, X: 205, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.550162
+ Analytical call price: 26.9321 | Monte Carlo call price: 26.8189
+ Analytical put price: 0.207922 | Monte Carlo put price: 0.213252
+
+Option 25: S: 231.59, X: 207.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.598238
+ Analytical call price: 24.7035 | Monte Carlo call price: 24.5776
+ Analytical put price: 0.477631 | Monte Carlo put price: 0.489363
+
+Option 26: S: 231.59, X: 210, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.446434
+ Analytical call price: 21.9061 | Monte Carlo call price: 21.7988
+ Analytical put price: 0.178603 | Monte Carlo put price: 0.183561
+
+Option 27: S: 231.59, X: 212.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.402346
+ Analytical call price: 19.4091 | Monte Carlo call price: 19.3148
+ Analytical put price: 0.179963 | Monte Carlo put price: 0.185403
+
+Option 28: S: 231.59, X: 215, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.382273
+ Analytical call price: 16.9814 | Monte Carlo call price: 16.8777
+ Analytical put price: 0.250689 | Monte Carlo put price: 0.256795
+
+Option 29: S: 231.59, X: 217.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.316755
+ Analytical call price: 14.4257 | Monte Carlo call price: 14.325
+ Analytical put price: 0.193259 | Monte Carlo put price: 0.198287
+
+Option 30: S: 231.59, X: 220, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.310931
+ Analytical call price: 12.0843 | Monte Carlo call price: 11.9999
+ Analytical put price: 0.350235 | Monte Carlo put price: 0.360984
+
+Option 31: S: 231.59, X: 222.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.295332
+ Analytical call price: 9.7848 | Monte Carlo call price: 9.7124
+ Analytical put price: 0.549127 | Monte Carlo put price: 0.564342
+
+Option 32: S: 231.59, X: 225, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.276213
+ Analytical call price: 7.56822 | Monte Carlo call price: 7.52102
+ Analytical put price: 0.830915 | Monte Carlo put price: 0.849423
+
+Option 33: S: 231.59, X: 227.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.266995
+ Analytical call price: 5.59773 | Monte Carlo call price: 5.56842
+ Analytical put price: 1.35879 | Monte Carlo put price: 1.37748
+
+Option 34: S: 231.59, X: 230, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.25723
+ Analytical call price: 3.87423 | Monte Carlo call price: 3.85582
+ Analytical put price: 2.13365 | Monte Carlo put price: 2.14994
+
+Option 35: S: 231.59, X: 232.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.249375
+ Analytical call price: 2.48509 | Monte Carlo call price: 2.47641
+ Analytical put price: 3.24287 | Monte Carlo put price: 3.24733
+
+Option 36: S: 231.59, X: 235, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.245082
+ Analytical call price: 1.4805 | Monte Carlo call price: 1.47336
+ Analytical put price: 4.73665 | Monte Carlo put price: 4.72548
+
+Option 37: S: 231.59, X: 237.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.243188
+ Analytical call price: 0.819548 | Monte Carlo call price: 0.818989
+ Analytical put price: 6.57406 | Monte Carlo put price: 6.57168
+
+Option 38: S: 231.59, X: 240, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.244964
+ Analytical call price: 0.435153 | Monte Carlo call price: 0.434307
+ Analytical put price: 8.68803 | Monte Carlo put price: 8.71058
+
+Option 39: S: 231.59, X: 242.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.251577
+ Analytical call price: 0.235141 | Monte Carlo call price: 0.233748
+ Analytical put price: 10.9864 | Monte Carlo put price: 11.0273
+
+Option 40: S: 231.59, X: 245, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.259047
+ Analytical call price: 0.126119 | Monte Carlo call price: 0.124918
+ Analytical put price: 13.3757 | Monte Carlo put price: 13.4466
+
+Option 41: S: 231.59, X: 247.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.269387
+ Analytical call price: 0.0714817 | Monte Carlo call price: 0.0703367
+ Analytical put price: 15.8194 | Monte Carlo put price: 15.9163
+
+Option 42: S: 231.59, X: 250, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.279654
+ Analytical call price: 0.0408683 | Monte Carlo call price: 0.0398229
+ Analytical put price: 18.2872 | Monte Carlo put price: 18.4066
+
+Option 43: S: 231.59, X: 252.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.291501
+ Analytical call price: 0.0247709 | Monte Carlo call price: 0.0237994
+ Analytical put price: 20.7695 | Monte Carlo put price: 20.904
+
+Option 44: S: 231.59, X: 255, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.311222
+ Analytical call price: 0.0192801 | Monte Carlo call price: 0.0183248
+ Analytical put price: 23.2623 | Monte Carlo put price: 23.4045
+
+Option 45: S: 231.59, X: 257.5, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.327352
+ Analytical call price: 0.014032 | Monte Carlo call price: 0.0135164
+ Analytical put price: 25.7554 | Monte Carlo put price: 25.9052
+
+Option 46: S: 231.59, X: 260, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.338992
+ Analytical call price: 0.00921892 | Monte Carlo call price: 0.00874468
+ Analytical put price: 28.249 | Monte Carlo put price: 28.4044
+
+Option 47: S: 231.59, X: 265, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.365718
+ Analytical call price: 0.00472453 | Monte Carlo call price: 0.00443223
+ Analytical put price: 33.2412 | Monte Carlo put price: 33.4052
+
+Option 48: S: 231.59, X: 270, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.411028
+ Analytical call price: 0.004639 | Monte Carlo call price: 0.00462394
+ Analytical put price: 38.2379 | Monte Carlo put price: 38.4048
+
+Option 49: S: 231.59, X: 275, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.454392
+ Analytical call price: 0.00449245 | Monte Carlo call price: 0.00459882
+ Analytical put price: 43.2345 | Monte Carlo put price: 43.4077
+
+Option 50: S: 231.59, X: 280, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.478339
+ Analytical call price: 0.00273736 | Monte Carlo call price: 0.0027818
+ Analytical put price: 48.2294 | Monte Carlo put price: 48.4058
+
+Option 51: S: 231.59, X: 285, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.518774
+ Analytical call price: 0.00271146 | Monte Carlo call price: 0.00276414
+ Analytical put price: 53.2261 | Monte Carlo put price: 53.4066
+
+Option 52: S: 231.59, X: 290, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.557364
+ Analytical call price: 0.00263434 | Monte Carlo call price: 0.00259175
+ Analytical put price: 58.2228 | Monte Carlo put price: 58.4063
+
+Option 53: S: 231.59, X: 295, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.595278
+ Analytical call price: 0.0025816 | Monte Carlo call price: 0.00269861
+ Analytical put price: 63.2194 | Monte Carlo put price: 63.405
+
+Option 54: S: 231.59, X: 300, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.632542
+ Analytical call price: 0.00254689 | Monte Carlo call price: 0.00261356
+ Analytical put price: 68.2161 | Monte Carlo put price: 68.4045
+
+Option 55: S: 231.59, X: 305, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.669182
+ Analytical call price: 0.00252596 | Monte Carlo call price: 0.00264347
+ Analytical put price: 73.2128 | Monte Carlo put price: 73.4124
+
+Option 56: S: 231.59, X: 310, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.705219
+ Analytical call price: 0.00251565 | Monte Carlo call price: 0.0025535
+ Analytical put price: 78.2096 | Monte Carlo put price: 78.4108
+
+Option 57: S: 231.59, X: 315, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.740675
+ Analytical call price: 0.00251379 | Monte Carlo call price: 0.00269204
+ Analytical put price: 83.2063 | Monte Carlo put price: 83.4099
+
+Option 58: S: 231.59, X: 320, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.774603
+ Analytical call price: 0.002475 | Monte Carlo call price: 0.00262195
+ Analytical put price: 88.203 | Monte Carlo put price: 88.4051
+
+Option 59: S: 231.59, X: 325, Expiration date: 2025-08-22, T: 0.0152305, r: 0.043, sigma: 0.807917
+ Analytical call price: 0.00244209 | Monte Carlo call price: 0.00284172
+ Analytical put price: 93.1997 | Monte Carlo put price: 93.4122
+
+Simulation Summary
+------------------
+Contracts processed: 59 options in 1.36936 seconds 
+Paths per contract: 100000
+Throughput: 73026.7 paths/second
