@@ -38,6 +38,20 @@ double phi(double x) {
     return 0.5 * std::erfc(-x/std::sqrt(2.0));
 }
 
+#define CUDA_CHECK(expr) do { \
+  cudaError_t _e = (expr); \
+  if (_e != cudaSuccess) { \
+    fprintf(stderr, "CUDA %s:%d: %s\n", __FILE__, __LINE__, cudaGetErrorString(_e)); \
+    std::abort(); \
+  } \
+} while(0)
+
+#define KERNEL_OK() do { \
+  CUDA_CHECK(cudaPeekAtLastError()); \
+  CUDA_CHECK(cudaDeviceSynchronize()); \
+} while(0)
+
+
 //calculate option price using Black-Scholes formula
 optionPrices calc_call(const optionParams& params) {
 
@@ -124,7 +138,7 @@ __global__ void gen_paths(OptionGPU p, int N, int M, unsigned long long seed, do
     curand_init(seed, i, 0, &state);
     const double dt    = p.T / M;
     const double drift = (p.r - 0.5 * p.sigma * p.sigma) * dt;
-        const double vol   = p.sigma * sqrt(dt);
+    const double vol   = p.sigma * sqrt(dt);
     double St = p.S;
     Sgrid[0ull * N + i] = St;            // t=0
 
@@ -148,7 +162,7 @@ __global__ void terminal_payoffs(const double* __restrict__ S_T,double X, int N,
 
 // BEGINNING OF STEP 3: Backward induction to calculate option price
 
-//finding in the money paths at time t for call
+//creating regression statistics 
 __global__ void masked_stats_call(const double* __restrict__ S_t, const double* __restrict__ cf,  double K, int N, double disc, double* __restrict__ stats)      // 8 doubles (initialized to 0 before launch)
 {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
@@ -158,7 +172,6 @@ __global__ void masked_stats_call(const double* __restrict__ S_t, const double* 
     if (X > K) {
         double Y  = disc * cf[i];
         double X2 = X * X;
-        // atomics on doubles require cc>=6; OK on modern GPUs
         atomicAdd(&stats[0], 1.0);
         atomicAdd(&stats[1], X);
         atomicAdd(&stats[2], X2);
@@ -170,7 +183,7 @@ __global__ void masked_stats_call(const double* __restrict__ S_t, const double* 
     }
 }
 
-//finding in the money paths at time t for call
+//creating regression statistics 
 __global__ void masked_stats_put( const double* __restrict__ S_t,const double* __restrict__ cf,   double K, int N, double disc, double* __restrict__ stats)      // 8 doubles (initialized to 0 before launch)
 {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
@@ -208,8 +221,8 @@ __global__ void solve_beta_from_stats( const double* __restrict__ stats, double*
     }
 
     // Build normal equations G * beta = h, where G = A^T A, h = A^T b
-    double G00 = n,   G01 = S1,  G02 = S2;
-    double G10 = S1,  G11 = S2,  G12 = S3;
+    double G00 = n;
+    double G10 = S1,  G11 = S2;
     double G20 = S2,  G21 = S3,  G22 = S4;
 
     double h0 = T0, h1 = T1, h2 = T2;
@@ -217,6 +230,8 @@ __global__ void solve_beta_from_stats( const double* __restrict__ stats, double*
     // Cholesky factorization G = L * L^T (3x3)
     // L lower-triangular: [l00 0   0; l10 l11 0; l20 l21 l22]
     auto safe_sqrt = [](double x)->double { return (x > 0.0 ? sqrt(x) : 0.0); };
+    // __device__ inline double safe_sqrt_d(double x) { return x > 0.0 ? sqrt(x) : 0.0; }
+
 
     double l00 = safe_sqrt(G00);
     if (l00 <= 0.0) { *has_beta = 0; beta[0]=beta[1]=beta[2]=0.0; return; }
@@ -303,9 +318,9 @@ optionPrices us_mc_cuda_lsm(const optionParams& P, const config& C, int M)
 
     // device buffers
     double *all_paths = nullptr, *d_cf_call = nullptr, *d_cf_put = nullptr;
-    cudaMalloc(&all_paths,  (size_t)(M + 1) * N * sizeof(double));
-    cudaMalloc(&d_cf_call, N * sizeof(double));
-    cudaMalloc(&d_cf_put,  N * sizeof(double));
+    CUDA_CHECK(cudaMalloc(&all_paths,  (size_t)(M + 1) * N * sizeof(double)));
+    CUDA_CHECK(cudaMalloc(&d_cf_call, N * sizeof(double)));
+    CUDA_CHECK(cudaMalloc(&d_cf_put,  N * sizeof(double)));
 
     // launch config
     const int block = 256;
@@ -313,46 +328,53 @@ optionPrices us_mc_cuda_lsm(const optionParams& P, const config& C, int M)
 
     // Path generation
     gen_paths<<<grid, block>>>(OptionGPU{P.S, P.X, P.T, P.r, P.sigma}, N, M, /*seed=*/1234ULL, all_paths);
+    KERNEL_OK();  
 
     // Terminal payoffs (t = M)
     const double* d_S_T = all_paths + (size_t)M * N;
     terminal_payoffs<<<grid, block>>>(d_S_T, P.X, N, d_cf_call, d_cf_put);
+    KERNEL_OK();  
 
     // scratch for stats/beta per side
     double *d_stats_call=nullptr, *d_stats_put=nullptr, *d_beta_call=nullptr, *d_beta_put=nullptr;
     int *d_has_beta_call=nullptr, *d_has_beta_put=nullptr;
-    cudaMalloc(&d_stats_call, 8*sizeof(double));
-    cudaMalloc(&d_stats_put,  8*sizeof(double));
-    cudaMalloc(&d_beta_call,  3*sizeof(double));
-    cudaMalloc(&d_beta_put,   3*sizeof(double));
-    cudaMalloc(&d_has_beta_call, sizeof(int));
-    cudaMalloc(&d_has_beta_put,  sizeof(int));
+    CUDA_CHECK(cudaMalloc(&d_stats_call, 8*sizeof(double)));
+    CUDA_CHECK(cudaMalloc(&d_stats_put,  8*sizeof(double)));
+    CUDA_CHECK(cudaMalloc(&d_beta_call,  3*sizeof(double)));
+    CUDA_CHECK(cudaMalloc(&d_beta_put,   3*sizeof(double)));
+    CUDA_CHECK(cudaMalloc(&d_has_beta_call, sizeof(int)));
+    CUDA_CHECK(cudaMalloc(&d_has_beta_put,  sizeof(int)));
 
     //  Backward induction t = M-1 .. 1
     for (int t = M-1; t >= 1; --t) {
         const double* d_S_t = all_paths + (size_t)t * N;
 
         // ---- CALL ----
-        cudaMemset(d_stats_call, 0, 8*sizeof(double));
+        CUDA_CHECK(cudaMemset(d_stats_call, 0, 8*sizeof(double)));
         masked_stats_call<<<grid, block>>>(d_S_t, d_cf_call, P.X, N, disc, d_stats_call);
+        KERNEL_OK();
         solve_beta_from_stats<<<1,1>>>(d_stats_call, d_beta_call, d_has_beta_call);
+        KERNEL_OK();
         update_cf_call<<<grid, block>>>(d_S_t, P.X, N, disc, d_beta_call, d_has_beta_call, d_cf_call);
+        KERNEL_OK();
 
         // ---- PUT ----
-        cudaMemset(d_stats_put, 0, 8*sizeof(double));
+        CUDA_CHECK(cudaMemset(d_stats_put, 0, 8*sizeof(double)));
         masked_stats_put<<<grid, block>>>(d_S_t, d_cf_put, P.X, N, disc, d_stats_put);
+        KERNEL_OK();
         solve_beta_from_stats<<<1,1>>>(d_stats_put, d_beta_put, d_has_beta_put);
+        KERNEL_OK();
         update_cf_put<<<grid, block>>>(d_S_t, P.X, N, disc, d_beta_put, d_has_beta_put, d_cf_put);
+        KERNEL_OK();
     }
 
     //  Average discounted cash flows at t=0
     std::vector<double> h_call(N), h_put(N);
-    cudaMemcpy(h_call.data(), d_cf_call, N*sizeof(double), cudaMemcpyDeviceToHost);
-    cudaMemcpy(h_put.data(),  d_cf_put,  N*sizeof(double), cudaMemcpyDeviceToHost);
+    CUDA_CHECK(cudaMemcpy(h_call.data(), d_cf_call, N*sizeof(double), cudaMemcpyDeviceToHost));
+    CUDA_CHECK(cudaMemcpy(h_put.data(),  d_cf_put,  N*sizeof(double), cudaMemcpyDeviceToHost));
 
     double sum_c = 0.0, sum_p = 0.0;
-    for (int i = 0; i < N; ++i) 
-    { 
+    for (int i = 0; i < N; ++i) { 
         sum_c += h_call[i]; 
         sum_p += h_put[i];
     }
@@ -501,7 +523,7 @@ int main(int argc, char *argv[]) {
      << "------------------\n" 
      << "Contracts processed: " << trades.size() << " options in " << seconds << " seconds \n"
     << "Paths per contract: " << options.num_simulations << "\n"
-    << "Time steps (for US) : " << time_steps << "\n"
+    << "Time steps (for US) : " << TIME_STEPS << "\n"
     << "Throughput: " << throughput << " paths/second\n";
 
 

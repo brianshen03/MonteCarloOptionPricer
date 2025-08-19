@@ -1,41 +1,22 @@
-# High Performance Computing: European Option Pricer (CUDA branch)
+# CUDA Branch
+
+## 📈 Overview
+
+This branch runs the same pricing logic as the OpenMP version (European via Monte Carlo; American via Longstaff–Schwartz), but executes the simulations on an NVIDIA GPU using CUDA kernels.
+
+- Monte Carlo path simulation and LSM regression steps are executed on the GPU.
+- The OpenMP `THREADS` argument is **not used** here.
+- Default **threads-per-block (TPB)** is **256**; the grid size is computed from `NUM_SIMULATIONS`.
+- Note you need a **NVIDIA GPU with CUDA support** (desktop/laptop or cloud instance) to run this 
+
+---
 
 ## 🧪 Usage
 
-.pricer.exe TICKER NUM_SIMULATIONS
+```bash
+.pricer.exe --symbol TICKER --paths NUM_SIMULATIONS
+```
 
+Parameters:
 - `TICKER`: Stock symbol (e.g., AAPL)
 - `NUM_SIMULATIONS`: Number of Monte Carlo paths to generate
-
-💡 Currently, the simulations are parallelized per option, not per stock. So the performance benefits scale better with fewer options and more simulations.  
-Example:  
-- ✅ 20 options × 10M simulations → Good parallelism  
-- ❌ 5000 options × 100 simulations → Poor GPU/CPU utilization
-
----
-
-## ⚙️ Project Structure
-
-There are two branches:
-
-- `main` — CPU version using OpenMP  
-- `cuda_port` — GPU version using CUDA  
-
-Each branch contains the same interface and functionality, but leverages different hardware acceleration models for comparison and performance benchmarking.
-
----
-
-## 📦 APIs Used
-
-- Tradier API - Options Chain: https://documentation.tradier.com/brokerage-api/markets/get-options-chains  
-- Tradier API - Stock Quotes: https://documentation.tradier.com/brokerage-api/markets/get-quotes  
-- FRED API - 3-Month Treasury Bill Rate: https://fred.stlouisfed.org/docs/api/fred/
-
----
-
-## 🚀 Future Plans
-
-- Expand GPU acceleration (CUDA) to support US Monte Carlo Sim
-- Add visualization and performance benchmarks comparing OpenMP and CUDA performance
-
----
