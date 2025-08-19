@@ -35,6 +35,8 @@ double phi(double x) {
     return 0.5 * std::erfc(-x/std::sqrt(2.0));
 }
 
+
+
 //calculate option price using Black-Scholes formula
 optionPrices calc_call(const optionParams& params) {
 
@@ -92,6 +94,7 @@ optionPrices eu_mc_sim(const optionParams& params, const config& config) {
     optionPrices price = {call_price, put_price};
     return price;
 }
+
        
 //helper func to perform polynomial regression
 Eigen::VectorXd perform_regression(const std::vector<double>& X, const std::vector<double>& Y) {
@@ -296,17 +299,18 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
             opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n\n";
 
             optionPrices eu_bs = calc_call(opt);
-            // optionPrices eu_mc = eu_mc_sim(opt, options);
+            
+            optionPrices eu_mc = eu_mc_sim(opt, options);
 
-            optionPrices us_mc = us_mc_sim(opt, options, TIME_STEPS);
+            // optionPrices us_mc = us_mc_sim(opt, options, TIME_STEPS);
 
             std::cout << " Analytical call price: " << eu_bs.call_price << "\n";
             std::cout << " Analytical put price: " << eu_bs.put_price << "\n";
-            // std::cout << " European Monte Carlo call price: " << eu_mc.call_price << "\n";
-            // std::cout << "European Monte Carlo put price: " << eu_mc.put_price << "\n";
+            std::cout << " European Monte Carlo call price: " << eu_mc.call_price << "\n";
+            std::cout << "European Monte Carlo put price: " << eu_mc.put_price << "\n";
 
-            std::cout << " American Monte Carlo call price: " << us_mc.call_price << "\n";
-            std::cout << "American Monte Carlo put price: " << us_mc.put_price << "\n";
+            // std::cout << " American Monte Carlo call price: " << us_mc.call_price << "\n";
+            // std::cout << "American Monte Carlo put price: " << us_mc.put_price << "\n";
 
             std::cout << "----------------------------------------\n";
     }
@@ -376,7 +380,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Simulation Summary\n"
      << "------------------\n" 
      << "Contracts processed: " << trades.size() << " options in " << seconds << " seconds \n"
-    << "Paths per contract: " << options.num_simulations << "\n"
+    << "Total paths: " << options.num_simulations << "\n"
     << "Threads used: " << options.thread_count << "\n"
     << "Throughput: " << throughput << " paths/second\n";
 
