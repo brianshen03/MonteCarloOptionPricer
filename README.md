@@ -4,7 +4,7 @@ This project implements a high-performance Monte Carlo simulation engine to pric
 
 ## 📈 Overview
 
-The program calculates the fair price of a European call option based on:
+The program calculates the fair price of a European and American call and put option based on:
 - `S`: Stock price (live from Tradier API)
 - `X`: Strike price (live from Tradier API)
 - `T`: Time to expiration (in years)

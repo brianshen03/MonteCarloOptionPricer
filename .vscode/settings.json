@@ -77,5 +77,6 @@
         "*.expression": "cpp",
         "alignedvector3": "cpp",
         "fft": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "/Users/brianshen/VS Code/C++ Programming/Summer'25/MonteCarloSim/include/eigen-3.4.0/blas/testing"
 }

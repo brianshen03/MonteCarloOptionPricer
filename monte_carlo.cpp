@@ -35,8 +35,6 @@ double phi(double x) {
     return 0.5 * std::erfc(-x/std::sqrt(2.0));
 }
 
-
-
 //calculate option price using Black-Scholes formula
 optionPrices calc_call(const optionParams& params) {
 
@@ -95,7 +93,6 @@ optionPrices eu_mc_sim(const optionParams& params, const config& config) {
     return price;
 }
 
-       
 //helper func to perform polynomial regression
 Eigen::VectorXd perform_regression(const std::vector<double>& X, const std::vector<double>& Y) {
     std::vector<double> X_sub = X, Y_sub = Y;
@@ -174,7 +171,7 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
     const double disc = std::exp(-params.r * dt);
 
     //  Eigen::setNbThreads(1); 
-    std::cout << "Eigen threads: " << Eigen::nbThreads() << "\n";
+    // std::cout << "Eigen threads: " << Eigen::nbThreads() << "\n";
 
     for (int t = M - 1; t >= 1; --t) {
 
@@ -257,14 +254,14 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
     double put_price = put_sum / config.num_simulations;
 
     auto t4 = std::chrono::steady_clock::now();
-    std::cout << "Total regression time for call: " << total_regression_time_call_ms << " ms\n";
-    std::cout << "Total regression time for put: " << total_regression_time_put_ms << " ms\n\n";
+    // std::cout << "Total regression time for call: " << total_regression_time_call_ms << " ms\n";
+    // std::cout << "Total regression time for put: " << total_regression_time_put_ms << " ms\n\n";
 
-    std::cout << "Time taken for each step:\n\n"
-              << "Path generation: " << std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count() << " ms\n"
-              << "Cash flow calculation: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count() << " ms\n"
-              << "Backward induction: " << std::chrono::duration_cast<std::chrono::milliseconds>(t3 - t2).count() << " ms\n"
-              << "Final averaging: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4 - t3).count() << " ms\n\n";
+    // std::cout << "Time taken for each step:\n\n"
+    //           << "Path generation: " << std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count() << " ms\n"
+    //           << "Cash flow calculation: " << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count() << " ms\n"
+    //           << "Backward induction: " << std::chrono::duration_cast<std::chrono::milliseconds>(t3 - t2).count() << " ms\n"
+    //           << "Final averaging: " << std::chrono::duration_cast<std::chrono::milliseconds>(t4 - t3).count() << " ms\n\n";
 
     optionPrices price = {call_price, put_price};
     return price;
@@ -291,7 +288,59 @@ std::vector<optionParams> load_csv(const std::string& filename) {
     return trades;
 }
 
-static void run_pricer(const std::vector<optionParams>&trades, const config& options) {
+static void run_eu_pricer(const std::vector<optionParams>& trades, const config& options) {
+
+    //for normal sized option prices ($5, $10), relative tolerance of 2% is reasonable
+    //for small option prices ($0.05, $0.10), absolute tolerance is within 2 cents of black schole price
+
+    const double rel_tol = 0.02;   
+    const double eps     = 1e-12;  // guard for zero BS
+    const double abs_tol_call = 0.02;
+    const double abs_tol_put  = 0.02;
+
+    int pass_call = 0;
+    int pass_put  = 0;
+
+    for (size_t i = 0; i < trades.size(); ++i) {
+        const auto& opt = trades[i];
+        std::cout << "Option " << i+1 << ": " << "S: " << opt.S << ", X: " << opt.X << ", Expiration date: " << 
+        opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n\n";
+
+        optionPrices eu_bs = calc_call(opt);
+        optionPrices eu_mc = eu_mc_sim(opt, options);
+
+
+        std::cout << " BS call price: " << eu_bs.call_price << " | European Monte Carlo call price: " << eu_mc.call_price;
+        double abs_err_call = std::abs(eu_bs.call_price - eu_mc.call_price);
+        double rel_err_call = abs_err_call / std::max(std::abs(eu_bs.call_price), eps);
+
+        if (rel_err_call <= rel_tol || abs_err_call <= abs_tol_call) {
+            ++pass_call;
+            std::cout << "  ✅ within tol\n";
+        } else {
+            std::cout << "  ❌ outside tol\n";
+        }
+
+        std::cout << " BS put price: " << eu_bs.put_price << " | European Monte Carlo put price: " << eu_mc.put_price;
+        double abs_err_put  = std::abs(eu_bs.put_price  - eu_mc.put_price);
+        double rel_err_put  = abs_err_put  / std::max(std::abs(eu_bs.put_price),  eps);
+
+        if (rel_err_put <= rel_tol || abs_err_put <= abs_tol_put) {
+            ++pass_put;
+            std::cout << "  ✅ within tol\n\n";
+        } else {
+            std::cout << "  ❌ outside tol\n\n";
+        }
+
+        std::cout << "----------------------------------------\n";
+    }
+
+    std::cout << pass_call << " call prices passed out of " << trades.size() << "\n";
+    std::cout << pass_put  << " put prices passed out of " << trades.size() << "\n";
+}
+
+
+static void run_us_pricer(const std::vector<optionParams>&trades, const config& options) {
 
         for (size_t i = 0; i < trades.size(); ++i) {
             const auto& opt = trades[i];
@@ -299,18 +348,14 @@ static void run_pricer(const std::vector<optionParams>&trades, const config& opt
             opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n\n";
 
             optionPrices eu_bs = calc_call(opt);
-            
-            optionPrices eu_mc = eu_mc_sim(opt, options);
-
-            // optionPrices us_mc = us_mc_sim(opt, options, TIME_STEPS);
+            optionPrices us_mc = us_mc_sim(opt, options, TIME_STEPS);
 
             std::cout << " Analytical call price: " << eu_bs.call_price << "\n";
             std::cout << " Analytical put price: " << eu_bs.put_price << "\n";
-            std::cout << " European Monte Carlo call price: " << eu_mc.call_price << "\n";
-            std::cout << "European Monte Carlo put price: " << eu_mc.put_price << "\n";
 
-            // std::cout << " American Monte Carlo call price: " << us_mc.call_price << "\n";
-            // std::cout << "American Monte Carlo put price: " << us_mc.put_price << "\n";
+
+            std::cout << " American Monte Carlo call price: " << us_mc.call_price << "\n";
+            std::cout << "American Monte Carlo put price: " << us_mc.put_price << "\n";
 
             std::cout << "----------------------------------------\n";
     }
@@ -366,7 +411,8 @@ int main(int argc, char *argv[]) {
     }
 
     auto start = std::chrono::steady_clock::now();
-    run_pricer(trades, options);
+    run_eu_pricer(trades, options);
+    // run_us_pricer(trades, options);
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed = stop - start;   
 
