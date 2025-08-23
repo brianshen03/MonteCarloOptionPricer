@@ -1,0 +1,50 @@
+Risk-free rate used (DGS3MO): 0.043
+
+Option 1: S: 100, X: 150, Expiration date: , T: 0.5, r: 0.06, sigma: 0.28
+
+ BS call price: 0.265543 | BS put price: 45.8324
+ Cox-Ross-Rubinstein call price: 0.26533 | American Monte Carlo call price: 0.270072
+ Cox-Ross-Rubinstein put price: 50 | American Monte Carlo put price: 49.1543
+
+----------------------------------------
+Option 2: S: 100, X: 180, Expiration date: , T: 0.6, r: 0.06, sigma: 0.3
+
+ BS call price: 0.0894299 | BS put price: 73.7247
+ Cox-Ross-Rubinstein call price: 0.0890346 | American Monte Carlo call price: 0.093011
+ Cox-Ross-Rubinstein put price: 80 | American Monte Carlo put price: 78.5609
+
+----------------------------------------
+Option 3: S: 80, X: 140, Expiration date: , T: 0.5, r: 0.05, sigma: 0.26
+
+ BS call price: 0.0100909 | BS put price: 56.5535
+ Cox-Ross-Rubinstein call price: 0.0100176 | American Monte Carlo call price: 0.0109448
+ Cox-Ross-Rubinstein put price: 60 | American Monte Carlo put price: 58.8107
+
+----------------------------------------
+Option 4: S: 120, X: 200, Expiration date: , T: 0.75, r: 0.06, sigma: 0.3
+
+ BS call price: 0.568157 | BS put price: 71.7677
+ Cox-Ross-Rubinstein call price: 0.56711 | American Monte Carlo call price: 0.58407
+ Cox-Ross-Rubinstein put price: 80 | American Monte Carlo put price: 78.7223
+
+----------------------------------------
+Option 5: S: 60, X: 120, Expiration date: , T: 0.5, r: 0.07, sigma: 0.32
+
+ BS call price: 0.00986571 | BS put price: 55.8825
+ Cox-Ross-Rubinstein call price: 0.00981564 | American Monte Carlo call price: 0.0107697
+ Cox-Ross-Rubinstein put price: 60 | American Monte Carlo put price: 58.7456
+
+----------------------------------------
+Option 6: S: 100, X: 220, Expiration date: , T: 0.7, r: 0.05, sigma: 0.28
+
+ BS call price: 0.0059184 | BS put price: 112.439
+ Cox-Ross-Rubinstein call price: 0.00586706 | American Monte Carlo call price: 0.00609223
+ Cox-Ross-Rubinstein put price: 120 | American Monte Carlo put price: 117.755
+
+----------------------------------------
+Simulation Summary
+------------------
+Contracts processed: 6 options in 2.5484 seconds 
+Total paths: 100000
+Threads used: 4
+Throughput: 39240.3 paths/second

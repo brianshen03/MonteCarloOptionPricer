@@ -17,6 +17,9 @@
 // sigma = volatility of the stock price
 
 #define TIME_STEPS 20 // number of time steps for American option pricing
+#define min_dte_days 30 // minimum days to expiration
+#define max_dte_days 180 // maximum days to expiration
+#define max_expiries 3 // maximum number of expiries to fetch
 struct config {
     std::string ticker;
     int thread_count = 4; // default to 4 threads
@@ -267,36 +270,75 @@ optionPrices us_mc_sim(const optionParams& params, const config& config, int M) 
     return price;
 }
 
-//optional function to load trades from a CSV file
-std::vector<optionParams> load_csv(const std::string& filename) {
-    std::vector<optionParams> trades;
-    std::ifstream in(filename);
-    std::string line;
+// Cox-Ross-Rubinstein (CRR) binomial tree pricing method for validation check 
+optionPrices crr_price(const optionParams &params, int time_steps, double q) {
 
-    if (!in.is_open()) {
-        std::cerr << "Error opening file: " << filename << std::endl;
-        return trades;
+    const double dt = params.T / time_steps;
+    const double disc = std::exp(-params.r * dt);
+    const double u = std::exp(params.sigma * std::sqrt(dt));
+    const double d = 1.0 / u;
+    const double a = std::exp((params.r - q) * dt);
+    const double p = (a - d) / (u - d);
+
+    if (!(p > 0.0 && p < 1.0)) {
+        // CRR requires 0<p<1; if violated, increase N or adjust inputs.
+        throw std::runtime_error("CRR probability out of (0,1); increase N or adjust params");
     }
 
-    while (std::getline(in, line)) {
-        std::istringstream ss(line);
-        optionParams trade;
-        char comma;
-        ss >> trade.S >> comma >> trade.X >> comma >> trade.T >> comma >> trade.r >> comma >> trade.sigma;
-        trades.push_back(trade);
+    std::vector<double> call_prices(time_steps + 1);
+    std::vector<double> put_prices(time_steps + 1);
+
+    double Sjd = params.S * std::pow(d, time_steps);
+    const double ud = (u/d);
+    for (int j = 0; j <= time_steps; ++j) {
+        call_prices[j] = std::max(Sjd - params.X, 0.0);
+        put_prices[j] = std::max(params.X - Sjd, 0.0);
+        Sjd *= ud; 
     }
-    return trades;
+
+    for (int i = time_steps - 1; i >= 0; --i) {
+        double S_i = params.S * std::pow(d, i);
+        for (int j = 0; j <= i; ++j) {
+            const double cont_call = disc * (p * call_prices[j + 1] + (1.0 - p) * call_prices[j]);
+            const double cont_put  = disc * (p * put_prices[j + 1] + (1.0 - p) * put_prices[j]);
+
+            const double intr_call = std::max(S_i - params.X, 0.0);
+            const double intr_put  = std::max(params.X - S_i, 0.0);
+
+            call_prices[j] = std::max(intr_call, cont_call); // American step
+            put_prices[j] = std::max(intr_put,  cont_put);
+
+            S_i *= ud; // move across the level
+        }
+    }
+
+    return {call_prices[0], put_prices[0]};
 }
 
+int validation_check(double price1, double price2) {
+    int pass = 0;
+    const double rel_tol = 0.02;   
+    const double eps     = 1e-12;  // guard for zero BS
+    const double abs_tol = 0.02;
+
+    double abs_err = std::abs(price1 - price2);
+    double rel_err = abs_err / std::max(std::abs(price1), eps);
+
+    if (rel_err <= rel_tol || abs_err <= abs_tol) {
+        std::cout << "✅ within tol\n";
+    } else {
+        std::cout << "❌ outside tol\n";
+        pass = 1;
+    }
+
+    return pass;
+}
+
+//host func to run the European pricer
 static void run_eu_pricer(const std::vector<optionParams>& trades, const config& options) {
 
     //for normal sized option prices ($5, $10), relative tolerance of 2% is reasonable
     //for small option prices ($0.05, $0.10), absolute tolerance is within 2 cents of black schole price
-
-    const double rel_tol = 0.02;   
-    const double eps     = 1e-12;  // guard for zero BS
-    const double abs_tol_call = 0.02;
-    const double abs_tol_put  = 0.02;
 
     int pass_call = 0;
     int pass_put  = 0;
@@ -309,28 +351,14 @@ static void run_eu_pricer(const std::vector<optionParams>& trades, const config&
         optionPrices eu_bs = calc_call(opt);
         optionPrices eu_mc = eu_mc_sim(opt, options);
 
-
         std::cout << " BS call price: " << eu_bs.call_price << " | European Monte Carlo call price: " << eu_mc.call_price;
-        double abs_err_call = std::abs(eu_bs.call_price - eu_mc.call_price);
-        double rel_err_call = abs_err_call / std::max(std::abs(eu_bs.call_price), eps);
 
-        if (rel_err_call <= rel_tol || abs_err_call <= abs_tol_call) {
-            ++pass_call;
-            std::cout << "  ✅ within tol\n";
-        } else {
-            std::cout << "  ❌ outside tol\n";
-        }
+        int pass = validation_check(eu_bs.call_price, eu_mc.call_price);
+        if (pass == 0) ++pass_call;
 
         std::cout << " BS put price: " << eu_bs.put_price << " | European Monte Carlo put price: " << eu_mc.put_price;
-        double abs_err_put  = std::abs(eu_bs.put_price  - eu_mc.put_price);
-        double rel_err_put  = abs_err_put  / std::max(std::abs(eu_bs.put_price),  eps);
-
-        if (rel_err_put <= rel_tol || abs_err_put <= abs_tol_put) {
-            ++pass_put;
-            std::cout << "  ✅ within tol\n\n";
-        } else {
-            std::cout << "  ❌ outside tol\n\n";
-        }
+        pass = validation_check(eu_bs.put_price, eu_mc.put_price);
+        if (pass == 0) ++pass_put;
 
         std::cout << "----------------------------------------\n";
     }
@@ -339,8 +367,11 @@ static void run_eu_pricer(const std::vector<optionParams>& trades, const config&
     std::cout << pass_put  << " put prices passed out of " << trades.size() << "\n";
 }
 
-
+//host func to run the American pricer
 static void run_us_pricer(const std::vector<optionParams>&trades, const config& options) {
+
+        int pass_call = 0;
+        int pass_put  = 0;
 
         for (size_t i = 0; i < trades.size(); ++i) {
             const auto& opt = trades[i];
@@ -349,16 +380,20 @@ static void run_us_pricer(const std::vector<optionParams>&trades, const config& 
 
             optionPrices eu_bs = calc_call(opt);
             optionPrices us_mc = us_mc_sim(opt, options, TIME_STEPS);
+            optionPrices crr = crr_price(opt, 1500, 0.0);
 
-            std::cout << " Analytical call price: " << eu_bs.call_price << "\n";
-            std::cout << " Analytical put price: " << eu_bs.put_price << "\n";
+            std::cout << " BS call price: " << eu_bs.call_price << " | American Monte Carlo call price: " << us_mc.call_price;
+            int pass = validation_check(eu_bs.call_price, us_mc.call_price);
+            if (pass == 0) ++pass_call;
 
-
-            std::cout << " American Monte Carlo call price: " << us_mc.call_price << "\n";
-            std::cout << "American Monte Carlo put price: " << us_mc.put_price << "\n";
+            std::cout << " Cox-Ross-Rubinstein put price: " << crr.put_price << " | American Monte Carlo put price: " << us_mc.put_price;
+            pass = validation_check(crr.put_price, us_mc.put_price);
+            if (pass == 0) ++pass_put;
 
             std::cout << "----------------------------------------\n";
     }
+    std::cout << pass_call << " call prices passed out of " << trades.size() << "\n";
+    std::cout << pass_put  << " put prices passed out of " << trades.size() << "\n";
 }
 
 config parse_cmd_args(int argc, char *argv[]) {
@@ -389,6 +424,27 @@ config parse_cmd_args(int argc, char *argv[]) {
     return c;
 }
 
+
+std::vector<optionParams> load_csv(const std::string& filename) {
+    std::vector<optionParams> trades;
+    std::ifstream in(filename);
+    std::string line;
+
+    if (!in.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return trades;
+    }
+
+    while (std::getline(in, line)) {
+        std::istringstream ss(line);
+        optionParams trade;
+        char comma;
+        ss >> trade.S >> comma >> trade.X >> comma >> trade.T >> comma >> trade.r >> comma >> trade.sigma;
+        trades.push_back(trade);
+    }
+    return trades;
+}
+
 int main(int argc, char *argv[]) {
 
     config options = parse_cmd_args(argc, argv);
@@ -404,15 +460,17 @@ int main(int argc, char *argv[]) {
 
     std::vector<optionParams> trades;
     try {
-        trades = fetch_chain(options.ticker, r); 
+        trades = fetch_chain(options.ticker, r, min_dte_days, max_dte_days, max_expiries, true, true);
     } catch (const std::exception& e) {
         std::cerr << "Error fetching chain data: " << e.what() << "\n";
         return 1;
     }
 
+    // trades = load_csv("synthetic_options.csv");
+
     auto start = std::chrono::steady_clock::now();
-    run_eu_pricer(trades, options);
-    // run_us_pricer(trades, options);
+    // run_eu_pricer(trades, options);
+    run_us_pricer(trades, options);
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed = stop - start;   
 
