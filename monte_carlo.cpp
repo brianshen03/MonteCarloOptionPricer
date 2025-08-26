@@ -20,10 +20,15 @@
 #define min_dte_days 30 // minimum days to expiration
 #define max_dte_days 180 // maximum days to expiration
 #define max_expiries 3 // maximum number of expiries to fetch
+
+enum class DataSource { Live, CSV };
+
 struct config {
     std::string ticker;
     int thread_count = 4; // default to 4 threads
     int num_simulations = 1000000; // default to 1 million simulations
+    DataSource  source = DataSource::Live;
+    std::optional<std::string> csv_path; // required for CSV
 };
 
 struct optionPrices {
@@ -396,10 +401,21 @@ static void run_us_pricer(const std::vector<optionParams>&trades, const config& 
     std::cout << pass_put  << " put prices passed out of " << trades.size() << "\n";
 }
 
-config parse_cmd_args(int argc, char *argv[]) {
-    config c;
+static void print_usage() {
+    std::cout <<
+        "Usage:\n"
+        "  pricer --symbol TICKER [--paths N] [--threads N]\n"
+        "  pricer --csv FILE       [--paths N] [--threads N]\n"
+        "\n"
+        "Notes:\n"
+        "  - If --csv is provided, data is loaded from FILE and --symbol is ignored.\n"
+        "  - Defaults: --paths 1000000, --threads 4.\n";
+}
+
+config parse_cmd_args(int argc, char* argv[]) {
+    config c; // defaults set in struct
+
     auto need = [&](int& i) -> char* {
-        //value for flag not provided
         if (++i == argc)
             throw std::runtime_error("missing value for " + std::string(argv[i-1]));
         return argv[i];
@@ -408,22 +424,38 @@ config parse_cmd_args(int argc, char *argv[]) {
     for (int i = 1; i < argc; ++i) {
         std::string_view a = argv[i];
 
-        if      (a == "--symbol")  c.ticker  = need(i);
-        else if (a == "--paths")   c.num_simulations   = std::stol(need(i));
-        else if (a == "--threads") c.thread_count = std::stoi(need(i));
-        else if (a == "--help") {
-            std::cout << "Usage: ./pricer --symbol TICKER --paths N --threads N\n";
-            std::cout << "if --paths and --threads are not specified, defaults are 1 million paths and 4 threads.\n";
+        if      (a == "--symbol")   c.ticker          = need(i);
+        else if (a == "--paths")    c.num_simulations = std::stol(need(i));
+        else if (a == "--threads")  c.thread_count    = std::stoi(need(i));
+        else if (a == "--csv") {
+            c.source   = DataSource::CSV;
+            c.csv_path = std::string(need(i));
+        }
+        else if (a == "--help" || a == "-h") {
+            print_usage();
             std::exit(0);
         }
-        else
+        else {
             throw std::runtime_error("unknown flag: " + std::string(a));
+        }
     }
-    if (c.ticker.empty())
-        throw std::runtime_error("--symbol is required (try --help)");
+
+    // Validate
+    if (c.source == DataSource::CSV) {
+        if (!c.csv_path || c.csv_path->empty())
+            throw std::runtime_error("--csv requires a path (try --help)");
+        // When CSV is used, ticker is optional; ignore if present.
+    } else { // Live
+        if (c.ticker.empty())
+            throw std::runtime_error("--symbol is required for live fetch (try --help)");
+    }
+    if (c.num_simulations <= 0)
+        throw std::runtime_error("--paths must be positive");
+    if (c.thread_count <= 0)
+        throw std::runtime_error("--threads must be positive");
+
     return c;
 }
-
 
 std::vector<optionParams> load_csv(const std::string& filename) {
     std::vector<optionParams> trades;
@@ -447,26 +479,37 @@ std::vector<optionParams> load_csv(const std::string& filename) {
 
 int main(int argc, char *argv[]) {
 
-    config options = parse_cmd_args(argc, argv);
-    double r; // live daily rate
-
+    config options;
     try {
-        r = fetch_risk_free_rate();         
+        options = parse_cmd_args(argc, argv);
     } catch (const std::exception& e) {
-        std::cerr << "Error fetching risk-free rate: " << e.what() << "\n";
-        return 1;
+        std::cerr << "Argument error: " << e.what() << "\n";
+        return 2;
     }
-    std::cout << "Risk-free rate used (DGS3MO): " << r << "\n\n";
+
+    double r = 0.0; // live daily rate (only needed for live fetch)
+
+    if (options.source == DataSource::Live) {
+        try {
+            r = fetch_risk_free_rate();
+        } catch (const std::exception& e) {
+            std::cerr << "Error fetching risk-free rate: " << e.what() << "\n";
+            return 1;
+        }
+        std::cout << "Risk-free rate used (DGS3MO): " << r << "\n\n";
+    }
 
     std::vector<optionParams> trades;
     try {
-        trades = fetch_chain(options.ticker, r, min_dte_days, max_dte_days, max_expiries, true, true);
+        if (options.source == DataSource::CSV) {
+            trades = load_csv(*options.csv_path);
+        } else {
+            trades = fetch_chain(options.ticker, r, min_dte_days, max_dte_days, max_expiries, true, true);
+        }
     } catch (const std::exception& e) {
-        std::cerr << "Error fetching chain data: " << e.what() << "\n";
+        std::cerr << "Error obtaining chain data: " << e.what() << "\n";
         return 1;
     }
-
-    // trades = load_csv("synthetic_options.csv");
 
     auto start = std::chrono::steady_clock::now();
     // run_eu_pricer(trades, options);
