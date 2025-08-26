@@ -20,9 +20,14 @@ struct OptionGPU {
     double S, X, T, r, sigma;
 };
 
+enum class DataSource { Live, CSV };
+
+
 struct config {
     std::string ticker;
     int num_simulations = 1000000; // default to 1 million simulations
+    DataSource  source = DataSource::Live;
+    std::optional<std::string> csv_path; // required for CSV
 };
 
 struct optionPrices {
@@ -30,13 +35,16 @@ struct optionPrices {
     double put_price;
 };
 
-#define TIME_STEPS 20
+#define TIME_STEPS 20 // number of time steps for American option pricing
+#define min_dte_days 30 // minimum days to expiration
+#define max_dte_days 180 // maximum days to expiration
+#define max_expiries 3 // maximum number of expiries to fetch
+
+
 std::vector<optionParams> trades;
 
 //helper function to calculate CDF
-double phi(double x) {
-    return 0.5 * std::erfc(-x/std::sqrt(2.0));
-}
+
 
 #define CUDA_CHECK(expr) do { \
   cudaError_t _e = (expr); \
@@ -51,6 +59,9 @@ double phi(double x) {
   CUDA_CHECK(cudaDeviceSynchronize()); \
 } while(0)
 
+double phi(double x) {
+    return 0.5 * std::erfc(-x/std::sqrt(2.0));
+}
 
 //calculate option price using Black-Scholes formula
 optionPrices calc_call(const optionParams& params) {
@@ -74,6 +85,69 @@ optionPrices calc_call(const optionParams& params) {
 
 }
 
+int validation_check(double price1, double price2) {
+    int pass = 0;
+    const double rel_tol = 0.02;   
+    const double eps     = 1e-12;  // guard for zero BS
+    const double abs_tol = 0.02;
+
+    double abs_err = std::abs(price1 - price2);
+    double rel_err = abs_err / std::max(std::abs(price1), eps);
+
+    if (rel_err <= rel_tol || abs_err <= abs_tol) {
+        std::cout << "✅ within tol\n";
+    } else {
+        std::cout << "❌ outside tol\n";
+        pass = 1;
+    }
+
+    return pass;
+}
+
+// Cox-Ross-Rubinstein (CRR) binomial tree pricing method for validation check 
+optionPrices crr_price(const optionParams &params, int time_steps, double q) {
+
+    const double dt = params.T / time_steps;
+    const double disc = std::exp(-params.r * dt);
+    const double u = std::exp(params.sigma * std::sqrt(dt));
+    const double d = 1.0 / u;
+    const double a = std::exp((params.r - q) * dt);
+    const double p = (a - d) / (u - d);
+
+    if (!(p > 0.0 && p < 1.0)) {
+        // CRR requires 0<p<1; if violated, increase N or adjust inputs.
+        throw std::runtime_error("CRR probability out of (0,1); increase N or adjust params");
+    }
+
+    std::vector<double> call_prices(time_steps + 1);
+    std::vector<double> put_prices(time_steps + 1);
+
+    double Sjd = params.S * std::pow(d, time_steps);
+    const double ud = (u/d);
+    for (int j = 0; j <= time_steps; ++j) {
+        call_prices[j] = std::max(Sjd - params.X, 0.0);
+        put_prices[j] = std::max(params.X - Sjd, 0.0);
+        Sjd *= ud; 
+    }
+
+    for (int i = time_steps - 1; i >= 0; --i) {
+        double S_i = params.S * std::pow(d, i);
+        for (int j = 0; j <= i; ++j) {
+            const double cont_call = disc * (p * call_prices[j + 1] + (1.0 - p) * call_prices[j]);
+            const double cont_put  = disc * (p * put_prices[j + 1] + (1.0 - p) * put_prices[j]);
+
+            const double intr_call = std::max(S_i - params.X, 0.0);
+            const double intr_put  = std::max(params.X - S_i, 0.0);
+
+            call_prices[j] = std::max(intr_call, cont_call); // American step
+            put_prices[j] = std::max(intr_put,  cont_put);
+
+            S_i *= ud; // move across the level
+        }
+    }
+
+    return {call_prices[0], put_prices[0]};
+}
 // Monte Carlo simulation to estimate the option price
 //each cuda thread does a simulation of the option price
 __global__ void eu_monte_carlo_simulation(const OptionGPU* trades_pointer, optionPrices* trades_results, int num_simulations, unsigned long long seed) {
@@ -396,17 +470,31 @@ optionPrices us_mc_cuda_lsm(const optionParams& P, const config& C, int M)
 
 static void run_us_pricer(const std::vector<optionParams>& trades, const config& cfg, int M)
 {
+    int pass_call = 0;
+    int pass_put = 0;
     for (size_t i = 0; i < trades.size(); ++i) {
         const auto& opt = trades[i];
-        optionPrices mc = us_mc_cuda_lsm(opt, cfg, M);
-        optionPrices eu_bs = calc_call(opt); 
 
         std::cout << "Option " << i+1 << ": " << "S: " << opt.S << ", X: " << opt.X << ", Expiration date: " << 
         opt.expiration_date << ", T: " << opt.T << ", r: " << opt.r << ", sigma: " << opt.sigma << "\n";
 
-        std::cout << " Analytical call price: " << eu_bs.call_price << " | Monte Carlo call price: " << mc.call_price << "\n";
-        std::cout << " Analytical put price: " << eu_bs.put_price << " | Monte Carlo put price: " << mc.put_price << "\n\n";
+        optionPrices mc = us_mc_cuda_lsm(opt, cfg, M);
+        optionPrices eu_bs = calc_call(opt); 
+        optionPrices crr = crr_price(opt, 1500, 0.0);
+
+         std::cout << " BS call price: " << eu_bs.call_price << " | American Monte Carlo call price: " << mc.call_price;
+        int pass = validation_check(eu_bs.call_price, mc.call_price);
+        if (pass == 0) ++pass_call;
+
+        std::cout << " Cox-Ross-Rubinstein put price: " << crr.put_price << " | American Monte Carlo put price: " << mc.put_price;
+        pass = validation_check(crr.put_price, mc.put_price);
+        if (pass == 0) ++pass_put;
+
+        std::cout << "\n";
     }
+
+    std::cout << pass_call << " call prices passed out of " << trades.size() << "\n";
+    std::cout << pass_put  << " put prices passed out of " << trades.size() << "\n";
 }
 
 static void run_eu_pricer(const std::vector<optionParams>&trades, const config& options) {
@@ -435,6 +523,8 @@ static void run_eu_pricer(const std::vector<optionParams>&trades, const config& 
 
     cudaDeviceSynchronize(); 
 
+    int pass_call = 0;
+    int pass_put = 0;
     for (size_t i = 0; i < trades.size(); ++i) {
         const auto& opt = trades[i];
         std::cout << "Option " << i+1 << ": " << "S: " << opt.S << ", X: " << opt.X << ", Expiration date: " << 
@@ -442,41 +532,98 @@ static void run_eu_pricer(const std::vector<optionParams>&trades, const config& 
 
         optionPrices eu_bs = calc_call(opt);
 
-        std::cout << " Analytical call price: " << eu_bs.call_price << " | Monte Carlo call price: " << trades_results[i].call_price << "\n";
-        std::cout << " Analytical put price: " << eu_bs.put_price << " | Monte Carlo put price: " << trades_results[i].put_price << "\n\n";
+        std::cout << " Analytical call price: " << eu_bs.call_price << " | European Monte Carlo call price: " << trades_results[i].call_price;
+
+        int pass = validation_check(eu_bs.call_price, trades_results[i].call_price  );
+        if (pass == 0) ++pass_call;
+
+        std::cout << " Analytical put price: " << eu_bs.put_price << " | European Monte Carlo put price: " << trades_results[i].put_price;
+        pass = validation_check(eu_bs.put_price, trades_results[i].put_price);
+        if (pass == 0) ++pass_put;
+
+        std::cout << "\n";
 
     }
+
+    std::cout << pass_call << " call prices passed out of " << trades.size() << "\n";
+    std::cout << pass_put  << " put prices passed out of " << trades.size() << "\n";
 
     cudaFree(d_trades);
     cudaFree(trades_results);
 
 }
 
-config parse_cmd_args(int argc, char *argv[]) {
-    config c;
+static void print_usage() {
+    std::cout <<
+        "Usage:\n"
+        "  pricer --symbol TICKER [--paths N] \n"
+        "  pricer --csv FILE       [--paths N] \n"
+        "\n"
+        "Notes:\n"
+        "  - If --csv is provided, data is loaded from FILE and --symbol is ignored.\n"
+        "  - Defaults: --paths 1000000, --threads 4.\n";
+}
+
+config parse_cmd_args(int argc, char* argv[]) {
+    config c; // defaults set in struct
+
     auto need = [&](int& i) -> char* {
-        //value for flag not provided
         if (++i == argc)
             throw std::runtime_error("missing value for " + std::string(argv[i-1]));
         return argv[i];
     };
 
     for (int i = 1; i < argc; ++i) {
-        std::string a = argv[i];
+        std::string_view a = argv[i];
 
-        if      (a == "--symbol")  c.ticker  = need(i);
-        else if (a == "--paths")   c.num_simulations   = std::stol(need(i));
-        else if (a == "--help") {
-            std::cout << "Usage: ./pricer --symbol TICKER --paths N\n";
-            std::cout << "if --paths is not specified, default is 1 million paths\n";
+        if      (a == "--symbol")   c.ticker          = need(i);
+        else if (a == "--paths")    c.num_simulations = std::stol(need(i));
+        else if (a == "--csv") {
+            c.source   = DataSource::CSV;
+            c.csv_path = std::string(need(i));
+        }
+        else if (a == "--help" || a == "-h") {
+            print_usage();
             std::exit(0);
         }
-        else
+        else {
             throw std::runtime_error("unknown flag: " + std::string(a));
+        }
     }
-    if (c.ticker.empty())
-        throw std::runtime_error("--symbol is required (try --help)");
+
+    // Validate
+    if (c.source == DataSource::CSV) {
+        if (!c.csv_path || c.csv_path->empty())
+            throw std::runtime_error("--csv requires a path (try --help)");
+        // When CSV is used, ticker is optional; ignore if present.
+    } else { // Live
+        if (c.ticker.empty())
+            throw std::runtime_error("--symbol is required for live fetch (try --help)");
+    }
+    if (c.num_simulations <= 0)
+        throw std::runtime_error("--paths must be positive");
+
     return c;
+}
+
+std::vector<optionParams> load_csv(const std::string& filename) {
+    std::vector<optionParams> trades;
+    std::ifstream in(filename);
+    std::string line;
+
+    if (!in.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return trades;
+    }
+
+    while (std::getline(in, line)) {
+        std::istringstream ss(line);
+        optionParams trade;
+        char comma;
+        ss >> trade.S >> comma >> trade.X >> comma >> trade.T >> comma >> trade.r >> comma >> trade.sigma;
+        trades.push_back(trade);
+    }
+    return trades;
 }
 
 int main(int argc, char *argv[]) {
@@ -484,30 +631,38 @@ int main(int argc, char *argv[]) {
     config options;
     try {
         options = parse_cmd_args(argc, argv);
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Error parsing command line arguments: " << e.what() << std::endl;
-        return 1;
+    } catch (const std::exception& e) {
+        std::cerr << "Argument error: " << e.what() << "\n";
+        return 2;
     }
 
-    double r = 0.0;
-    try {
-        r = fetch_risk_free_rate();
+    double r = 0.0; // live daily rate (only needed for live fetch)
+
+    if (options.source == DataSource::Live) {
+        try {
+            r = fetch_risk_free_rate();
+        } catch (const std::exception& e) {
+            std::cerr << "Error fetching risk-free rate: " << e.what() << "\n";
+            return 1;
+        }
         std::cout << "Risk-free rate used (DGS3MO): " << r << "\n\n";
-    } catch (const std::exception& e) {
-        std::cerr << "Error in fetch risk free rate " << e.what() << std::endl;  
     }
-    
+
     std::vector<optionParams> trades;
     try {
-        trades = fetch_chain(options.ticker, r); 
+        if (options.source == DataSource::CSV) {
+            trades = load_csv(*options.csv_path);
+        } else {
+            trades = fetch_chain(options.ticker, r, min_dte_days, max_dte_days, max_expiries, true, true);
+        }
     } catch (const std::exception& e) {
-    std::cerr << "Error in fetch chain: " << e.what() << std::endl; 
+        std::cerr << "Error obtaining chain data: " << e.what() << "\n";
+        return 1;
     }
 
     auto start = std::chrono::steady_clock::now();
     // run_eu_pricer(trades, options);
-    run_us_pricer(trades, options, TIME_STEPS);
+        run_us_pricer(trades, options, TIME_STEPS);
 
 
     auto stop = std::chrono::steady_clock::now();

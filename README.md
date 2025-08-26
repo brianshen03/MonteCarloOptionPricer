@@ -17,6 +17,13 @@ This branch runs the same pricing logic as the OpenMP version (European via Mont
 .pricer.exe --symbol TICKER --paths NUM_SIMULATIONS
 ```
 
+OR
+
+```bash
+.pricer.exe --csv FILE --paths NUM_SIMULATIONS
+```
+
 Parameters:
 - `TICKER`: Stock symbol (e.g., AAPL)
 - `NUM_SIMULATIONS`: Number of Monte Carlo paths to generate
+- `TICKER` : CSV file for offline option pricing / testing 
