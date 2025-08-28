@@ -1,0 +1,441 @@
+Risk-free rate used (DGS3MO): 0.0428
+
+Fetching option chain for AAPL...
+Option 1: S: 230.49, X: 110, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.835566
+
+ BS call price: 120.987 | European Monte Carlo call price: 121.114✅ within tol
+ BS put price: 0.0293712 | European Monte Carlo put price: 0.0290261✅ within tol
+----------------------------------------
+Option 2: S: 230.49, X: 110, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 1.15758
+
+ BS call price: 121.398 | European Monte Carlo call price: 121.584✅ within tol
+ BS put price: 0.440027 | European Monte Carlo put price: 0.441476✅ within tol
+----------------------------------------
+Option 3: S: 230.49, X: 120, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.765244
+
+ BS call price: 111.04 | European Monte Carlo call price: 111.155✅ within tol
+ BS put price: 0.0393933 | European Monte Carlo put price: 0.0390983✅ within tol
+----------------------------------------
+Option 4: S: 230.49, X: 120, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 1.0187
+
+ BS call price: 111.398 | European Monte Carlo call price: 111.559✅ within tol
+ BS put price: 0.398041 | European Monte Carlo put price: 0.399379✅ within tol
+----------------------------------------
+Option 5: S: 230.49, X: 125, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.720536
+
+ BS call price: 106.061 | European Monte Carlo call price: 106.168✅ within tol
+ BS put price: 0.0392422 | European Monte Carlo put price: 0.0389523✅ within tol
+----------------------------------------
+Option 6: S: 230.49, X: 125, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 1.07231
+
+ BS call price: 106.788 | European Monte Carlo call price: 106.959✅ within tol
+ BS put price: 0.766921 | European Monte Carlo put price: 0.768653✅ within tol
+----------------------------------------
+Option 7: S: 230.49, X: 130, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.693786
+
+ BS call price: 101.092 | European Monte Carlo call price: 101.195✅ within tol
+ BS put price: 0.0491285 | European Monte Carlo put price: 0.0489934✅ within tol
+----------------------------------------
+Option 8: S: 230.49, X: 130, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.909003
+
+ BS call price: 101.447 | European Monte Carlo call price: 101.588✅ within tol
+ BS put price: 0.404374 | European Monte Carlo put price: 0.405683✅ within tol
+----------------------------------------
+Option 9: S: 230.49, X: 135, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.606735
+
+ BS call price: 96.0881 | European Monte Carlo call price: 96.1773✅ within tol
+ BS put price: 0.0241503 | European Monte Carlo put price: 0.0238318✅ within tol
+----------------------------------------
+Option 10: S: 230.49, X: 135, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.836727
+
+ BS call price: 96.4134 | European Monte Carlo call price: 96.5419✅ within tol
+ BS put price: 0.349444 | European Monte Carlo put price: 0.350574✅ within tol
+----------------------------------------
+Option 11: S: 230.49, X: 140, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.574531
+
+ BS call price: 91.1121 | European Monte Carlo call price: 91.1962✅ within tol
+ BS put price: 0.0268884 | European Monte Carlo put price: 0.0265601✅ within tol
+----------------------------------------
+Option 12: S: 230.49, X: 140, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.809786
+
+ BS call price: 91.5059 | European Monte Carlo call price: 91.63✅ within tol
+ BS put price: 0.420713 | European Monte Carlo put price: 0.421999✅ within tol
+----------------------------------------
+Option 13: S: 230.49, X: 145, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.558168
+
+ BS call price: 86.1456 | European Monte Carlo call price: 86.2272✅ within tol
+ BS put price: 0.0391669 | European Monte Carlo put price: 0.0389432✅ within tol
+----------------------------------------
+Option 14: S: 230.49, X: 145, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.817047
+
+ BS call price: 86.7496 | European Monte Carlo call price: 86.8753✅ within tol
+ BS put price: 0.643189 | European Monte Carlo put price: 0.644779✅ within tol
+----------------------------------------
+Option 15: S: 230.49, X: 150, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.54281
+
+ BS call price: 81.185 | European Monte Carlo call price: 81.2644✅ within tol
+ BS put price: 0.0572576 | European Monte Carlo put price: 0.0572341✅ within tol
+----------------------------------------
+Option 16: S: 230.49, X: 150, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.712603
+
+ BS call price: 81.5525 | European Monte Carlo call price: 81.6604✅ within tol
+ BS put price: 0.424761 | European Monte Carlo put price: 0.426022✅ within tol
+----------------------------------------
+Option 17: S: 230.49, X: 155, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.518076
+
+ BS call price: 76.2201 | European Monte Carlo call price: 76.2957✅ within tol
+ BS put price: 0.0710933 | European Monte Carlo put price: 0.0711216✅ within tol
+----------------------------------------
+Option 18: S: 230.49, X: 155, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.659262
+
+ BS call price: 76.5503 | European Monte Carlo call price: 76.6494✅ within tol
+ BS put price: 0.401339 | European Monte Carlo put price: 0.402522✅ within tol
+----------------------------------------
+Option 19: S: 230.49, X: 160, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.493309
+
+ BS call price: 71.2581 | European Monte Carlo call price: 71.3298✅ within tol
+ BS put price: 0.0878429 | European Monte Carlo put price: 0.0878504✅ within tol
+----------------------------------------
+Option 20: S: 230.49, X: 160, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.672487
+
+ BS call price: 71.8405 | European Monte Carlo call price: 71.942✅ within tol
+ BS put price: 0.670324 | European Monte Carlo put price: 0.671721✅ within tol
+----------------------------------------
+Option 21: S: 230.49, X: 165, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.470655
+
+ BS call price: 66.3035 | European Monte Carlo call price: 66.3718✅ within tol
+ BS put price: 0.112018 | European Monte Carlo put price: 0.112043✅ within tol
+----------------------------------------
+Option 22: S: 230.49, X: 165, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.620972
+
+ BS call price: 66.8404 | European Monte Carlo call price: 66.9335✅ within tol
+ BS put price: 0.648918 | European Monte Carlo put price: 0.650254✅ within tol
+----------------------------------------
+Option 23: S: 230.49, X: 170, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.446003
+
+ BS call price: 61.3508 | European Monte Carlo call price: 61.4154✅ within tol
+ BS put price: 0.138069 | European Monte Carlo put price: 0.138149✅ within tol
+----------------------------------------
+Option 24: S: 230.49, X: 170, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.542053
+
+ BS call price: 61.6878 | European Monte Carlo call price: 61.7683✅ within tol
+ BS put price: 0.475039 | European Monte Carlo put price: 0.476275✅ within tol
+----------------------------------------
+Option 25: S: 230.49, X: 175, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.423498
+
+ BS call price: 56.4102 | European Monte Carlo call price: 56.4717✅ within tol
+ BS put price: 0.176185 | European Monte Carlo put price: 0.176571✅ within tol
+----------------------------------------
+Option 26: S: 230.49, X: 175, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.529298
+
+ BS call price: 56.883 | European Monte Carlo call price: 56.9616✅ within tol
+ BS put price: 0.64899 | European Monte Carlo put price: 0.650293✅ within tol
+----------------------------------------
+Option 27: S: 230.49, X: 180, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.400893
+
+ BS call price: 51.48 | European Monte Carlo call price: 51.5383✅ within tol
+ BS put price: 0.224756 | European Monte Carlo put price: 0.225417✅ within tol
+----------------------------------------
+Option 28: S: 230.49, X: 180, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.509388
+
+ BS call price: 52.0775 | European Monte Carlo call price: 52.1531✅ within tol
+ BS put price: 0.822268 | European Monte Carlo put price: 0.823625✅ within tol
+----------------------------------------
+Option 29: S: 230.49, X: 185, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.378792
+
+ BS call price: 46.5663 | European Monte Carlo call price: 46.6215✅ within tol
+ BS put price: 0.289834 | European Monte Carlo put price: 0.290647✅ within tol
+----------------------------------------
+Option 30: S: 230.49, X: 185, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.461583
+
+ BS call price: 47.0793 | European Monte Carlo call price: 47.1474✅ within tol
+ BS put price: 0.802805 | European Monte Carlo put price: 0.804008✅ within tol
+----------------------------------------
+Option 31: S: 230.49, X: 190, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.358361
+
+ BS call price: 41.6827 | European Monte Carlo call price: 41.7349✅ within tol
+ BS put price: 0.384928 | European Monte Carlo put price: 0.385839✅ within tol
+----------------------------------------
+Option 32: S: 230.49, X: 190, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.336152
+
+ BS call price: 41.5678 | European Monte Carlo call price: 41.6165✅ within tol
+ BS put price: 0.270006 | European Monte Carlo put price: 0.270754✅ within tol
+----------------------------------------
+Option 33: S: 230.49, X: 195, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.337568
+
+ BS call price: 36.83 | European Monte Carlo call price: 36.8792✅ within tol
+ BS put price: 0.510956 | European Monte Carlo put price: 0.511966✅ within tol
+----------------------------------------
+Option 34: S: 230.49, X: 195, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.297534
+
+ BS call price: 36.5839 | European Monte Carlo call price: 36.6269✅ within tol
+ BS put price: 0.26485 | European Monte Carlo put price: 0.26555✅ within tol
+----------------------------------------
+Option 35: S: 230.49, X: 200, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.317844
+
+ BS call price: 32.033 | European Monte Carlo call price: 32.079✅ within tol
+ BS put price: 0.692753 | European Monte Carlo put price: 0.693414✅ within tol
+----------------------------------------
+Option 36: S: 230.49, X: 200, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.313618
+
+ BS call price: 31.9942 | European Monte Carlo call price: 32.0397✅ within tol
+ BS put price: 0.653956 | European Monte Carlo put price: 0.654717✅ within tol
+----------------------------------------
+Option 37: S: 230.49, X: 205, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.300272
+
+ BS call price: 27.3326 | European Monte Carlo call price: 27.3754✅ within tol
+ BS put price: 0.971102 | European Monte Carlo put price: 0.971135✅ within tol
+----------------------------------------
+Option 38: S: 230.49, X: 205, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.299817
+
+ BS call price: 27.3272 | European Monte Carlo call price: 27.3699✅ within tol
+ BS put price: 0.965654 | European Monte Carlo put price: 0.9657✅ within tol
+----------------------------------------
+Option 39: S: 230.49, X: 210, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.284541
+
+ BS call price: 22.7762 | European Monte Carlo call price: 22.8144✅ within tol
+ BS put price: 1.39345 | European Monte Carlo put price: 1.39118✅ within tol
+----------------------------------------
+Option 40: S: 230.49, X: 210, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.28309
+
+ BS call price: 22.7541 | European Monte Carlo call price: 22.7921✅ within tol
+ BS put price: 1.37127 | European Monte Carlo put price: 1.36911✅ within tol
+----------------------------------------
+Option 41: S: 230.49, X: 215, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.27075
+
+ BS call price: 18.4367 | European Monte Carlo call price: 18.4695✅ within tol
+ BS put price: 2.03261 | European Monte Carlo put price: 2.02705✅ within tol
+----------------------------------------
+Option 42: S: 230.49, X: 215, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.270354
+
+ BS call price: 18.4291 | European Monte Carlo call price: 18.4618✅ within tol
+ BS put price: 2.025 | European Monte Carlo put price: 2.01948✅ within tol
+----------------------------------------
+Option 43: S: 230.49, X: 220, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.259628
+
+ BS call price: 14.4256 | European Monte Carlo call price: 14.4537✅ within tol
+ BS put price: 3.00033 | European Monte Carlo put price: 2.99163✅ within tol
+----------------------------------------
+Option 44: S: 230.49, X: 220, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.25806
+
+ BS call price: 14.3891 | European Monte Carlo call price: 14.4171✅ within tol
+ BS put price: 2.96382 | European Monte Carlo put price: 2.95523✅ within tol
+----------------------------------------
+Option 45: S: 230.49, X: 225, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.248771
+
+ BS call price: 10.7971 | European Monte Carlo call price: 10.8194✅ within tol
+ BS put price: 4.35056 | European Monte Carlo put price: 4.33764✅ within tol
+----------------------------------------
+Option 46: S: 230.49, X: 225, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.248161
+
+ BS call price: 10.7808 | European Monte Carlo call price: 10.803✅ within tol
+ BS put price: 4.33423 | European Monte Carlo put price: 4.32137✅ within tol
+----------------------------------------
+Option 47: S: 230.49, X: 230, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.239803
+
+ BS call price: 7.69182 | European Monte Carlo call price: 7.70835✅ within tol
+ BS put price: 6.22399 | European Monte Carlo put price: 6.20666✅ within tol
+----------------------------------------
+Option 48: S: 230.49, X: 230, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.238516
+
+ BS call price: 7.65476 | European Monte Carlo call price: 7.6712✅ within tol
+ BS put price: 6.18694 | European Monte Carlo put price: 6.1697✅ within tol
+----------------------------------------
+Option 49: S: 230.49, X: 235, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.231475
+
+ BS call price: 5.15395 | European Monte Carlo call price: 5.16758✅ within tol
+ BS put price: 8.66487 | European Monte Carlo put price: 8.64584✅ within tol
+----------------------------------------
+Option 50: S: 230.49, X: 235, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.229304
+
+ BS call price: 5.09189 | European Monte Carlo call price: 5.10537✅ within tol
+ BS put price: 8.60281 | European Monte Carlo put price: 8.58394✅ within tol
+----------------------------------------
+Option 51: S: 230.49, X: 240, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.226823
+
+ BS call price: 3.29298 | European Monte Carlo call price: 3.30508✅ within tol
+ BS put price: 11.7826 | European Monte Carlo put price: 11.7627✅ within tol
+----------------------------------------
+Option 52: S: 230.49, X: 240, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.224581
+
+ BS call price: 3.23481 | European Monte Carlo call price: 3.24676✅ within tol
+ BS put price: 11.7245 | European Monte Carlo put price: 11.7048✅ within tol
+----------------------------------------
+Option 53: S: 230.49, X: 245, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.226952
+
+ BS call price: 2.06518 | European Monte Carlo call price: 2.07585✅ within tol
+ BS put price: 15.5336 | European Monte Carlo put price: 15.5122✅ within tol
+----------------------------------------
+Option 54: S: 230.49, X: 245, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.221651
+
+ BS call price: 1.95059 | European Monte Carlo call price: 1.9609✅ within tol
+ BS put price: 15.419 | European Monte Carlo put price: 15.3981✅ within tol
+----------------------------------------
+Option 55: S: 230.49, X: 250, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.212797
+
+ BS call price: 1.00488 | European Monte Carlo call price: 1.01455✅ within tol
+ BS put price: 19.452 | European Monte Carlo put price: 19.4317✅ within tol
+----------------------------------------
+Option 56: S: 230.49, X: 250, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.221364
+
+ BS call price: 1.14209 | European Monte Carlo call price: 1.15218✅ within tol
+ BS put price: 19.5892 | European Monte Carlo put price: 19.5681✅ within tol
+----------------------------------------
+Option 57: S: 230.49, X: 255, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.255511
+
+ BS call price: 1.09193 | European Monte Carlo call price: 1.10349✅ within tol
+ BS put price: 24.5178 | European Monte Carlo put price: 24.4932✅ within tol
+----------------------------------------
+Option 58: S: 230.49, X: 255, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.223906
+
+ BS call price: 0.66865 | European Monte Carlo call price: 0.677068✅ within tol
+ BS put price: 24.0945 | European Monte Carlo put price: 24.0714✅ within tol
+----------------------------------------
+Option 59: S: 230.49, X: 260, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.27595
+
+ BS call price: 0.898195 | European Monte Carlo call price: 0.909243✅ within tol
+ BS put price: 29.3028 | European Monte Carlo put price: 29.2747✅ within tol
+----------------------------------------
+Option 60: S: 230.49, X: 260, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.229851
+
+ BS call price: 0.409089 | European Monte Carlo call price: 0.416158✅ within tol
+ BS put price: 28.8137 | European Monte Carlo put price: 28.7884✅ within tol
+----------------------------------------
+Option 61: S: 230.49, X: 265, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.319095
+
+ BS call price: 1.0288 | European Monte Carlo call price: 1.04172✅ within tol
+ BS put price: 34.4122 | European Monte Carlo put price: 34.3796✅ within tol
+----------------------------------------
+Option 62: S: 230.49, X: 265, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.236539
+
+ BS call price: 0.254483 | European Monte Carlo call price: 0.260639✅ within tol
+ BS put price: 33.6379 | European Monte Carlo put price: 33.6106✅ within tol
+----------------------------------------
+Option 63: S: 230.49, X: 270, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.361067
+
+ BS call price: 1.15486 | European Monte Carlo call price: 1.16967✅ within tol
+ BS put price: 39.517 | European Monte Carlo put price: 39.4801✅ within tol
+----------------------------------------
+Option 64: S: 230.49, X: 270, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.244198
+
+ BS call price: 0.16353 | European Monte Carlo call price: 0.168699✅ within tol
+ BS put price: 38.5257 | European Monte Carlo put price: 38.4963✅ within tol
+----------------------------------------
+Option 65: S: 230.49, X: 275, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.369807
+
+ BS call price: 0.904475 | European Monte Carlo call price: 0.917904✅ within tol
+ BS put price: 44.2453 | European Monte Carlo put price: 44.2058✅ within tol
+----------------------------------------
+Option 66: S: 230.49, X: 275, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.253625
+
+ BS call price: 0.112046 | European Monte Carlo call price: 0.116183✅ within tol
+ BS put price: 43.4529 | European Monte Carlo put price: 43.4212✅ within tol
+----------------------------------------
+Option 67: S: 230.49, X: 280, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.374884
+
+ BS call price: 0.681171 | European Monte Carlo call price: 0.693716✅ within tol
+ BS put price: 49.0008 | European Monte Carlo put price: 48.9596✅ within tol
+----------------------------------------
+Option 68: S: 230.49, X: 280, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.261444
+
+ BS call price: 0.0748936 | European Monte Carlo call price: 0.0781594✅ within tol
+ BS put price: 48.3945 | European Monte Carlo put price: 48.3608✅ within tol
+----------------------------------------
+Option 69: S: 230.49, X: 285, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.481311
+
+ BS call price: 1.51825 | European Monte Carlo call price: 1.53882✅ within tol
+ BS put price: 54.8166 | European Monte Carlo put price: 54.7673✅ within tol
+----------------------------------------
+Option 70: S: 230.49, X: 285, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.269385
+
+ BS call price: 0.0511568 | European Monte Carlo call price: 0.0537576✅ within tol
+ BS put price: 53.3495 | European Monte Carlo put price: 53.3139✅ within tol
+----------------------------------------
+Option 71: S: 230.49, X: 290, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.460752
+
+ BS call price: 0.976466 | European Monte Carlo call price: 0.993255✅ within tol
+ BS put price: 59.2536 | European Monte Carlo put price: 59.2036✅ within tol
+----------------------------------------
+Option 72: S: 230.49, X: 290, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.27985
+
+ BS call price: 0.038663 | European Monte Carlo call price: 0.0408586✅ within tol
+ BS put price: 58.3158 | European Monte Carlo put price: 58.2782✅ within tol
+----------------------------------------
+Option 73: S: 230.49, X: 295, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.548746
+
+ BS call price: 1.64494 | European Monte Carlo call price: 1.66838✅ within tol
+ BS put price: 64.9008 | European Monte Carlo put price: 64.8438✅ within tol
+----------------------------------------
+Option 74: S: 230.49, X: 295, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.280868
+
+ BS call price: 0.0216535 | European Monte Carlo call price: 0.0231907✅ within tol
+ BS put price: 63.2775 | European Monte Carlo put price: 63.2392✅ within tol
+----------------------------------------
+Option 75: S: 230.49, X: 300, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.510392
+
+ BS call price: 0.956099 | European Monte Carlo call price: 0.974579✅ within tol
+ BS put price: 69.1907 | European Monte Carlo put price: 69.1348✅ within tol
+----------------------------------------
+Option 76: S: 230.49, X: 300, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.315047
+
+ BS call price: 0.0370834 | European Monte Carlo call price: 0.0393287✅ within tol
+ BS put price: 68.2717 | European Monte Carlo put price: 68.229✅ within tol
+----------------------------------------
+Option 77: S: 230.49, X: 305, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.520303
+
+ BS call price: 0.831012 | European Monte Carlo call price: 0.849128✅ within tol
+ BS put price: 74.0443 | European Monte Carlo put price: 73.9865✅ within tol
+----------------------------------------
+Option 78: S: 230.49, X: 305, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.332608
+
+ BS call price: 0.0370505 | European Monte Carlo call price: 0.0393441✅ within tol
+ BS put price: 73.2504 | European Monte Carlo put price: 73.2052✅ within tol
+----------------------------------------
+Option 79: S: 230.49, X: 310, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.339502
+
+ BS call price: 0.027684 | European Monte Carlo call price: 0.0296486✅ within tol
+ BS put price: 78.2197 | European Monte Carlo put price: 78.1732✅ within tol
+----------------------------------------
+Option 80: S: 230.49, X: 310, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.544295
+
+ BS call price: 0.833399 | European Monte Carlo call price: 0.852264✅ within tol
+ BS put price: 79.0255 | European Monte Carlo put price: 78.9647✅ within tol
+----------------------------------------
+Option 81: S: 230.49, X: 315, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.567596
+
+ BS call price: 0.835011 | European Monte Carlo call price: 0.85454✅ within tol
+ BS put price: 84.0058 | European Monte Carlo put price: 83.942✅ within tol
+----------------------------------------
+Option 82: S: 230.49, X: 315, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.355938
+
+ BS call price: 0.0276982 | European Monte Carlo call price: 0.0297121✅ within tol
+ BS put price: 83.1985 | European Monte Carlo put price: 83.1496✅ within tol
+----------------------------------------
+Option 83: S: 230.49, X: 320, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.590507
+
+ BS call price: 0.8379 | European Monte Carlo call price: 0.858095❌ outside tol
+ BS put price: 88.9875 | European Monte Carlo put price: 88.9207✅ within tol
+----------------------------------------
+Option 84: S: 230.49, X: 320, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.372099
+
+ BS call price: 0.027767 | European Monte Carlo call price: 0.0298289✅ within tol
+ BS put price: 88.1773 | European Monte Carlo put price: 88.126✅ within tol
+----------------------------------------
+Option 85: S: 230.49, X: 325, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.613025
+
+ BS call price: 0.841731 | European Monte Carlo call price: 0.862631❌ outside tol
+ BS put price: 93.97 | European Monte Carlo put price: 93.9004✅ within tol
+----------------------------------------
+Option 86: S: 230.49, X: 325, Expiration date: 2025-10-03, T: 0.0995435, r: 0.0428, sigma: 0.387995
+
+ BS call price: 0.0278807 | European Monte Carlo call price: 0.0299914✅ within tol
+ BS put price: 93.1562 | European Monte Carlo put price: 93.1026✅ within tol
+----------------------------------------
+84 call prices passed out of 86
+86 put prices passed out of 86
+Simulation Summary
+------------------
+Contracts processed: 86 options in 3.90224 seconds 
+Total paths: 500000
+Threads used: 1
+Throughput: 128132 paths/second

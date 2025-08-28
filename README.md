@@ -21,13 +21,23 @@ The program calculates the fair price of a European and American call and put op
 ## 🧪 Usage
 
 ```bash
-./pricer --symbol TICKER --threads THREAD_COUNT --paths NUM_SIMULATIONS
+./pricer --symbol TICKER --threads THREAD_COUNT --paths NUM_SIMULATIONS --pricer TYPE
+```
+
+OR (for offline option pricing from a CSV file) 
+
+CSV file format: Stock,Strike,Expiration,RiskFreeRate,Volatility(sigma)
+
+```bash
+./pricer --csv FILE --threads THREAD_COUNT --paths NUM_SIMULATIONS --pricer TYPE
 ```
 
 Parameters:
 - `TICKER`: Stock symbol (e.g., AAPL)
 - `THREAD_COUNT`: Number of CPU threads to parallelize simulations (only applies to the OpenMP version)
 - `NUM_SIMULATIONS`: Number of Monte Carlo paths to generate
+- `FILE`: CSV file for offline option pricing / testing 
+- `TYPE`: US or EU monte carlo simulation (type in 'eu' / 'us')
 
 💡 Currently, the simulations are parallelized per option, not per stock. So the performance benefits scale better with fewer options and more simulations.
 
@@ -37,22 +47,15 @@ Example:
 
 ---
 
-## 📊 Performance
+## 📊 Performance Benchmarks
 
-**Speedups vs. serial baseline**
-- **European options:** ~5× CPU and ~180× GPU
-- **American options (LSM):** ~3× CPU and ~47× GPU
+European Monte Carlo Runtime (500k paths, 90 options)
 
-**American runtime example (per contract)**
+![European MC Runtime](plots/runtime_european.png)
 
-| Variant           | European (example) | American (example) |
-|-------------------|-------------------:|-------------------:|
-| Serial            | **644.0 s**              | **66.0 s**         |
-| CPU (8 threads)   | **138.0 s**          | **24.0 s**         |
-| GPU (CUDA)        | **2.9 s**        | **1.4 s**          |
+American Monte Carlo Runtime (500k paths, 90 options, 20 steps)
 
-> Results are representative; performance varies with hardware, path counts, and contract parameters.
-
+![American MC Runtime](plots/runtime_american.png)
 
 ## ⚙️ Project Structure
 

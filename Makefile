@@ -27,15 +27,3 @@ $(TARGET): $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(TARGET)
-
-BENCH_SRC := eigen_benchmark.cpp
-BENCH_OBJ := $(BENCH_SRC:.cpp=.o)
-BENCH_TARGET := benchmark
-
-$(BENCH_TARGET): $(BENCH_OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
-
-benchmark: $(BENCH_TARGET)
-
-run-benchmark: benchmark
-	./benchmark

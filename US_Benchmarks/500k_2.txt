@@ -1,0 +1,441 @@
+Risk-free rate used (DGS3MO): 0.0428
+
+Fetching option chain for AAPL...
+Option 1: S: 230.49, X: 110, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.835566
+
+ BS call price: 120.987 | American Monte Carlo call price: 120.81✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0292218 | American Monte Carlo put price: 0.0284925✅ within tol
+----------------------------------------
+Option 2: S: 230.49, X: 110, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 1.15758
+
+ BS call price: 121.397 | American Monte Carlo call price: 121.306✅ within tol
+ Cox-Ross-Rubinstein put price: 0.439159 | American Monte Carlo put price: 0.431815✅ within tol
+----------------------------------------
+Option 3: S: 230.49, X: 120, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.765244
+
+ BS call price: 111.039 | American Monte Carlo call price: 110.917✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0392255 | American Monte Carlo put price: 0.0385528✅ within tol
+----------------------------------------
+Option 4: S: 230.49, X: 120, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 1.0187
+
+ BS call price: 111.397 | American Monte Carlo call price: 111.296✅ within tol
+ Cox-Ross-Rubinstein put price: 0.397452 | American Monte Carlo put price: 0.390436✅ within tol
+----------------------------------------
+Option 5: S: 230.49, X: 125, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.720536
+
+ BS call price: 106.06 | American Monte Carlo call price: 105.874✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0390217 | American Monte Carlo put price: 0.0384493✅ within tol
+----------------------------------------
+Option 6: S: 230.49, X: 125, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 1.07231
+
+ BS call price: 106.787 | American Monte Carlo call price: 106.675✅ within tol
+ Cox-Ross-Rubinstein put price: 0.765193 | American Monte Carlo put price: 0.755102✅ within tol
+----------------------------------------
+Option 7: S: 230.49, X: 130, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.693786
+
+ BS call price: 101.091 | American Monte Carlo call price: 100.906✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0489475 | American Monte Carlo put price: 0.0482201✅ within tol
+----------------------------------------
+Option 8: S: 230.49, X: 130, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.909003
+
+ BS call price: 101.446 | American Monte Carlo call price: 101.331✅ within tol
+ Cox-Ross-Rubinstein put price: 0.403875 | American Monte Carlo put price: 0.397106✅ within tol
+----------------------------------------
+Option 9: S: 230.49, X: 135, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.606735
+
+ BS call price: 96.0877 | American Monte Carlo call price: 95.9194✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0239997 | American Monte Carlo put price: 0.0235058✅ within tol
+----------------------------------------
+Option 10: S: 230.49, X: 135, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.836727
+
+ BS call price: 96.4125 | American Monte Carlo call price: 96.2742✅ within tol
+ Cox-Ross-Rubinstein put price: 0.348898 | American Monte Carlo put price: 0.342433✅ within tol
+----------------------------------------
+Option 11: S: 230.49, X: 140, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.574531
+
+ BS call price: 91.1117 | American Monte Carlo call price: 90.9511✅ within tol
+ Cox-Ross-Rubinstein put price: 0.026764 | American Monte Carlo put price: 0.0262255✅ within tol
+----------------------------------------
+Option 12: S: 230.49, X: 140, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.809786
+
+ BS call price: 91.5049 | American Monte Carlo call price: 91.3553✅ within tol
+ Cox-Ross-Rubinstein put price: 0.420122 | American Monte Carlo put price: 0.413707✅ within tol
+----------------------------------------
+Option 13: S: 230.49, X: 145, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.558168
+
+ BS call price: 86.1452 | American Monte Carlo call price: 85.9113✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0389333 | American Monte Carlo put price: 0.0384875✅ within tol
+----------------------------------------
+Option 14: S: 230.49, X: 145, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.817047
+
+ BS call price: 86.7483 | American Monte Carlo call price: 86.5887✅ within tol
+ Cox-Ross-Rubinstein put price: 0.642524 | American Monte Carlo put price: 0.633132✅ within tol
+----------------------------------------
+Option 15: S: 230.49, X: 150, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.54281
+
+ BS call price: 81.1845 | American Monte Carlo call price: 81.0017✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0571186 | American Monte Carlo put price: 0.0561773✅ within tol
+----------------------------------------
+Option 16: S: 230.49, X: 150, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.712603
+
+ BS call price: 81.5514 | American Monte Carlo call price: 81.3922✅ within tol
+ Cox-Ross-Rubinstein put price: 0.423776 | American Monte Carlo put price: 0.417758✅ within tol
+----------------------------------------
+Option 17: S: 230.49, X: 155, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.518076
+
+ BS call price: 76.2195 | American Monte Carlo call price: 76.0155✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0707768 | American Monte Carlo put price: 0.0700694✅ within tol
+----------------------------------------
+Option 18: S: 230.49, X: 155, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.659262
+
+ BS call price: 76.5493 | American Monte Carlo call price: 76.3641✅ within tol
+ Cox-Ross-Rubinstein put price: 0.400596 | American Monte Carlo put price: 0.394903✅ within tol
+----------------------------------------
+Option 19: S: 230.49, X: 160, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.493309
+
+ BS call price: 71.2575 | American Monte Carlo call price: 71.0449✅ within tol
+ Cox-Ross-Rubinstein put price: 0.0877169 | American Monte Carlo put price: 0.0871672✅ within tol
+----------------------------------------
+Option 20: S: 230.49, X: 160, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.672487
+
+ BS call price: 71.8392 | American Monte Carlo call price: 71.6242✅ within tol
+ Cox-Ross-Rubinstein put price: 0.670323 | American Monte Carlo put price: 0.660068✅ within tol
+----------------------------------------
+Option 21: S: 230.49, X: 165, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.470655
+
+ BS call price: 66.3029 | American Monte Carlo call price: 66.1031✅ within tol
+ Cox-Ross-Rubinstein put price: 0.111916 | American Monte Carlo put price: 0.110923✅ within tol
+----------------------------------------
+Option 22: S: 230.49, X: 165, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.620972
+
+ BS call price: 66.8391 | American Monte Carlo call price: 66.6086✅ within tol
+ Cox-Ross-Rubinstein put price: 0.648266 | American Monte Carlo put price: 0.638763✅ within tol
+----------------------------------------
+Option 23: S: 230.49, X: 170, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.446003
+
+ BS call price: 61.3501 | American Monte Carlo call price: 61.1648✅ within tol
+ Cox-Ross-Rubinstein put price: 0.137817 | American Monte Carlo put price: 0.135811✅ within tol
+----------------------------------------
+Option 24: S: 230.49, X: 170, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.542053
+
+ BS call price: 61.6867 | American Monte Carlo call price: 61.4624✅ within tol
+ Cox-Ross-Rubinstein put price: 0.475279 | American Monte Carlo put price: 0.467823✅ within tol
+----------------------------------------
+Option 25: S: 230.49, X: 175, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.423498
+
+ BS call price: 56.4095 | American Monte Carlo call price: 56.2018✅ within tol
+ Cox-Ross-Rubinstein put price: 0.175944 | American Monte Carlo put price: 0.172711✅ within tol
+----------------------------------------
+Option 26: S: 230.49, X: 175, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.529298
+
+ BS call price: 56.8817 | American Monte Carlo call price: 56.6355✅ within tol
+ Cox-Ross-Rubinstein put price: 0.648747 | American Monte Carlo put price: 0.639525✅ within tol
+----------------------------------------
+Option 27: S: 230.49, X: 180, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.400893
+
+ BS call price: 51.4792 | American Monte Carlo call price: 51.3506✅ within tol
+ Cox-Ross-Rubinstein put price: 0.224691 | American Monte Carlo put price: 0.220726✅ within tol
+----------------------------------------
+Option 28: S: 230.49, X: 180, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.509388
+
+ BS call price: 52.0761 | American Monte Carlo call price: 51.8113✅ within tol
+ Cox-Ross-Rubinstein put price: 0.822912 | American Monte Carlo put price: 0.813686✅ within tol
+----------------------------------------
+Option 29: S: 230.49, X: 185, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.378792
+
+ BS call price: 46.5655 | American Monte Carlo call price: 46.4289✅ within tol
+ Cox-Ross-Rubinstein put price: 0.290195 | American Monte Carlo put price: 0.285295✅ within tol
+----------------------------------------
+Option 30: S: 230.49, X: 185, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.461583
+
+ BS call price: 47.0779 | American Monte Carlo call price: 46.8129✅ within tol
+ Cox-Ross-Rubinstein put price: 0.8038 | American Monte Carlo put price: 0.795039✅ within tol
+----------------------------------------
+Option 31: S: 230.49, X: 190, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.358361
+
+ BS call price: 41.6817 | American Monte Carlo call price: 41.417✅ within tol
+ Cox-Ross-Rubinstein put price: 0.385247 | American Monte Carlo put price: 0.379854✅ within tol
+----------------------------------------
+Option 32: S: 230.49, X: 190, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.336152
+
+ BS call price: 41.5669 | American Monte Carlo call price: 41.4842✅ within tol
+ Cox-Ross-Rubinstein put price: 0.270407 | American Monte Carlo put price: 0.266212✅ within tol
+----------------------------------------
+Option 33: S: 230.49, X: 195, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.337568
+
+ BS call price: 36.8289 | American Monte Carlo call price: 36.5655✅ within tol
+ Cox-Ross-Rubinstein put price: 0.512286 | American Monte Carlo put price: 0.504952✅ within tol
+----------------------------------------
+Option 34: S: 230.49, X: 195, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.297534
+
+ BS call price: 36.583 | American Monte Carlo call price: 36.3975✅ within tol
+ Cox-Ross-Rubinstein put price: 0.265531 | American Monte Carlo put price: 0.260926✅ within tol
+----------------------------------------
+Option 35: S: 230.49, X: 200, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.317844
+
+ BS call price: 32.0318 | American Monte Carlo call price: 31.7657✅ within tol
+ Cox-Ross-Rubinstein put price: 0.695074 | American Monte Carlo put price: 0.686405✅ within tol
+----------------------------------------
+Option 36: S: 230.49, X: 200, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.313618
+
+ BS call price: 31.993 | American Monte Carlo call price: 31.8061✅ within tol
+ Cox-Ross-Rubinstein put price: 0.655931 | American Monte Carlo put price: 0.647528✅ within tol
+----------------------------------------
+Option 37: S: 230.49, X: 205, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.300272
+
+ BS call price: 27.3312 | American Monte Carlo call price: 27.1298✅ within tol
+ Cox-Ross-Rubinstein put price: 0.974241 | American Monte Carlo put price: 0.966946✅ within tol
+----------------------------------------
+Option 38: S: 230.49, X: 205, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.299817
+
+ BS call price: 27.3258 | American Monte Carlo call price: 27.1296✅ within tol
+ Cox-Ross-Rubinstein put price: 0.968612 | American Monte Carlo put price: 0.961486✅ within tol
+----------------------------------------
+Option 39: S: 230.49, X: 210, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.284541
+
+ BS call price: 22.7746 | American Monte Carlo call price: 22.5595✅ within tol
+ Cox-Ross-Rubinstein put price: 1.39967 | American Monte Carlo put price: 1.38945✅ within tol
+----------------------------------------
+Option 40: S: 230.49, X: 210, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.28309
+
+ BS call price: 22.7525 | American Monte Carlo call price: 22.5127✅ within tol
+ Cox-Ross-Rubinstein put price: 1.37782 | American Monte Carlo put price: 1.36673✅ within tol
+----------------------------------------
+Option 41: S: 230.49, X: 215, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.27075
+
+ BS call price: 18.4348 | American Monte Carlo call price: 18.1977✅ within tol
+ Cox-Ross-Rubinstein put price: 2.04474 | American Monte Carlo put price: 2.02905✅ within tol
+----------------------------------------
+Option 42: S: 230.49, X: 215, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.270354
+
+ BS call price: 18.4272 | American Monte Carlo call price: 18.1875✅ within tol
+ Cox-Ross-Rubinstein put price: 2.03702 | American Monte Carlo put price: 2.02236✅ within tol
+----------------------------------------
+Option 43: S: 230.49, X: 220, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.259628
+
+ BS call price: 14.4236 | American Monte Carlo call price: 14.2365✅ within tol
+ Cox-Ross-Rubinstein put price: 3.02069 | American Monte Carlo put price: 3.004✅ within tol
+----------------------------------------
+Option 44: S: 230.49, X: 220, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.25806
+
+ BS call price: 14.3871 | American Monte Carlo call price: 14.2105✅ within tol
+ Cox-Ross-Rubinstein put price: 2.98449 | American Monte Carlo put price: 2.96762✅ within tol
+----------------------------------------
+Option 45: S: 230.49, X: 225, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.248771
+
+ BS call price: 10.795 | American Monte Carlo call price: 10.6872✅ within tol
+ Cox-Ross-Rubinstein put price: 4.38726 | American Monte Carlo put price: 4.36725✅ within tol
+----------------------------------------
+Option 46: S: 230.49, X: 225, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.248161
+
+ BS call price: 10.7786 | American Monte Carlo call price: 10.6708✅ within tol
+ Cox-Ross-Rubinstein put price: 4.37078 | American Monte Carlo put price: 4.35027✅ within tol
+----------------------------------------
+Option 47: S: 230.49, X: 230, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.239803
+
+ BS call price: 7.68965 | American Monte Carlo call price: 7.62465✅ within tol
+ Cox-Ross-Rubinstein put price: 6.28932 | American Monte Carlo put price: 6.26132✅ within tol
+----------------------------------------
+Option 48: S: 230.49, X: 230, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.238516
+
+ BS call price: 7.6526 | American Monte Carlo call price: 7.58715✅ within tol
+ Cox-Ross-Rubinstein put price: 6.2523 | American Monte Carlo put price: 6.22419✅ within tol
+----------------------------------------
+Option 49: S: 230.49, X: 235, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.231475
+
+ BS call price: 5.15192 | American Monte Carlo call price: 5.12289✅ within tol
+ Cox-Ross-Rubinstein put price: 8.77295 | American Monte Carlo put price: 8.73734✅ within tol
+----------------------------------------
+Option 50: S: 230.49, X: 235, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.229304
+
+ BS call price: 5.08987 | American Monte Carlo call price: 5.06071✅ within tol
+ Cox-Ross-Rubinstein put price: 8.71179 | American Monte Carlo put price: 8.67775✅ within tol
+----------------------------------------
+Option 51: S: 230.49, X: 240, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.226823
+
+ BS call price: 3.2912 | American Monte Carlo call price: 3.27595✅ within tol
+ Cox-Ross-Rubinstein put price: 11.9566 | American Monte Carlo put price: 11.9121✅ within tol
+----------------------------------------
+Option 52: S: 230.49, X: 240, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.224581
+
+ BS call price: 3.23305 | American Monte Carlo call price: 3.21779✅ within tol
+ Cox-Ross-Rubinstein put price: 11.9003 | American Monte Carlo put price: 11.8573✅ within tol
+----------------------------------------
+Option 53: S: 230.49, X: 245, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.226952
+
+ BS call price: 2.06371 | American Monte Carlo call price: 2.05333✅ within tol
+ Cox-Ross-Rubinstein put price: 15.7984 | American Monte Carlo put price: 15.7695✅ within tol
+----------------------------------------
+Option 54: S: 230.49, X: 245, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.221651
+
+ BS call price: 1.94918 | American Monte Carlo call price: 1.94072✅ within tol
+ Cox-Ross-Rubinstein put price: 15.6918 | American Monte Carlo put price: 15.6625✅ within tol
+----------------------------------------
+Option 55: S: 230.49, X: 250, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.212797
+
+ BS call price: 1.0039 | American Monte Carlo call price: 1.00496✅ within tol
+ Cox-Ross-Rubinstein put price: 19.8794 | American Monte Carlo put price: 19.8584✅ within tol
+----------------------------------------
+Option 56: S: 230.49, X: 250, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.221364
+
+ BS call price: 1.14102 | American Monte Carlo call price: 1.13983✅ within tol
+ Cox-Ross-Rubinstein put price: 19.9893 | American Monte Carlo put price: 19.9677✅ within tol
+----------------------------------------
+Option 57: S: 230.49, X: 255, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.255511
+
+ BS call price: 1.09083 | American Monte Carlo call price: 1.09594✅ within tol
+ Cox-Ross-Rubinstein put price: 24.9537 | American Monte Carlo put price: 24.9322✅ within tol
+----------------------------------------
+Option 58: S: 230.49, X: 255, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.223906
+
+ BS call price: 0.667872 | American Monte Carlo call price: 0.673146✅ within tol
+ Cox-Ross-Rubinstein put price: 24.6453 | American Monte Carlo put price: 24.6107✅ within tol
+----------------------------------------
+Option 59: S: 230.49, X: 260, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.27595
+
+ BS call price: 0.897191 | American Monte Carlo call price: 0.903763✅ within tol
+ Cox-Ross-Rubinstein put price: 29.8063 | American Monte Carlo put price: 29.7786✅ within tol
+----------------------------------------
+Option 60: S: 230.49, X: 260, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.229851
+
+ BS call price: 0.408522 | American Monte Carlo call price: 0.413295✅ within tol
+ Cox-Ross-Rubinstein put price: 29.5239 | American Monte Carlo put price: 29.4615✅ within tol
+----------------------------------------
+Option 61: S: 230.49, X: 265, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.319095
+
+ BS call price: 1.02765 | American Monte Carlo call price: 1.03556✅ within tol
+ Cox-Ross-Rubinstein put price: 34.9076 | American Monte Carlo put price: 34.8818✅ within tol
+----------------------------------------
+Option 62: S: 230.49, X: 265, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.236539
+
+ BS call price: 0.254074 | American Monte Carlo call price: 0.257396✅ within tol
+ Cox-Ross-Rubinstein put price: 34.51 | American Monte Carlo put price: 34.3707✅ within tol
+----------------------------------------
+Option 63: S: 230.49, X: 270, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.361067
+
+ BS call price: 1.15356 | American Monte Carlo call price: 1.16241✅ within tol
+ Cox-Ross-Rubinstein put price: 40.0083 | American Monte Carlo put price: 39.9758✅ within tol
+----------------------------------------
+Option 64: S: 230.49, X: 270, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.244198
+
+ BS call price: 0.163232 | American Monte Carlo call price: 0.16592✅ within tol
+ Cox-Ross-Rubinstein put price: 39.51 | American Monte Carlo put price: 39.2792✅ within tol
+----------------------------------------
+Option 65: S: 230.49, X: 275, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.369807
+
+ BS call price: 0.90336 | American Monte Carlo call price: 0.913179✅ within tol
+ Cox-Ross-Rubinstein put price: 44.813 | American Monte Carlo put price: 44.7851✅ within tol
+----------------------------------------
+Option 66: S: 230.49, X: 275, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.253625
+
+ BS call price: 0.111821 | American Monte Carlo call price: 0.113452✅ within tol
+ Cox-Ross-Rubinstein put price: 44.51 | American Monte Carlo put price: 44.2191✅ within tol
+----------------------------------------
+Option 67: S: 230.49, X: 280, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.374884
+
+ BS call price: 0.680244 | American Monte Carlo call price: 0.689852✅ within tol
+ Cox-Ross-Rubinstein put price: 49.6586 | American Monte Carlo put price: 49.648✅ within tol
+----------------------------------------
+Option 68: S: 230.49, X: 280, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.261444
+
+ BS call price: 0.0747281 | American Monte Carlo call price: 0.0758434✅ within tol
+ Cox-Ross-Rubinstein put price: 49.51 | American Monte Carlo put price: 49.2151✅ within tol
+----------------------------------------
+Option 69: S: 230.49, X: 285, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.481311
+
+ BS call price: 1.51655 | American Monte Carlo call price: 1.53163✅ within tol
+ Cox-Ross-Rubinstein put price: 55.3084 | American Monte Carlo put price: 55.2594✅ within tol
+----------------------------------------
+Option 70: S: 230.49, X: 285, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.269385
+
+ BS call price: 0.0510338 | American Monte Carlo call price: 0.0517621✅ within tol
+ Cox-Ross-Rubinstein put price: 54.51 | American Monte Carlo put price: 54.1592✅ within tol
+----------------------------------------
+Option 71: S: 230.49, X: 290, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.460752
+
+ BS call price: 0.975202 | American Monte Carlo call price: 0.988✅ within tol
+ Cox-Ross-Rubinstein put price: 59.863 | American Monte Carlo put price: 59.849✅ within tol
+----------------------------------------
+Option 72: S: 230.49, X: 290, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.27985
+
+ BS call price: 0.0385643 | American Monte Carlo call price: 0.0391622✅ within tol
+ Cox-Ross-Rubinstein put price: 59.51 | American Monte Carlo put price: 59.147✅ within tol
+----------------------------------------
+Option 73: S: 230.49, X: 295, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.548746
+
+ BS call price: 1.64306 | American Monte Carlo call price: 1.66126✅ within tol
+ Cox-Ross-Rubinstein put price: 65.4126 | American Monte Carlo put price: 65.3678✅ within tol
+----------------------------------------
+Option 74: S: 230.49, X: 295, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.280868
+
+ BS call price: 0.0215921 | American Monte Carlo call price: 0.0219779✅ within tol
+ Cox-Ross-Rubinstein put price: 64.51 | American Monte Carlo put price: 64.0721✅ within tol
+----------------------------------------
+Option 75: S: 230.49, X: 300, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.510392
+
+ BS call price: 0.954808 | American Monte Carlo call price: 0.969601✅ within tol
+ Cox-Ross-Rubinstein put price: 69.8431 | American Monte Carlo put price: 69.8427✅ within tol
+----------------------------------------
+Option 76: S: 230.49, X: 300, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.315047
+
+ BS call price: 0.036986 | American Monte Carlo call price: 0.0370972✅ within tol
+ Cox-Ross-Rubinstein put price: 69.51 | American Monte Carlo put price: 69.1458✅ within tol
+----------------------------------------
+Option 77: S: 230.49, X: 305, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.520303
+
+ BS call price: 0.829831 | American Monte Carlo call price: 0.842061✅ within tol
+ Cox-Ross-Rubinstein put price: 74.7503 | American Monte Carlo put price: 74.7385✅ within tol
+----------------------------------------
+Option 78: S: 230.49, X: 305, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.332608
+
+ BS call price: 0.0369522 | American Monte Carlo call price: 0.037142✅ within tol
+ Cox-Ross-Rubinstein put price: 74.51 | American Monte Carlo put price: 74.1462✅ within tol
+----------------------------------------
+Option 79: S: 230.49, X: 310, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.339502
+
+ BS call price: 0.0276064 | American Monte Carlo call price: 0.0281159✅ within tol
+ Cox-Ross-Rubinstein put price: 79.51 | American Monte Carlo put price: 79.059✅ within tol
+----------------------------------------
+Option 80: S: 230.49, X: 310, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.544295
+
+ BS call price: 0.832198 | American Monte Carlo call price: 0.844779✅ within tol
+ Cox-Ross-Rubinstein put price: 79.7503 | American Monte Carlo put price: 79.7459✅ within tol
+----------------------------------------
+Option 81: S: 230.49, X: 315, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.567596
+
+ BS call price: 0.833792 | American Monte Carlo call price: 0.846225✅ within tol
+ Cox-Ross-Rubinstein put price: 84.7488 | American Monte Carlo put price: 84.7534✅ within tol
+----------------------------------------
+Option 82: S: 230.49, X: 315, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.355938
+
+ BS call price: 0.0276199 | American Monte Carlo call price: 0.0281133✅ within tol
+ Cox-Ross-Rubinstein put price: 84.51 | American Monte Carlo put price: 84.066✅ within tol
+----------------------------------------
+Option 83: S: 230.49, X: 320, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.590507
+
+ BS call price: 0.836662 | American Monte Carlo call price: 0.849235✅ within tol
+ Cox-Ross-Rubinstein put price: 89.748 | American Monte Carlo put price: 89.7497✅ within tol
+----------------------------------------
+Option 84: S: 230.49, X: 320, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.372099
+
+ BS call price: 0.027688 | American Monte Carlo call price: 0.0284285✅ within tol
+ Cox-Ross-Rubinstein put price: 89.51 | American Monte Carlo put price: 89.0657✅ within tol
+----------------------------------------
+Option 85: S: 230.49, X: 325, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.613025
+
+ BS call price: 0.840474 | American Monte Carlo call price: 0.853181✅ within tol
+ Cox-Ross-Rubinstein put price: 94.7485 | American Monte Carlo put price: 94.7478✅ within tol
+----------------------------------------
+Option 86: S: 230.49, X: 325, Expiration date: 2025-10-03, T: 0.099489, r: 0.0428, sigma: 0.387995
+
+ BS call price: 0.0278008 | American Monte Carlo call price: 0.0283006✅ within tol
+ Cox-Ross-Rubinstein put price: 94.51 | American Monte Carlo put price: 94.0568✅ within tol
+----------------------------------------
+86 call prices passed out of 86
+86 put prices passed out of 86
+Simulation Summary
+------------------
+Contracts processed: 86 options in 276.429 seconds 
+Total paths: 500000
+Threads used: 2
+Throughput: 1808.78 paths/second

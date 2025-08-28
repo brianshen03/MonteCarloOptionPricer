@@ -22,14 +22,17 @@
 #define max_expiries 3 // maximum number of expiries to fetch
 
 enum class DataSource { Live, CSV };
+enum class PricerType { European, American };
 
 struct config {
     std::string ticker;
-    int thread_count = 4; // default to 4 threads
-    int num_simulations = 1000000; // default to 1 million simulations
+    int thread_count = 4;              // default to 4 threads
+    int num_simulations = 1000000;     // default to 1 million simulations
     DataSource  source = DataSource::Live;
     std::optional<std::string> csv_path; // required for CSV
+    PricerType pricer = PricerType::European; // default to European
 };
+
 
 struct optionPrices {
     double call_price;
@@ -404,12 +407,12 @@ static void run_us_pricer(const std::vector<optionParams>&trades, const config& 
 static void print_usage() {
     std::cout <<
         "Usage:\n"
-        "  pricer --symbol TICKER [--paths N] [--threads N]\n"
-        "  pricer --csv FILE       [--paths N] [--threads N]\n"
+        "  pricer --symbol TICKER [--paths N] [--threads N] [--pricer eu|us]\n"
+        "  pricer --csv FILE       [--paths N] [--threads N] [--pricer eu|us]\n"
         "\n"
         "Notes:\n"
         "  - If --csv is provided, data is loaded from FILE and --symbol is ignored.\n"
-        "  - Defaults: --paths 1000000, --threads 4.\n";
+        "  - Defaults: --paths 1000000, --threads 4, --pricer EU\n";
 }
 
 config parse_cmd_args(int argc, char* argv[]) {
@@ -430,6 +433,13 @@ config parse_cmd_args(int argc, char* argv[]) {
         else if (a == "--csv") {
             c.source   = DataSource::CSV;
             c.csv_path = std::string(need(i));
+        }
+        else if (a == "--pricer") {
+            std::string type = need(i);
+            std::transform(type.begin(), type.end(), type.begin(), [](unsigned char c){ return std::tolower(c); });
+            if      (type == "eu" || type == "european" ) c.pricer = PricerType::European;
+            else if (type == "us" || type == "american") c.pricer = PricerType::American;
+            else throw std::runtime_error("invalid value for --pricer (use 'eu' or 'us')");
         }
         else if (a == "--help" || a == "-h") {
             print_usage();
@@ -512,8 +522,13 @@ int main(int argc, char *argv[]) {
     }
 
     auto start = std::chrono::steady_clock::now();
-    // run_eu_pricer(trades, options);
-    run_us_pricer(trades, options);
+
+    if (options.pricer == PricerType::European) {
+        run_eu_pricer(trades, options);
+    } else {
+        run_us_pricer(trades, options);
+    }
+
     auto stop = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed = stop - start;   
 
