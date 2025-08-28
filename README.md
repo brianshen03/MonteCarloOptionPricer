@@ -51,11 +51,11 @@ Example:
 
 European Monte Carlo Runtime (500k paths, 90 options)
 
-![European MC Runtime](plots/runtime_european.png)
+![European MC Runtime](Plots/runtime_european.png)
 
 American Monte Carlo Runtime (500k paths, 90 options, 20 steps)
 
-![American MC Runtime](plots/runtime_american.png)
+![American MC Runtime](Plots/runtime_american.png)
 
 ## ⚙️ Project Structure
 
